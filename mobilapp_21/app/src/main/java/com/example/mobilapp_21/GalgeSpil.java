@@ -33,9 +33,6 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             sværhedsgrad = lastIntent.getString("sværhedsgrad");
         }
 
-
-
-
         //Tjekker om den skal nulstille eller ej
         if (nytSpil == 0){
             try {
@@ -62,11 +59,8 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         imageView_spil = findViewById(R.id.imageView_spil);
         grafik();
 
-
-
         textView_hemmeligtOrd = findViewById(R.id.textView_hemmeligtOrd);
         textView_hemmeligtOrd.setText("Gæt ordet" + logik.getSynligtOrd());
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -103,10 +97,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             grafik();
             editText_gæt.setVisibility(View.VISIBLE);
             button_gæt.setVisibility(View.VISIBLE);
-
         }
-
-
     }
 
     /**
@@ -128,8 +119,6 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             editText_gæt.setVisibility(View.INVISIBLE);
             button_gæt.setVisibility(View.INVISIBLE);
         }
-
-
     }
 
     /**

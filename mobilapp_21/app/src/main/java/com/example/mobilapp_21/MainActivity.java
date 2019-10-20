@@ -19,11 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            // etc.
-
-
         setContentView(R.layout.activity_main);
-
 
         button_start = findViewById(R.id.button_startSpil);
         button_start.setOnClickListener(this);
@@ -34,8 +30,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ImageView imageView_startside = findViewById(R.id.imageView_hovedmenu);
         imageView_startside.setImageResource(R.drawable.galge);
-
-
     }
 
     @Override
@@ -46,6 +40,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent myIntent = new Intent(v.getContext(), Difficulty.class);
             startActivityForResult(myIntent, 0);
         }
-
     }
 }

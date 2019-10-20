@@ -95,8 +95,5 @@ public class Difficulty extends AppCompatActivity implements View.OnClickListene
         if (v == button_tilbageTilSpil){
             this.finish();
         }
-
-
-
     }
 }
