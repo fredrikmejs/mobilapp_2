@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button button_start;
-    int highscore;
+
 
     @SuppressLint({"SetTextI18n"})
     @Override
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button_start.setOnClickListener(this);
 
         TextView topscore = findViewById(R.id.textView_topscore);
-        topscore.setText("Din nuværende topscore er: " + highscore);
+        topscore.setText("Velkommen til galge spillet");
 
         ImageView imageView_startside = findViewById(R.id.imageView_hovedmenu);
         imageView_startside.setImageResource(R.drawable.galge);

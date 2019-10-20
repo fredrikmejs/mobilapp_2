@@ -10,23 +10,24 @@
         android:id="@+id/textView_overskrift"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
         android:layout_marginTop="56dp"
         android:text="Vælg sværhedsgrad"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_sværhedsgradens"
         android:layout_width="312dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="208dp"
-        android:layout_marginBottom="49dp"
-        android:text="Angiv et tal mellem 1 og 12, for at starte spillet"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginEnd="83dp"
+        android:text="Angiv et tal mellem 1 og 3, for at starte spillet"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_svar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,48 +35,57 @@
         android:id="@+id/editText_sværhedsheden"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:ems="10"
         android:hint="Skriv sværhedsgraden"
         android:inputType="textPersonName"
+        app:layout_constraintBaseline_toBaselineOf="@+id/button_svar"
         app:layout_constraintEnd_toStartOf="@+id/button_svar"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_sværhedsgradens" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button_begyndSpillet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="157dp"
+        android:layout_marginBottom="156dp"
         android:text="Start spillet"
-        app:layout_constraintEnd_toEndOf="@+id/editText_sværhedsheden"
-        app:layout_constraintTop_toBottomOf="@+id/editText_sværhedsheden" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_nuværendesværhedsgrad"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView_nuværendesværhedsgrad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_width="263dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
         android:text="aaaaaaaaaaaa"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.513" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_sværhedsheden" />
 
     <Button
         android:id="@+id/button_svar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="394dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="52dp"
         android:text="Angiv svar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editText_sværhedsheden"
         app:layout_constraintTop_toBottomOf="@+id/textView_sværhedsgradens" />
+
+    <Button
+        android:id="@+id/button_startNuværende"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="46dp"
+        android:text="Tilbage til spillet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
