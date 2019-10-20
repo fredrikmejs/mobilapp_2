@@ -28,8 +28,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button_start = findViewById(R.id.button_startSpil);
         button_start.setOnClickListener(this);
 
-        TextView topscore = findViewById(R.id.textView_topscore);
-        topscore.setText("Velkommen til galge spillet");
+        //sætter teksten på textviewet
+        TextView velkommen = findViewById(R.id.textView_velkommen);
+        velkommen.setText("Velkommen til galge spillet");
 
         ImageView imageView_startside = findViewById(R.id.imageView_hovedmenu);
         imageView_startside.setImageResource(R.drawable.galge);
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
+        //starter ny aktivitet
         if (v == button_start){
             Intent myIntent = new Intent(v.getContext(), Difficulty.class);
             startActivityForResult(myIntent, 0);

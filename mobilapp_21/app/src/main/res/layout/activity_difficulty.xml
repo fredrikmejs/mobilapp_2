@@ -24,7 +24,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="144dp"
         android:layout_marginEnd="83dp"
-        android:text="Angiv et tal mellem 1 og 3, for at starte spillet"
+        android:text="Angiv en sværhedsgrad mellem 1 og 3, for at starte spillet"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

@@ -32,15 +32,17 @@ public class Difficulty extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty);
 
+    //Tjekker om der er trykket tilbage fra galge spillet
     Bundle lastIntent = getIntent().getExtras();
-
         if (lastIntent != null) {
             tilbage = lastIntent.getInt("tilbage_tal");
         }
 
         button_tilbageTilSpil = findViewById(R.id.button_startNuværende);
     button_tilbageTilSpil.setOnClickListener(this);
-    if (tilbage != 1){
+
+        //Sætter en tilbage knap usynlig, hvis man ikke kommmer tilbage fra galgespillet
+        if (tilbage != 1){
         button_tilbageTilSpil.setVisibility(View.INVISIBLE);
     }
 
@@ -63,6 +65,7 @@ public class Difficulty extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
 
         if (v == button_start){
+            //Giver den valgte sværhedsgrad med videre til næste aktivitet
             Intent i = new Intent(v.getContext(), GalgeSpil.class);
             i.putExtra("sværhedsgrad", sværhedsgrad);
             startActivity(i);
@@ -70,7 +73,9 @@ public class Difficulty extends AppCompatActivity implements View.OnClickListene
 
         if (v == button_svar){
             sværhedsgrad = editText_sværhedsgrad.getText().toString();
+            //Sikre mig at der bliver svaret med et tal og ikke et bogstav
             if (sværhedsgrad.matches("[0-9]+")) {
+                //sikre mig den over op til kriteret omkring 3 sværhedsgrader
                 if ((Integer.valueOf(sværhedsgrad) >= 1 && Integer.valueOf(sværhedsgrad) <= 3)) {
                     textView_sværhedsgraden.setText("Sværhedsgraden er sat til " + sværhedsgrad);
                     textView_sværhedsgraden.setVisibility(View.VISIBLE);
@@ -86,6 +91,7 @@ public class Difficulty extends AppCompatActivity implements View.OnClickListene
                 button_start.setVisibility(View.INVISIBLE);
             }
         }
+        //går tilbage til spillet, hvis man trykkede tilbage derfra
         if (v == button_tilbageTilSpil){
             this.finish();
         }

@@ -26,16 +26,24 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galge_spil);
 
-        Bundle lastIntent = getIntent().getExtras();
-        sværhedsgrad = lastIntent.getString("sværhedsgrad");
 
-        try {
-            logik.hentOrdFraRegneark(sværhedsgrad);
-        } catch (Exception e) {
-            e.printStackTrace();
+        //Bruger sværhedsgraden fra sidste aktivitet
+        Bundle lastIntent = getIntent().getExtras();
+        if (lastIntent != null) {
+            sværhedsgrad = lastIntent.getString("sværhedsgrad");
         }
 
+
+
+
+        //Tjekker om den skal nulstille eller ej
         if (nytSpil == 0){
+            try {
+                //Henter ord fra arket
+                logik.hentOrdFraRegneark(sværhedsgrad);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             logik.nulstil();
             nytSpil++;
         }
@@ -56,7 +64,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
 
 
 
-            textView_hemmeligtOrd = findViewById(R.id.textView_hemmeligtOrd);
+        textView_hemmeligtOrd = findViewById(R.id.textView_hemmeligtOrd);
         textView_hemmeligtOrd.setText("Gæt ordet" + logik.getSynligtOrd());
 
     }
@@ -66,39 +74,44 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
 
         if (v == button_gæt){
+            //Får det indtastede svar
             String svar = editText_gæt.getText().toString();
 
+            //sikre mig det er et gyldigt svar
             if (svar.length() == 1){
                 logik.gætBogstav(svar);
                 editText_gæt.setText("");
                 opdaterTekst();
                 grafik();
-
-
             }else {
                 editText_gæt.setError("Ugyldigt gæt");
                 return;
             }
         }
         if (v == button_tilbage){
+            //Går jeg man kan gå tilbage, hvis man vil ændre f.eks sværhedsgraden. Men hvis man fortryder kan man forsætte sit nuværende spil
             Intent intent = new Intent(GalgeSpil.this, Difficulty.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
             intent.putExtra("tilbage_tal", tilbage);
             startActivity(intent);
-
         }
 
+        //Nulstiller spillet og finder et nyt ord
         if (v == button_nulstil){
             logik.nulstil();
             textView_hemmeligtOrd.setText("Gæt ordet " + logik.getSynligtOrd());
             grafik();
+            editText_gæt.setVisibility(View.VISIBLE);
+            button_gæt.setVisibility(View.VISIBLE);
 
         }
 
 
     }
 
-
+    /**
+     * Tekst, når der bliver gættet.
+     */
     @SuppressLint("SetTextI18n")
     private void opdaterTekst() {
         textView_hemmeligtOrd.setText("Gæt ordet " + logik.getSynligtOrd() +
@@ -107,15 +120,21 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         );
 
         if (logik.erSpilletVundet()) {
-            textView_hemmeligtOrd.setText("\nDu har vundet" + "\n Ordet var " + logik.getOrdet());
+            textView_hemmeligtOrd.setText("\nDu har vundet" + "\n Ordet var " + logik.getOrdet() +
+                    "\nDu brugte " + logik.getBrugteBogstaver().size() + "bogstaver");
         }
         if (logik.erSpilletTabt()) {
             textView_hemmeligtOrd.setText("Du har tabt, ordet var : " + logik.getOrdet());
+            editText_gæt.setVisibility(View.INVISIBLE);
+            button_gæt.setVisibility(View.INVISIBLE);
         }
 
 
     }
 
+    /**
+     * Skifter billedet afhængigt af hvor mange forkerte der er.
+     */
     private void grafik(){
         forkerte = logik.getAntalForkerteBogstaver();
         switch (forkerte){
