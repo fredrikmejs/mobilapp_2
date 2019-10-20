@@ -1,4 +1,4 @@
-package com.example.aflevering2;
+package com.example.mobilapp_21;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class Galgelogik {
     /** AHT afprøvning er muligeOrd synlig på pakkeniveau */
-    ArrayList<String> muligeOrd = new ArrayList<String>();
+    ArrayList<String> muligeOrd = new ArrayList<>();
     private String ordet;
     private ArrayList<String> brugteBogstaver = new ArrayList<String>();
     private String synligtOrd;

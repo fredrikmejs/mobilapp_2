@@ -7,12 +7,52 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button_start"
+        android:id="@+id/button_startSpil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
         android:text="Start spillet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="414dp" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_hovedmenu" />
+
+    <ImageView
+        android:id="@+id/imageView_hovedmenu"
+        android:layout_width="264dp"
+        android:layout_height="269dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="112dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/colorPrimaryDark"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
+
+    <EditText
+        android:id="@+id/text_overskrift"
+        android:layout_width="152dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="335dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Galge spillet"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView_velkommen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_velkommen"
+        android:layout_width="122dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="297dp"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_overskrift" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
