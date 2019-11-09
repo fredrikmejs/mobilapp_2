@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Choose_game"></activity>
+        <activity android:name=".HowToPlay"></activity>
+        <activity android:name=".Choose_game" />
         <activity android:name=".GalgeSpil" />
         <activity android:name=".Difficulty" />
         <activity android:name=".Welcome_screen">
