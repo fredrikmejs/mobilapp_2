@@ -4,6 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/galge"
     tools:context=".HowToPlay">
 
+    <TextView
+        android:id="@+id/TextView_regler"
+        android:layout_width="308dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginBottom="123dp"
+        android:text="Guide til spillet"
+        android:textColor="#B9C11C1C"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView_reglerTekst2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.98"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_reglerTekst1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="192dp"
+        android:text="1. Du skal vælge game-mode"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_reglerTekst2"
+        android:layout_width="310dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="486dp"
+        android:text="2. Hvis du vælger regneark, skal du trykke på den sværhedsgrad du godt kunne tænke dig"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_reglerTekst1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView_reglerTekst3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="3. Gæt dit givet ord inden for 7 forsøg"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.885"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_reglerTekst2" />
+
+    <Button
+        android:id="@+id/button_backToMenu"
+        android:layout_width="65dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/arrow_back"
+        android:backgroundTint="#B5BE1717"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
 </androidx.constraintlayout.widget.ConstraintLayout>

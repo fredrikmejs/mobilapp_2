@@ -34,7 +34,7 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
         if (v == button_DR){
             Intent intent = new Intent(this, GalgeSpil.class);
             intent.putExtra("GameType",0);
-            startActivity(intent);
+            startActivityForResult(intent,100);
 
         }
 

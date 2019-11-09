@@ -1,10 +1,12 @@
 package com.example.mobilapp_21;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +20,8 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
     private EditText editText_gæt;
     private String sværhedsgrad;
     private ImageView imageView_spil;
-    private int forkerte, nytSpil = 0, tilbage = 1;
+    private Handler mhandler = new Handler();
+    private int forkerte, nytSpil = 0, tilbage = 1, spilletype;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -30,20 +33,30 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         //Bruger sværhedsgraden fra sidste aktivitet
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null) {
-            sværhedsgrad = lastIntent.getString("sværhedsgrad");
+            if (lastIntent.getString("sværhedsgrad") != null)
+                sværhedsgrad = lastIntent.getString("sværhedsgrad");
+
+            spilletype = lastIntent.getInt("GameType");
         }
 
-        //Tjekker om den skal nulstille eller ej
-        if (nytSpil == 0){
+        if (spilletype == 0){
+            hentDr.start();
             try {
-                //Henter ord fra arket
-                logik.hentOrdFraRegneark(sværhedsgrad);
-            } catch (Exception e) {
+                //Så tråden når at finde et ord inden jeg forsætter
+                Thread.sleep(15);
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            logik.nulstil();
-            nytSpil++;
+        } else if (spilletype == 1){
+            hentRegneArk.start();
+            try {
+                //Så tråden når at finde et ord inden jeg forsætter
+                Thread.sleep(15);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
 
         button_gæt = findViewById(R.id.button_gæt);
         button_gæt.setOnClickListener(this);
@@ -83,20 +96,19 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             }
         }
         if (v == button_tilbage){
-            //Går jeg man kan gå tilbage, hvis man vil ændre f.eks sværhedsgraden. Men hvis man fortryder kan man forsætte sit nuværende spil
-            Intent intent = new Intent(GalgeSpil.this, Difficulty.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
-            intent.putExtra("tilbage_tal", tilbage);
+            //Går jeg man kan gå tilbage til menu'en
+            Intent intent = new Intent(GalgeSpil.this, Choose_game.class);
+            finish();
             startActivity(intent);
         }
 
         //Nulstiller spillet og finder et nyt ord
         if (v == button_nulstil){
-            logik.nulstil();
-            textView_hemmeligtOrd.setText("Gæt ordet " + logik.getSynligtOrd());
-            grafik();
-            editText_gæt.setVisibility(View.VISIBLE);
-            button_gæt.setVisibility(View.VISIBLE);
+            Intent intent = getIntent();
+            intent.putExtra("sværhedsgrad",sværhedsgrad);
+            intent.putExtra("GameType",spilletype);
+            finish();
+            startActivity(intent);
         }
     }
 
@@ -112,7 +124,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
 
         if (logik.erSpilletVundet()) {
             textView_hemmeligtOrd.setText("\nDu har vundet" + "\n Ordet var " + logik.getOrdet() +
-                    "\nDu brugte " + logik.getBrugteBogstaver().size() + "bogstaver");
+                    "\nDu brugte " + logik.getBrugteBogstaver().size() + " bogstaver");
         }
         if (logik.erSpilletTabt()) {
             textView_hemmeligtOrd.setText("Du har tabt, ordet var : " + logik.getOrdet());
@@ -152,4 +164,37 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         }
 
     }
+
+
+
+    Thread hentRegneArk = new Thread(){
+
+        public void run(){
+            try {
+                logik.hentOrdFraRegneark(sværhedsgrad);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            logik.nulstil();
+        }
+    };
+
+
+    Thread hentDr = new Thread(){
+
+        public void run(){
+            try {
+                logik.hentOrdFraDr();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            logik.nulstil();
+        }
+    };
+
+
+
+
+
+
 }

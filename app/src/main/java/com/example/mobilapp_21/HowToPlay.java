@@ -3,12 +3,25 @@ package com.example.mobilapp_21;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
-public class HowToPlay extends AppCompatActivity {
+public class HowToPlay extends AppCompatActivity implements View.OnClickListener {
+private Button button_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_how_to_play);
+
+        button_back = findViewById(R.id.button_backToMenu);
+        button_back.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == button_back){
+            finish();
+        }
     }
 }

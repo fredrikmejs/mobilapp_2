@@ -37,8 +37,8 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
 
         //starter ny aktivitet
         if (v == button_start){
-            Intent myIntent = new Intent(v.getContext(), Difficulty.class);
-            startActivityForResult(myIntent, 0);
+            Intent myIntent = new Intent(v.getContext(), Choose_game.class);
+            startActivity(myIntent);
         }
     }
 }

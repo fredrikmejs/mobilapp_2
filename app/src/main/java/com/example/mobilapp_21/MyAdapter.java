@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private String[] msværhedsgrader;
     private OnNoteListner monNoteListner;
-    private int index =-1;
 
 
 

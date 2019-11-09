@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/button_DROrd"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="410dp"
+        android:layout_height="78dp"
         android:layout_marginBottom="44dp"
         android:background="#4F5C96"
         android:text="Ord fra DR"
@@ -20,23 +20,25 @@
 
     <Button
         android:id="@+id/button_regneArk"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="409dp"
+        android:layout_height="69dp"
         android:layout_marginBottom="34dp"
         android:background="#E4AF4545"
         android:text="Regne ark"
         app:layout_constraintBottom_toTopOf="@+id/button_DROrd"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="227dp"
-        android:layout_height="0dp"
+        android:layout_width="219dp"
+        android:layout_height="59dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="87dp"
         android:text="Vælg spille type"
+        android:textColor="#B9BA3333"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/button_regneArk"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,13 +47,14 @@
 
     <Button
         android:id="@+id/button_HowToPlay"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="417dp"
+        android:layout_height="73dp"
         android:layout_marginBottom="194dp"
-        android:background="@drawable/icons8-settings-64"
+        android:background="#77BA24"
         android:text="Guide til spillet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_DROrd" />
 

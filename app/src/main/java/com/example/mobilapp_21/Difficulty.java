@@ -23,7 +23,6 @@ public class Difficulty extends AppCompatActivity implements MyAdapter.OnNoteLis
     private RecyclerView.Adapter myAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private String sværhedsgrad;
-    private int tilbage;
     String[] sværhedsgrader = {"1","2","3"};
 
 
@@ -32,25 +31,16 @@ public class Difficulty extends AppCompatActivity implements MyAdapter.OnNoteLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty);
 
-    //Tjekker om der er trykket tilbage fra galge spillet
-    Bundle lastIntent = getIntent().getExtras();
-        if (lastIntent != null) { tilbage = lastIntent.getInt("tilbage_tal");
-        }
-
-
     textView_current = findViewById(R.id.textView_current);
     textView_current.setVisibility(View.INVISIBLE);
 
     textView_sværhedsgrad = findViewById(R.id.sværhedsgrad);
 
 
-
     recyclerView_sværhedsgrad = findViewById(R.id.liste_1);
     recyclerView_sværhedsgrad.setHasFixedSize(true);
     layoutManager = new GridLayoutManager(this,3);
     recyclerView_sværhedsgrad.setLayoutManager(layoutManager);
-
-
 
 
     recyclerView_sværhedsgrad.setBackgroundColor(5);
@@ -67,8 +57,9 @@ public class Difficulty extends AppCompatActivity implements MyAdapter.OnNoteLis
         sværhedsgrad = sværhedsgrader[position];
         System.out.println(sværhedsgrad);
         Intent i = new Intent(this, GalgeSpil.class);
+        i.putExtra("GameType",1);
         i.putExtra("sværhedsgrad", sværhedsgrad);
-        startActivity(i);
+        startActivityForResult(i,200);
 
 
     }
