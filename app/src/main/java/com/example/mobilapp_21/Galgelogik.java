@@ -15,7 +15,7 @@ public class Galgelogik {
     private String ordet;
     private ArrayList<String> brugteBogstaver = new ArrayList<String>();
     private String synligtOrd;
-    private int antalForkerteBogstaver;
+    private int antalForkerteBogstaver,highscore, antalKorrekte = 0;
     private boolean sidsteBogstavVarKorrekt;
     private boolean spilletErVundet;
     private boolean spilletErTabt;
@@ -30,6 +30,7 @@ public class Galgelogik {
       //  muligeOrd.add("skovsnegl");
       //  muligeOrd.add("solsort");
       //  muligeOrd.add("nitten");
+
       //  nulstil();
     }
 
@@ -52,6 +53,12 @@ public class Galgelogik {
         muligeOrd.addAll(arr);
 
     }
+    public int getAntalKorrekte(){return antalKorrekte;}
+
+
+    public int getHighscore(){ return highscore;}
+
+    public  void setHighscore(int highscore){this.highscore = highscore;}
 
     public int getAntalForkerteBogstaver() {
         return antalForkerteBogstaver;
@@ -74,8 +81,12 @@ public class Galgelogik {
     }
 
 
+
+
+
     public void nulstil() {
         brugteBogstaver.clear();
+        antalKorrekte = 0;
         antalForkerteBogstaver = 0;
         spilletErVundet = false;
         spilletErTabt = false;
@@ -107,6 +118,7 @@ public class Galgelogik {
         brugteBogstaver.add(bogstav);
 
         if (ordet.contains(bogstav)) {
+            antalKorrekte++;
             sidsteBogstavVarKorrekt = true;
             System.out.println("Bogstavet var korrekt: " + bogstav);
         } else {

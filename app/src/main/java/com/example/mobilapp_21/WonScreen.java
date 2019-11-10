@@ -9,11 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-
-
-import com.github.jinatonic.confetti.CommonConfetti;
-
 import java.util.ArrayList;
 
 public class WonScreen extends AppCompatActivity implements View.OnClickListener {
@@ -25,6 +20,7 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
     private ViewGroup container;
     private int nulstil =1;
     private ArrayList<String> muligeOrd = new ArrayList<>();
+   // private ArrayList<Score> highscoreListe = new ArrayList<>();
     private Galgelogik logik = new Galgelogik();
 
     @SuppressLint("SetTextI18n")
@@ -55,15 +51,6 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
                 "\nDu brugte " + antalForkerte + " bogstaver \n" +
                 "Din score er: " + highscore);
 
-       /* container = findViewById(R.id.container);
-
-
-
-        CommonConfetti.rainingConfetti(container, new int[] { Color.BLACK })
-                .infinite();
-
-            }
-        */
     }
 
 
@@ -71,7 +58,7 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
 
         if (v == button_menu){
-            Intent intent = new Intent(this, Choose_game.class );
+            Intent intent = new Intent(this, Choose_game.class );intent.putExtra("nulstil",nulstil);
             intent.putExtra("topscore", highscore);
             finish();
             startActivity(intent);
@@ -81,10 +68,10 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
             Intent intent = new Intent(this,GalgeSpil.class);
             muligeOrd.addAll(logik.getMuligeOrd());
             intent.putExtra("nulstil",nulstil);
-            intent.putExtra("nulstil",nulstil);
             finish();
             startActivity(intent);
         }
 
     }
+
 }

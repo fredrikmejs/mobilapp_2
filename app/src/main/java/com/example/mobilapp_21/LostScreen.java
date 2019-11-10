@@ -50,10 +50,6 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
                 "der er brugt " + antalForkerte +" forsøg\n"
         + "med bogstaverne " + brugteOrd.toString() + "\n"+
                 "Din score er: " + highscore);
-
-
-
-
     }
 
     @Override

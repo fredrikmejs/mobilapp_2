@@ -22,7 +22,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
     private EditText editText_gæt;
     private String sværhedsgrad;
     private ImageView imageView_spil;
-    private int forkerte, spilletype, nulstil = 0;
+    private int forkerte, spilletype, nulstil = 0, score;
     private boolean forsæt = true;
     private ArrayList<String> muligeOrd = new ArrayList<>();
 
@@ -47,18 +47,18 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             spilletype = lastIntent.getInt("GameType");
         }
 
-        if (nulstil == 0) {
+
+       if (nulstil == 0) {
             if (spilletype == 0) {
                 hentDr.start();
             } else if (spilletype == 1) {
                 hentRegneArk.start();
             }
         } else {
-            logik.setMuligeOrd(muligeOrd);
+            logik.setMuligeOrd(muligeOrd)   ;
             logik.nulstil();
             forsæt = false;
         }
-
 
         button_gæt = findViewById(R.id.button_gæt);
         button_gæt.setOnClickListener(this);
@@ -77,6 +77,9 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         textView_hemmeligtOrd = findViewById(R.id.textView_hemmeligtOrd);
         //Venter til tråden er færdig
         while (forsæt){}
+
+       String a = logik.getOrdet();
+
         textView_hemmeligtOrd.setText("Gæt ordet" + logik.getSynligtOrd());
     }
 
@@ -137,7 +140,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             intent.putExtra("ordet",logik.getOrdet());
             intent.putExtra("forkerte",logik.getBrugteBogstaver());
             intent.putExtra("antalForkerte",logik.getAntalForkerteBogstaver());
-            intent.putExtra("Highscore",2);
+            intent.putExtra("Highscore",beregnScore());
             finish();
             startActivity(intent);
         }
@@ -146,12 +149,41 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             intent.putExtra("ordet",logik.getOrdet());
             intent.putExtra("forkerte",logik.getBrugteBogstaver());
             intent.putExtra("antalForkerte",logik.getAntalForkerteBogstaver());
-            intent.putExtra("Highscore",2);
+            intent.putExtra("Highscore",beregnScore());
             finish();
             startActivity(intent);
 
         }
     }
+
+    public int beregnScore() {
+        score = 1000;
+        boolean erVundet = logik.erSpilletVundet(), erTabt = logik.erSpilletTabt();
+        int forkerte = logik.getAntalForkerteBogstaver(), antalkorrekte = logik.getAntalKorrekte();
+
+        if (nulstil == 0 || (nulstil == 1 && sværhedsgrad.equals("3")) && erVundet) {
+            score = 1000 - forkerte * 50;
+            return score;
+        } else if (nulstil == 1 && sværhedsgrad.equals("2") && erVundet) {
+
+            score = 1000 - 200 - (forkerte * 50);
+            return score;
+        } else if (nulstil == 1 && sværhedsgrad.equals("1") && erVundet) {
+            score = 1000 - 400 - (forkerte * 50);
+            return score;
+        } else if (nulstil == 0 || (nulstil == 1 && sværhedsgrad.equals("3")) && erTabt) {
+            score = antalkorrekte*85;
+            return score;
+        } else if (nulstil == 1 && sværhedsgrad.equals("2") && erTabt) {
+            score = antalkorrekte*50;
+            return score;
+        } else if (nulstil == 1 && sværhedsgrad.equals("1") && erTabt) {
+            score = antalkorrekte*40;
+            return score;
+        }
+        return score;
+    }
+
 
     /**
      * Skifter billedet afhængigt af hvor mange forkerte der er.
@@ -184,8 +216,6 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         }
 
     }
-
-
 
     Thread hentRegneArk = new Thread(){
 
