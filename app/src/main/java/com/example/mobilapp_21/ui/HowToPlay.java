@@ -1,10 +1,12 @@
-package com.example.mobilapp_21;
+package com.example.mobilapp_21.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.mobilapp_21.R;
 
 public class HowToPlay extends AppCompatActivity implements View.OnClickListener {
 private Button button_back;

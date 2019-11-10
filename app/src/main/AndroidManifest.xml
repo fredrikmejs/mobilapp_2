@@ -13,13 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".LostScreen" />
-        <activity android:name=".WonScreen" />
-        <activity android:name=".HowToPlay" />
-        <activity android:name=".Choose_game" />
-        <activity android:name=".GalgeSpil" />
-        <activity android:name=".Difficulty" />
-        <activity android:name=".Welcome_screen">
+        <activity android:name=".ui.LostScreen" />
+        <activity android:name=".ui.WonScreen" />
+        <activity android:name=".ui.HowToPlay" />
+        <activity android:name=".ui.Choose_game" />
+        <activity android:name=".ui.GalgeSpil" />
+        <activity android:name=".ui.Difficulty" />
+        <activity android:name=".ui.Welcome_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

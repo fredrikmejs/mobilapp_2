@@ -1,4 +1,4 @@
-package com.example.mobilapp_21;
+package com.example.mobilapp_21.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.mobilapp_21.R;
 
 public class Choose_game extends AppCompatActivity implements View.OnClickListener  {
 
@@ -45,7 +47,7 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
         }
 
         if (v == button_RegneArk) {
-            Intent intent = new Intent(this,Difficulty.class);
+            Intent intent = new Intent(this, Difficulty.class);
             startActivity(intent);
 
         }

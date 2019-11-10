@@ -4,70 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Choose_game">
+    tools:context=".ui.Choose_game">
 
     <Button
         android:id="@+id/button_DROrd"
-        android:layout_width="410dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="71dp"
+        android:layout_width="fill_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="16dp"
         android:background="#4F5C96"
         android:text="Ord fra DR"
-        app:layout_constraintBottom_toTopOf="@+id/button_HowToPlay"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_regneArk"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/button_regneArk" />
 
     <Button
         android:id="@+id/button_regneArk"
-        android:layout_width="417dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="300dp"
+        android:layout_width="fill_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="128dp"
         android:background="#E4AF4545"
         android:text="Regne ark"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_highscoreCG" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="219dp"
         android:layout_height="59dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="87dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="96dp"
         android:text="Vælg spille type"
         android:textColor="#B9BA3333"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_regneArk"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.244" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_HowToPlay"
-        android:layout_width="417dp"
-        android:layout_height="73dp"
-        android:layout_marginBottom="156dp"
+        android:layout_width="fill_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="12dp"
         android:background="#77BA24"
         android:text="Guide til spillet"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_DROrd" />
 
     <TextView
         android:id="@+id/textView_highscoreCG"
         android:layout_width="275dp"
         android:layout_height="52dp"
-        android:layout_marginTop="156dp"
+        android:layout_marginTop="60dp"
         android:text="Din topscore er:"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

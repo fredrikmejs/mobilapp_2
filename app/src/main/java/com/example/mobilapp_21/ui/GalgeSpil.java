@@ -1,17 +1,18 @@
-package com.example.mobilapp_21;
+package com.example.mobilapp_21.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.mobilapp_21.R;
+import com.example.mobilapp_21.logik.Galgelogik;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
     private int forkerte, spilletype, nulstil = 0, score;
     private boolean forsæt = true;
     private ArrayList<String> muligeOrd = new ArrayList<>();
+    private ArrayList<com.example.mobilapp_21.logik.score> highscoreListe = new ArrayList<>();
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -77,8 +79,6 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         textView_hemmeligtOrd = findViewById(R.id.textView_hemmeligtOrd);
         //Venter til tråden er færdig
         while (forsæt){}
-
-       String a = logik.getOrdet();
 
         textView_hemmeligtOrd.setText("Gæt ordet" + logik.getSynligtOrd());
     }
@@ -136,7 +136,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
 
         if (logik.erSpilletVundet()) {
 
-            Intent intent = new Intent(this,WonScreen.class);
+            Intent intent = new Intent(this, WonScreen.class);
             intent.putExtra("ordet",logik.getOrdet());
             intent.putExtra("forkerte",logik.getBrugteBogstaver());
             intent.putExtra("antalForkerte",logik.getAntalForkerteBogstaver());
@@ -145,7 +145,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             startActivity(intent);
         }
         if (logik.erSpilletTabt()) {
-            Intent intent = new Intent(this,LostScreen.class);
+            Intent intent = new Intent(this, LostScreen.class);
             intent.putExtra("ordet",logik.getOrdet());
             intent.putExtra("forkerte",logik.getBrugteBogstaver());
             intent.putExtra("antalForkerte",logik.getAntalForkerteBogstaver());

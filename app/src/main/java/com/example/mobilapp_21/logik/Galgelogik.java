@@ -1,4 +1,4 @@
-package com.example.mobilapp_21;
+package com.example.mobilapp_21.logik;
 
 import java.io.BufferedReader;
 import java.io.IOException;
