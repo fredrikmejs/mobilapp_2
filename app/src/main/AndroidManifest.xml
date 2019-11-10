@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.Skiftnavn"></activity>
+        <activity android:name=".ui.SkiftNavn"></activity>
         <activity android:name=".ui.LostScreen" />
         <activity android:name=".ui.WonScreen" />
         <activity android:name=".ui.HowToPlay" />
