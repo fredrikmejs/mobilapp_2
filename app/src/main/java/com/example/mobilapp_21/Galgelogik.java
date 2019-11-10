@@ -46,6 +46,13 @@ public class Galgelogik {
         return ordet;
     }
 
+    public ArrayList<String> getMuligeOrd() {return muligeOrd;}
+
+    public void setMuligeOrd(ArrayList<String> arr){
+        muligeOrd.addAll(arr);
+
+    }
+
     public int getAntalForkerteBogstaver() {
         return antalForkerteBogstaver;
     }

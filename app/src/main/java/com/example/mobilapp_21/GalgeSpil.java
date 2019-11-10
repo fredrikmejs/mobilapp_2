@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class GalgeSpil extends AppCompatActivity implements View.OnClickListener {
     Galgelogik logik = new Galgelogik();
     private Button button_gæt, button_tilbage, button_nulstil;
@@ -20,8 +22,9 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
     private EditText editText_gæt;
     private String sværhedsgrad;
     private ImageView imageView_spil;
-    private Handler mhandler = new Handler();
-    private int forkerte, nytSpil = 0, tilbage = 1, spilletype;
+    private int forkerte, spilletype, nulstil = 0;
+    private boolean forsæt = true;
+    private ArrayList<String> muligeOrd = new ArrayList<>();
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -36,25 +39,24 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             if (lastIntent.getString("sværhedsgrad") != null)
                 sværhedsgrad = lastIntent.getString("sværhedsgrad");
 
+            if (lastIntent.getInt("nulstil") != 0) {
+                nulstil = lastIntent.getInt("nulstil");
+                muligeOrd = lastIntent.getStringArrayList("muligeOrd");
+            }
+
             spilletype = lastIntent.getInt("GameType");
         }
 
-        if (spilletype == 0){
-            hentDr.start();
-            try {
-                //Så tråden når at finde et ord inden jeg forsætter
-                Thread.sleep(15);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if (nulstil == 0) {
+            if (spilletype == 0) {
+                hentDr.start();
+            } else if (spilletype == 1) {
+                hentRegneArk.start();
             }
-        } else if (spilletype == 1){
-            hentRegneArk.start();
-            try {
-                //Så tråden når at finde et ord inden jeg forsætter
-                Thread.sleep(15);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        } else {
+            logik.setMuligeOrd(muligeOrd);
+            logik.nulstil();
+            forsæt = false;
         }
 
 
@@ -73,6 +75,8 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         grafik();
 
         textView_hemmeligtOrd = findViewById(R.id.textView_hemmeligtOrd);
+        //Venter til tråden er færdig
+        while (forsæt){}
         textView_hemmeligtOrd.setText("Gæt ordet" + logik.getSynligtOrd());
     }
 
@@ -90,6 +94,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
                 editText_gæt.setText("");
                 opdaterTekst();
                 grafik();
+                logik.getOrdet();
             }else {
                 editText_gæt.setError("Ugyldigt gæt");
                 return;
@@ -104,7 +109,11 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
 
         //Nulstiller spillet og finder et nyt ord
         if (v == button_nulstil){
+            nulstil = 1;
+            muligeOrd.addAll(logik.getMuligeOrd());
             Intent intent = getIntent();
+            intent.putStringArrayListExtra("muligeOrd",muligeOrd);
+            intent.putExtra("nulstil",nulstil);
             intent.putExtra("sværhedsgrad",sværhedsgrad);
             intent.putExtra("GameType",spilletype);
             finish();
@@ -117,19 +126,30 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
      */
     @SuppressLint("SetTextI18n")
     private void opdaterTekst() {
-        textView_hemmeligtOrd.setText("Gæt ordet " + logik.getSynligtOrd() +
+        textView_hemmeligtOrd.setText("Gæt ordet  " + logik.getSynligtOrd() +
                 "\nAntal forkerte bogstaver: " + logik.getAntalForkerteBogstaver() +
                 "\nBrugt følgende bogstaver: " + logik.getBrugteBogstaver()
         );
 
         if (logik.erSpilletVundet()) {
-            textView_hemmeligtOrd.setText("\nDu har vundet" + "\n Ordet var " + logik.getOrdet() +
-                    "\nDu brugte " + logik.getBrugteBogstaver().size() + " bogstaver");
+
+            Intent intent = new Intent(this,WonScreen.class);
+            intent.putExtra("ordet",logik.getOrdet());
+            intent.putExtra("forkerte",logik.getBrugteBogstaver());
+            intent.putExtra("antalForkerte",logik.getAntalForkerteBogstaver());
+            intent.putExtra("Highscore",2);
+            finish();
+            startActivity(intent);
         }
         if (logik.erSpilletTabt()) {
-            textView_hemmeligtOrd.setText("Du har tabt, ordet var : " + logik.getOrdet());
-            editText_gæt.setVisibility(View.INVISIBLE);
-            button_gæt.setVisibility(View.INVISIBLE);
+            Intent intent = new Intent(this,LostScreen.class);
+            intent.putExtra("ordet",logik.getOrdet());
+            intent.putExtra("forkerte",logik.getBrugteBogstaver());
+            intent.putExtra("antalForkerte",logik.getAntalForkerteBogstaver());
+            intent.putExtra("Highscore",2);
+            finish();
+            startActivity(intent);
+
         }
     }
 
@@ -176,6 +196,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
                 e.printStackTrace();
             }
             logik.nulstil();
+            forsæt = false;
         }
     };
 
@@ -189,6 +210,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
                 e.printStackTrace();
             }
             logik.nulstil();
+            forsæt = false;
         }
     };
 

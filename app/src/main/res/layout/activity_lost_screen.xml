@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/baggrund_tabt"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LostScreen">
+
+    <TextView
+        android:id="@+id/textView_tabt"
+        android:layout_width="308dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="35dp"
+        android:text="aaaaaaaaaa"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_tabt" />
+
+    <TextView
+        android:id="@+id/tabt"
+        android:layout_width="364dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="28dp"
+        android:text="Du har desværre tabt, prøv igen"
+        android:textColor="#D39F3535"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_tabt"
+        android:layout_width="405dp"
+        android:layout_height="197dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabt"
+        app:layout_constraintVertical_bias="0.02"
+        app:srcCompat="@drawable/forkert6" />
+
+    <Button
+        android:id="@+id/button_tabtMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="56dp"
+        android:text="Hovedmenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_tabt" />
+
+    <Button
+        android:id="@+id/button_nulstilTabt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="52dp"
+        android:text="Nulstil spillet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/button_tabtMenu"
+        app:layout_constraintTop_toBottomOf="@+id/textView_tabt" />
+</androidx.constraintlayout.widget.ConstraintLayout>
