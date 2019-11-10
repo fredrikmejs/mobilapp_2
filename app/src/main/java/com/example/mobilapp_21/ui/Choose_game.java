@@ -86,6 +86,7 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
 
         if (v == button_howToPlay) {
             Intent intent = new Intent(this, HowToPlay.class);
+            intent.putExtra("Spillernavn", spillerNavn);
             finish();
             startActivity(intent);
         }

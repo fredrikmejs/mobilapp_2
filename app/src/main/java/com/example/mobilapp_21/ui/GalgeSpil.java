@@ -99,7 +99,6 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
                 editText_gæt.setText("");
                 opdaterTekst();
                 grafik();
-                logik.getOrdet();
             }else {
                 editText_gæt.setError("Ugyldigt gæt");
                 return;
@@ -117,7 +116,6 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             nulstil = 1;
             muligeOrd.addAll(logik.getMuligeOrd());
             Intent intent = getIntent();
-            intent.putStringArrayListExtra("muligeOrd",muligeOrd);
             intent.putExtra("nulstil",nulstil);
             intent.putExtra("sværhedsgrad",sværhedsgrad);
             intent.putExtra("GameType",spilletype);
@@ -141,9 +139,6 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             int highscore = beregnScore();
             logik.setHighScoreListe(spillerNavn, highscore);
             Intent intent = new Intent(this, WonScreen.class);
-            intent.putExtra("ordet",logik.getOrdet());
-            intent.putExtra("forkerte",logik.getBrugteBogstaver());
-            intent.putExtra("antalForkerte",logik.getAntalForkerteBogstaver());
             intent.putExtra("Highscore",highscore);
             intent.putExtra("SpillerNavn",spillerNavn);
             finish();
@@ -153,9 +148,6 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             int highscore = beregnScore();
             logik.setHighScoreListe(spillerNavn, highscore);
             Intent intent = new Intent(this, LostScreen.class);
-            intent.putExtra("ordet",logik.getOrdet());
-            intent.putExtra("forkerte",logik.getBrugteBogstaver());
-            intent.putExtra("antalForkerte",logik.getAntalForkerteBogstaver());
             intent.putExtra("Highscore",highscore);
             intent.putExtra("SpillerNavn",spillerNavn);
             finish();
@@ -170,23 +162,22 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         int forkerte = logik.getAntalForkerteBogstaver();
         int antalkorrekte = logik.getAntalKorrekte();
 
-        if (nulstil == 0 || (nulstil == 1 && sværhedsgrad.equals("3")) && erVundet) {
+        if ((spilletype == 0 && erVundet) || (spilletype == 1 && sværhedsgrad.equals("3")) && erVundet) {
             score = 1000 - forkerte * 50;
             return score;
-        } else if (nulstil == 1 && sværhedsgrad.equals("2") && erVundet) {
-
+        } else if (spilletype == 1 && sværhedsgrad.equals("2") && erVundet) {
             score = 1000 - 200 - (forkerte * 50);
             return score;
-        } else if (nulstil == 1 && sværhedsgrad.equals("1") && erVundet) {
+        } else if (spilletype == 1 && sværhedsgrad.equals("1") && erVundet) {
             score = 1000 - 400 - (forkerte * 50);
             return score;
-        } else if (nulstil == 0 || (nulstil == 1 && sværhedsgrad.equals("3")) && erTabt) {
+        } else if (spilletype == 0 || (spilletype == 1 && sværhedsgrad.equals("3")) && erTabt) {
             score = antalkorrekte*85;
             return score;
-        } else if (nulstil == 1 && sværhedsgrad.equals("2") && erTabt) {
+        } else if (spilletype == 1 && sværhedsgrad.equals("2") && erTabt) {
             score = antalkorrekte*50;
             return score;
-        } else if (nulstil == 1 && sværhedsgrad.equals("1") && erTabt) {
+        } else if (spilletype == 1 && sværhedsgrad.equals("1") && erTabt) {
             score = antalkorrekte*40;
             return score;
         }
