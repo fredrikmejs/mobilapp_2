@@ -59,8 +59,8 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
 
         if (v == button_menu){
-
             Intent intent = new Intent(this, Choose_game.class );
+            intent.putExtra("SpillerNavn",spillerNavn);
             finish();
             startActivity(intent);
         }
