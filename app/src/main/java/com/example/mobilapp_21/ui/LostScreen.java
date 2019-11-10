@@ -19,12 +19,10 @@ import java.util.ArrayList;
 public class LostScreen extends AppCompatActivity implements View.OnClickListener {
 
     private Button button_nulstil, button_menu;
-    private TextView textView_tekst;
-    private String ordet;
-    private ArrayList<String> brugteOrd = new ArrayList<>();
-    private int antalForkerte, highscore, nulstil = 1;
+    private String spillerNavn;
+    private int highscore;
     private ArrayList<String> muligeOrd = new ArrayList<>();
-    private Galgelogik logik = new Galgelogik();
+    private Galgelogik logik;
 
 
     @SuppressLint("SetTextI18n")
@@ -33,13 +31,13 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lost_screen);
 
+        logik = logik.getInstance();
+
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null) {
-            ordet = lastIntent.getString("ordet");
-            brugteOrd = lastIntent.getStringArrayList("forkerte");
-            antalForkerte = lastIntent.getInt("antalForkerte");
             highscore = lastIntent.getInt("Highscore");
+            spillerNavn = lastIntent.getString("SpillerNavn");
 
         }
 
@@ -50,28 +48,29 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
         button_nulstil.setOnClickListener(this);
 
 
-        textView_tekst = findViewById(R.id.textView_tabt);
-        textView_tekst.setText("Dit ord var '" + ordet + "'\n" +
-                "der er brugt " + antalForkerte +" forsøg\n"
-        + "med bogstaverne " + brugteOrd.toString() + "\n"+
-                "Din score er: " + highscore);
+        TextView textView_tekst = findViewById(R.id.textView_tabt);
+        textView_tekst.setText("Dit ord var '" + logik.getOrdet() + "'\n" +
+                "der er brugt " + logik.getAntalForkerteBogstaver() +" forsøg\n"
+        + "med bogstaverne " + logik.getBrugteBogstaver().toString() + "\n"+
+                "Din Score er: " + highscore);
     }
 
     @Override
     public void onClick(View v) {
 
         if (v == button_menu){
-            //TODO ADD ARRAYLISTE
+
             Intent intent = new Intent(this, Choose_game.class );
-            intent.putExtra("topscore", highscore);
             finish();
             startActivity(intent);
         }
 
         if (v == button_nulstil){
             Intent intent = new Intent(this, GalgeSpil.class);
-            muligeOrd.addAll(logik.getMuligeOrd());
-            intent.putExtra("nulstil",nulstil);
+            int nulstil = 1;
+            intent.putExtra("nulstil", nulstil);
+            intent.putExtra("SpillerNavn",spillerNavn);
+            intent.putExtra("muligeOrd",muligeOrd);
             intent.putStringArrayListExtra("muligeOrd", muligeOrd);
             finish();
             startActivity(intent);

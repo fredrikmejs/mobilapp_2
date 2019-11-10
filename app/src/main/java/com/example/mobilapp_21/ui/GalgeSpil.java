@@ -13,27 +13,28 @@ import android.widget.TextView;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
+import com.example.mobilapp_21.logik.Score;
 
 import java.util.ArrayList;
 
 public class GalgeSpil extends AppCompatActivity implements View.OnClickListener {
-    Galgelogik logik = new Galgelogik();
+    Galgelogik logik;
     private Button button_gæt, button_tilbage, button_nulstil;
     private TextView textView_hemmeligtOrd;
     private EditText editText_gæt;
-    private String sværhedsgrad;
+    private String sværhedsgrad,spillerNavn;
     private ImageView imageView_spil;
-    private int forkerte, spilletype, nulstil = 0, score;
+    private int spilletype;
+    private int nulstil = 0;
     private boolean forsæt = true;
     private ArrayList<String> muligeOrd = new ArrayList<>();
-    private ArrayList<com.example.mobilapp_21.logik.score> highscoreListe = new ArrayList<>();
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galge_spil);
-
+        logik = logik.getInstance();
 
         //Bruger sværhedsgraden fra sidste aktivitet
         Bundle lastIntent = getIntent().getExtras();
@@ -43,7 +44,9 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
 
             if (lastIntent.getInt("nulstil") != 0) {
                 nulstil = lastIntent.getInt("nulstil");
-                muligeOrd = lastIntent.getStringArrayList("muligeOrd");
+            }
+            if (lastIntent.getString("SpillerNavn") != null){
+                spillerNavn = lastIntent.getString("SpillerNavn");
             }
 
             spilletype = lastIntent.getInt("GameType");
@@ -57,7 +60,6 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
                 hentRegneArk.start();
             }
         } else {
-            logik.setMuligeOrd(muligeOrd)   ;
             logik.nulstil();
             forsæt = false;
         }
@@ -119,6 +121,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             intent.putExtra("nulstil",nulstil);
             intent.putExtra("sværhedsgrad",sværhedsgrad);
             intent.putExtra("GameType",spilletype);
+            intent.putExtra("SpillerNavn",spillerNavn);
             finish();
             startActivity(intent);
         }
@@ -135,21 +138,26 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         );
 
         if (logik.erSpilletVundet()) {
-
+            int highscore = beregnScore();
+            logik.setHighScoreListe(spillerNavn, highscore);
             Intent intent = new Intent(this, WonScreen.class);
             intent.putExtra("ordet",logik.getOrdet());
             intent.putExtra("forkerte",logik.getBrugteBogstaver());
             intent.putExtra("antalForkerte",logik.getAntalForkerteBogstaver());
-            intent.putExtra("Highscore",beregnScore());
+            intent.putExtra("Highscore",highscore);
+            intent.putExtra("SpillerNavn",spillerNavn);
             finish();
             startActivity(intent);
         }
         if (logik.erSpilletTabt()) {
+            int highscore = beregnScore();
+            logik.setHighScoreListe(spillerNavn, highscore);
             Intent intent = new Intent(this, LostScreen.class);
             intent.putExtra("ordet",logik.getOrdet());
             intent.putExtra("forkerte",logik.getBrugteBogstaver());
             intent.putExtra("antalForkerte",logik.getAntalForkerteBogstaver());
-            intent.putExtra("Highscore",beregnScore());
+            intent.putExtra("Highscore",highscore);
+            intent.putExtra("SpillerNavn",spillerNavn);
             finish();
             startActivity(intent);
 
@@ -157,9 +165,10 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
     }
 
     public int beregnScore() {
-        score = 1000;
+        int score = 1000;
         boolean erVundet = logik.erSpilletVundet(), erTabt = logik.erSpilletTabt();
-        int forkerte = logik.getAntalForkerteBogstaver(), antalkorrekte = logik.getAntalKorrekte();
+        int forkerte = logik.getAntalForkerteBogstaver();
+        int antalkorrekte = logik.getAntalKorrekte();
 
         if (nulstil == 0 || (nulstil == 1 && sværhedsgrad.equals("3")) && erVundet) {
             score = 1000 - forkerte * 50;
@@ -189,7 +198,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
      * Skifter billedet afhængigt af hvor mange forkerte der er.
      */
     private void grafik(){
-        forkerte = logik.getAntalForkerteBogstaver();
+        int forkerte = logik.getAntalForkerteBogstaver();
         switch (forkerte){
             case 0:
                 imageView_spil.setImageResource(R.drawable.galge);
@@ -212,7 +221,6 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             case 6:
                 imageView_spil.setImageResource(R.drawable.forkert6);
                 break;
-
         }
 
     }

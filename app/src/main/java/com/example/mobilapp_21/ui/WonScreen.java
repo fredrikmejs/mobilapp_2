@@ -6,28 +6,21 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
-import com.example.mobilapp_21.ui.Choose_game;
-import com.example.mobilapp_21.ui.GalgeSpil;
+
 
 import java.util.ArrayList;
 
 public class WonScreen extends AppCompatActivity implements View.OnClickListener {
     private Button button_nulstil, button_menu;
-    private TextView textView_tekst;
-    private String ordet;
-    private ArrayList<String> brugteOrd = new ArrayList<>();
-    private int antalForkerte, highscore;
-    private ViewGroup container;
-    private int nulstil =1;
+    private String  spillerNavn;
+    private int  highscore;
     private ArrayList<String> muligeOrd = new ArrayList<>();
-   // private ArrayList<Score> highscoreListe = new ArrayList<>();
-    private Galgelogik logik = new Galgelogik();
+    private Galgelogik logik;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -35,14 +28,12 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_won_screen);
 
+        logik = logik.getInstance();
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null) {
-            ordet = lastIntent.getString("ordet");
-            brugteOrd = lastIntent.getStringArrayList("forkerte");
-            antalForkerte = lastIntent.getInt("antalForkerte");
             highscore = lastIntent.getInt("Highscore");
-
+            spillerNavn = lastIntent.getString("SpillerNavn");
         }
 
         button_menu = findViewById(R.id.button_vandtMenu);
@@ -51,11 +42,13 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
         button_nulstil = findViewById(R.id.button_nulstilVandt);
         button_nulstil.setOnClickListener(this);
 
+        TextView textView_vundet = findViewById(R.id.vundet);
+        textView_vundet.setText(spillerNavn + " du har vundet!");
 
-        textView_tekst = findViewById(R.id.textView_vandt);
-        textView_tekst.setText("Ordet var " + ordet +
-                "\nDu brugte " + antalForkerte + " bogstaver \n" +
-                "Din score er: " + highscore);
+        TextView textView_tekst = findViewById(R.id.textView_vandt);
+        textView_tekst.setText("Ordet var " + logik.getOrdet() +
+                "\nDu havde " + logik.getAntalForkerteBogstaver()+ " forkerte\n" +
+                "Din Score er: " + highscore);
 
     }
 
@@ -63,9 +56,9 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
 
+        int nulstil = 1;
         if (v == button_menu){
-            Intent intent = new Intent(this, Choose_game.class );intent.putExtra("nulstil",nulstil);
-            intent.putExtra("topscore", highscore);
+            Intent intent = new Intent(this, Choose_game.class );intent.putExtra("nulstil", nulstil);
             finish();
             startActivity(intent);
         }
@@ -73,7 +66,8 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
         if (v == button_nulstil){
             Intent intent = new Intent(this, GalgeSpil.class);
             muligeOrd.addAll(logik.getMuligeOrd());
-            intent.putExtra("nulstil",nulstil);
+            intent.putExtra("nulstil", nulstil);
+            intent.putExtra("SpillerNavn",spillerNavn);
             finish();
             startActivity(intent);
         }

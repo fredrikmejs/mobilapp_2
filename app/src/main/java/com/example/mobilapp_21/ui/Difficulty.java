@@ -16,11 +16,11 @@ import com.example.mobilapp_21.R;
 public class Difficulty extends AppCompatActivity implements MyAdapter.OnNoteListner {
 
 
-    private TextView textView_current,textView_sværhedsgrad;
+    private TextView textView_current;
     private RecyclerView recyclerView_sværhedsgrad;
     private RecyclerView.Adapter myAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private String sværhedsgrad;
+    private String sværhedsgrad, spillerNavn;
     private ProgressBar progressBar;
     String[] sværhedsgrader = {"1","2","3"};
 
@@ -29,14 +29,16 @@ public class Difficulty extends AppCompatActivity implements MyAdapter.OnNoteLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty);
+
+        Bundle lastIntent = getIntent().getExtras();
+        if (lastIntent != null) {
+            spillerNavn = lastIntent.getString("SpillerNavn");
+        }
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
 
         textView_current = findViewById(R.id.textView_current);
         textView_current.setVisibility(View.INVISIBLE);
-
-        textView_sværhedsgrad = findViewById(R.id.sværhedsgrad);
-
 
         recyclerView_sværhedsgrad = findViewById(R.id.liste_1);
         recyclerView_sværhedsgrad.setHasFixedSize(true);
@@ -60,6 +62,7 @@ public class Difficulty extends AppCompatActivity implements MyAdapter.OnNoteLis
         Intent i = new Intent(this, GalgeSpil.class);
         i.putExtra("GameType",1);
         i.putExtra("sværhedsgrad", sværhedsgrad);
+        i.putExtra("SpillerNavn",spillerNavn);
         startActivityForResult(i,200);
 
 

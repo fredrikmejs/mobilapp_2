@@ -6,21 +6,25 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Random;
 
 public class Galgelogik {
     /** AHT afprøvning er muligeOrd synlig på pakkeniveau */
-    ArrayList<String> muligeOrd = new ArrayList<>();
+    private static final Galgelogik ourInstance = new Galgelogik();
+    private ArrayList<String> muligeOrd = new ArrayList<>();
     private String ordet;
     private ArrayList<String> brugteBogstaver = new ArrayList<String>();
     private String synligtOrd;
-    private int antalForkerteBogstaver,highscore, antalKorrekte = 0;
+    private int antalForkerteBogstaver, antalKorrekte = 0;
     private boolean sidsteBogstavVarKorrekt;
     private boolean spilletErVundet;
     private boolean spilletErTabt;
+    private ArrayList<Score> highscoreListe = new ArrayList<>();
 
-    public Galgelogik() {
+    private Galgelogik() {
       //  muligeOrd.add("bil");
       //  muligeOrd.add("computer");
       //  muligeOrd.add("programmering");
@@ -32,6 +36,11 @@ public class Galgelogik {
       //  muligeOrd.add("nitten");
 
       //  nulstil();
+    }
+
+
+    public static Galgelogik getInstance() {
+        return ourInstance;
     }
 
 
@@ -55,11 +64,6 @@ public class Galgelogik {
     }
     public int getAntalKorrekte(){return antalKorrekte;}
 
-
-    public int getHighscore(){ return highscore;}
-
-    public  void setHighscore(int highscore){this.highscore = highscore;}
-
     public int getAntalForkerteBogstaver() {
         return antalForkerteBogstaver;
     }
@@ -80,7 +84,8 @@ public class Galgelogik {
         return spilletErTabt || spilletErVundet;
     }
 
-
+    public void sletMuligeOrd(){muligeOrd.clear();
+    }
 
 
 
@@ -217,4 +222,21 @@ public class Galgelogik {
         System.out.println("muligeOrd = " + muligeOrd);
         nulstil();
     }
+
+    public void setHighScoreListe(String navn, int score){
+        highscoreListe.add(new Score(navn,score));
+    }
+
+    public ArrayList getHighscoreListe(){
+
+        Collections.sort(highscoreListe, new Comparator<Score>() {
+            @Override
+            public int compare(Score o1, Score o2) {
+                return Integer.compare(o1.score, o2.score);
+            }
+        });
+
+        return highscoreListe;
+    }
+
 }
