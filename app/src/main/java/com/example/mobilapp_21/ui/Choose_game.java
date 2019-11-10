@@ -13,14 +13,11 @@ import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
 import com.example.mobilapp_21.logik.Score;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 public class Choose_game extends AppCompatActivity implements View.OnClickListener  {
 
-    private Button button_howToPlay, button_RegneArk, button_DR;
+    private Button button_howToPlay, button_RegneArk, button_DR, button_nytNavn;
     private String spillerNavn;
     private TextView textView_scoreliste;
     private Galgelogik logik;
@@ -43,6 +40,9 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
         if (lastIntent != null){
         spillerNavn = lastIntent.getString("SpillerNavn");
         }
+
+        button_nytNavn = findViewById(R.id.button_indstilNavn);
+        button_nytNavn.setOnClickListener(this);
 
         button_DR = findViewById(R.id.button_DROrd);
         button_DR.setOnClickListener(this);
@@ -95,8 +95,14 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
             intent.putExtra("SpillerNavn",spillerNavn);
             finish();
             startActivity(intent);
+        }
+
+        if (v == button_nytNavn){
+         Intent intent = new Intent(this,SkiftNavn.class);
+         startActivity(intent);
 
         }
+
     }
 
 }
