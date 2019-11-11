@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
+import com.example.mobilapp_21.logik.MyKeyboard;
 import com.example.mobilapp_21.logik.Score;
 import com.example.mobilapp_21.ui.Choose_game;
 import com.google.gson.Gson;
@@ -30,8 +32,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
     private String spillerNavn;
     private ArrayList<Score> topscore = new ArrayList<>();
     private Galgelogik logik;
-    private static final String pref = "topscoreListe";
-    private static final String prefListe = "topscoreListe";
+
 
     @SuppressLint({"SetTextI18n"})
     @Override
@@ -39,9 +40,9 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         logik = logik.getInstance();
 
-       // sletcache();
         loadData();
         if (topscore != null){
             logik.setHighscoreListe(topscore);

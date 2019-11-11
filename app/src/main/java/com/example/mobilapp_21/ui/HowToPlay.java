@@ -9,15 +9,19 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.mobilapp_21.R;
+import com.example.mobilapp_21.logik.Galgelogik;
 
 public class HowToPlay extends AppCompatActivity implements View.OnClickListener {
-private Button button_back;
+private Button button_back, button_ryd;
 private String spillerNavn;
+private Galgelogik logik;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_how_to_play);
+
+        logik = logik.getInstance();
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null){
@@ -26,6 +30,9 @@ private String spillerNavn;
 
         button_back = findViewById(R.id.button_backToMenu);
         button_back.setOnClickListener(this);
+
+        button_ryd = findViewById(R.id.button_rydTopscore);
+        button_ryd.setOnClickListener(this);
     }
 
     @Override
@@ -35,6 +42,10 @@ private String spillerNavn;
             intent.putExtra("SpillerNavn",spillerNavn);
             finish();
             startActivity(intent);
+        }
+        if (v == button_ryd){
+            sletcache();
+            logik.rydHighscoreListe();
         }
     }
 

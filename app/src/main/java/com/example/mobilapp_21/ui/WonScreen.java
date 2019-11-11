@@ -59,6 +59,7 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
         int nulstil = 1;
         if (v == button_menu){
             Intent intent = new Intent(this, Choose_game.class );
+
             intent.putExtra("SpillerNavn",spillerNavn);
             finish();
             startActivity(intent);

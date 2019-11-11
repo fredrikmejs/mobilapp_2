@@ -4,6 +4,7 @@ package com.example.mobilapp_21.logik;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobilapp_21.R;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements View.OnClickListener {
     private String[] msværhedsgrader;
     private OnNoteListner monNoteListner;
+    private Button button_sværhedsgrad;
 
 
 
@@ -27,7 +29,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @NonNull
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row,parent,false);
         return new ViewHolder(view, monNoteListner);
     }
@@ -41,6 +42,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return msværhedsgrader.length;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -60,9 +66,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-
            onNoteListner.onNoteClick(getAdapterPosition());
-
         }
     }
 

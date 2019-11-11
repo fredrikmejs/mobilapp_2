@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,10 +15,12 @@ import android.widget.TextView;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
+import com.example.mobilapp_21.logik.MyKeyboard;
 import com.example.mobilapp_21.logik.Score;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 public class GalgeSpil extends AppCompatActivity implements View.OnClickListener {
     Galgelogik logik;
@@ -27,10 +30,9 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
     private String sværhedsgrad,spillerNavn;
     private ImageView imageView_spil;
     private int spilletype;
-    private int nulstil = 0;
-    private static final String pref = "topscoreListe";
-    private boolean forsæt = true;
+    private int nulstil = 0;;
     private ArrayList<String> muligeOrd = new ArrayList<>();
+    final CountDownLatch latch = new CountDownLatch(1);
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -38,6 +40,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galge_spil);
         logik = logik.getInstance();
+
 
         //Bruger sværhedsgraden fra sidste aktivitet
         Bundle lastIntent = getIntent().getExtras();
@@ -57,17 +60,14 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
 
 
        if (nulstil == 0) {
-       /*     if (spilletype == 0) {
-                hentDr.start();
-            } else if (spilletype == 1) {
-                hentRegneArk.start();
-            }
-
-        */
+           if (spilletype == 0){
+               hentDr.start();
+           } else if (spilletype == 1){
+               hentRegneArk.start();
+           }
         } else {
-            logik.nulstil();
-            forsæt = false;
-        }
+           logik.nulstil();
+       }
 
         button_gæt = findViewById(R.id.button_gæt);
         button_gæt.setOnClickListener(this);
@@ -83,10 +83,15 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         imageView_spil = findViewById(R.id.imageView_spil);
         grafik();
 
-        textView_hemmeligtOrd = findViewById(R.id.textView_hemmeligtOrd);
-        //Venter til tråden er færdig
-        //while (forsæt){}
 
+        //Venter til tråden er færdig
+
+        try{
+            latch.await();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        textView_hemmeligtOrd = findViewById(R.id.textView_hemmeligtOrd);
         textView_hemmeligtOrd.setText("Gæt ordet" + logik.getSynligtOrd());
     }
 
@@ -105,6 +110,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
                 opdaterTekst();
                 grafik();
             }else {
+                editText_gæt.setText("");
                 editText_gæt.setError("Ugyldigt gæt");
                 return;
             }
@@ -112,6 +118,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         if (v == button_tilbage){
             //Går jeg man kan gå tilbage til menu'en
             Intent intent = new Intent(GalgeSpil.this, Choose_game.class);
+            intent.putExtra("SpillerNavn",spillerNavn);
             finish();
             startActivity(intent);
         }
@@ -193,7 +200,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
 
 
     void saveData(){
-        SharedPreferences sharedPreferences = getSharedPreferences(pref,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedTopscore",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(logik.getHighscoreListe());
@@ -233,16 +240,18 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
 
     }
 
-    Thread hentRegneArk = new Thread(){
+    Thread hentRegneArk = new Thread() {
 
-        public void run(){
+        public void run() {
             try {
                 logik.hentOrdFraRegneark(sværhedsgrad);
+                latch.countDown();
+                //logik.setRegneArkBool(false);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             logik.nulstil();
-            forsæt = false;
+
         }
     };
 
@@ -252,11 +261,11 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         public void run(){
             try {
                 logik.hentOrdFraDr();
+                latch.countDown();
             } catch (Exception e) {
                 e.printStackTrace();
             }
             logik.nulstil();
-            forsæt = false;
         }
     };
 

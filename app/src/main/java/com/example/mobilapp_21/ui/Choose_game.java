@@ -85,7 +85,6 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         logik.sletMuligeOrd();
         if (v == button_DR){
-            hentDr.start();
             Intent intent = new Intent(this, GalgeSpil.class);
             intent.putExtra("GameType",0);
             intent.putExtra("SpillerNavn",spillerNavn);
@@ -114,29 +113,4 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
         }
 
     }
-    Thread hentDr = new Thread(){
-
-        public void run(){
-            try {
-                logik.hentOrdFraDr();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            logik.nulstil();
-        }
-    };
-
-    void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedTopscore",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("topscoreListe",null);
-        Type type = new TypeToken<ArrayList<Score>>() {}.getType();
-        topscore = gson.fromJson(json,type);
-
-        if (topscore == null){
-            topscore = new ArrayList<>();
-        }
-
-    }
-
 }

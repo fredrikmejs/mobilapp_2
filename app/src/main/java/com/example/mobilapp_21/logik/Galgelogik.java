@@ -23,6 +23,7 @@ public class Galgelogik {
     private boolean spilletErVundet;
     private boolean spilletErTabt;
     private ArrayList<Score> highscoreListe = new ArrayList<>();
+    private Boolean drBool = true,regneArkBool = true;
 
     private Galgelogik() {
     }
@@ -214,9 +215,10 @@ public class Galgelogik {
     }
     public void  setHighscoreListe(ArrayList<Score> scoreArrayList){
         highscoreListe.addAll(scoreArrayList);
-
     }
-
+    public void rydHighscoreListe(){
+        highscoreListe.clear();
+    }
     public ArrayList getHighscoreListe(){
 
         Collections.sort(highscoreListe, new Comparator<Score>() {
