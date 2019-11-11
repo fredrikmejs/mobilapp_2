@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
 import com.github.jinatonic.confetti.CommonConfetti;
-import com.github.jinatonic.confetti.ConfettiView;
 
 
 import java.util.ArrayList;
@@ -23,12 +23,11 @@ import java.util.ArrayList;
 public class WonScreen extends AppCompatActivity implements View.OnClickListener {
     private Button button_nulstil, button_menu;
     private String  spillerNavn;
-    private int  highscore;
+    private int highscore, stop = 0;
     private ArrayList<String> muligeOrd = new ArrayList<>();
     private Galgelogik logik;
-    protected int goldDark, goldMed, gold, goldLight;
-    protected int[] colors;
     private ViewGroup container;
+    private Handler mhandler = new Handler();
 
     @SuppressLint({"SetTextI18n", "ResourceType"})
     @Override
@@ -38,14 +37,9 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
 
 
         //Byggelse til galgeleg 3.
-        try {
             container = findViewById(R.id.container);
-            CommonConfetti.rainingConfetti(container, new int[]{Color.BLACK})
-                    .infinite();
-        }catch (NullPointerException e){
-            e.printStackTrace();
-        }
 
+            won.run();
         logik = Galgelogik.getInstance();
 
         Bundle lastIntent = getIntent().getExtras();
@@ -67,13 +61,11 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
         textView_tekst.setText("Ordet var " + logik.getOrdet() +
                 "\nDu havde " + logik.getAntalForkerteBogstaver()+ " forkerte\n" +
                 "Din Score er: " + highscore);
-
     }
-
 
     @Override
     public void onClick(View v) {
-
+        stop = 1;
         int nulstil = 1;
         if (v == button_menu){
             Intent intent = new Intent(this, Choose_game.class );
@@ -91,7 +83,17 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
             finish();
             startActivity(intent);
         }
-
     }
+    Runnable won = new Runnable() {
+
+        @Override
+        public void run() {
+            CommonConfetti.explosion(container,1,1,new int[]{Color.BLUE}).infinite();
+            CommonConfetti.explosion(container,1000,1,new int[]{Color.BLUE}).infinite();
+            if (stop == 1){
+                mhandler.removeCallbacks(won);
+            } else mhandler.postDelayed(won,5000);
+        }
+    };
 
 }

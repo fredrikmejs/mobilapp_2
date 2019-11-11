@@ -52,5 +52,7 @@ private Galgelogik logik;
     void sletcache(){
         SharedPreferences sharedPreferences = getSharedPreferences("Shared", MODE_PRIVATE);
         sharedPreferences.edit().clear().apply();
+        //Gemmer spiller navnet
+        sharedPreferences.edit().putString("spillernavn",spillerNavn).apply();
     }
 }
