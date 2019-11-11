@@ -31,6 +31,8 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
     private EditText editText_navn;
     private ArrayList<Score> topscore = new ArrayList<>();
     private Galgelogik logik;
+    private String spillerNavn;
+
 
 
     @SuppressLint({"SetTextI18n"})
@@ -45,6 +47,16 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         loadData();
         if (topscore != null){
             logik.setHighscoreListe(topscore);
+        }
+
+        //Springer siden over, hvis man har et spillernNavn
+        if (spillerNavn != null){
+            Intent intent = new Intent(this, Choose_game.class);
+            intent.putExtra("SpillerNavn", spillerNavn);
+            saveDataName();
+            finish();
+            startActivity(intent);
+            return;
         }
 
         button_start = findViewById(R.id.button_startSpil);
@@ -63,7 +75,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        String spillerNavn = editText_navn.getText().toString();
+        spillerNavn = editText_navn.getText().toString();
 
         //starter ny aktivitet
         if (v == button_start) {
@@ -72,6 +84,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
             } else {
                 Intent myIntent = new Intent(v.getContext(), Choose_game.class);
                 myIntent.putExtra("SpillerNavn", spillerNavn);
+                saveDataName();
                 finish();
                 startActivity(myIntent);
             }
@@ -79,15 +92,22 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
     }
 
     void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedTopscore", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("Shared", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("topscoreListe", null);
         Type type = new TypeToken<ArrayList<Score>>() {
         }.getType();
         topscore = gson.fromJson(json, type);
-
+        spillerNavn = sharedPreferences.getString("spillernavn",null);
         if (topscore == null) {
             topscore = new ArrayList<>();
         }
+    }
+
+    void saveDataName(){
+        SharedPreferences sharedPreferences = getSharedPreferences("Shared",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("spillernavn",spillerNavn);
+        editor.apply();
     }
 }

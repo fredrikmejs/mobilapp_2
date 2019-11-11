@@ -50,7 +50,7 @@ private Galgelogik logik;
     }
 
     void sletcache(){
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedTopscore", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("Shared", MODE_PRIVATE);
         sharedPreferences.edit().clear().apply();
     }
 }

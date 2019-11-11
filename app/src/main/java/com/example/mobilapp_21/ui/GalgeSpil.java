@@ -75,10 +75,13 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
 
 
         //Venter til tråden er færdig
-        try{
-            latch.await();
-        }catch (InterruptedException e){
-            e.printStackTrace();
+
+        if (nulstil == 0) {
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         textView_hemmeligtOrd = findViewById(R.id.textView_hemmeligtOrd);
         textView_hemmeligtOrd.setText("Gæt ordet" + logik.getSynligtOrd());
@@ -190,7 +193,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
      * Gemmer data lokalt i en cache
      */
     void saveData(){
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedTopscore",MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("Shared",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(logik.getHighscoreListe());
