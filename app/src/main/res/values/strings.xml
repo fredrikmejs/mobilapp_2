@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">mobilapp_2.1</string>
+    <string name="my_keyboard">MyKeyboard</string>
+    <string name="sybtype_DK">Dansk (DK)</string>
 </resources>

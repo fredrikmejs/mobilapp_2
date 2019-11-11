@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.SkiftNavn"></activity>
+        <activity android:name=".ui.SkiftNavn" />
         <activity android:name=".ui.LostScreen" />
         <activity android:name=".ui.WonScreen" />
         <activity android:name=".ui.HowToPlay" />
@@ -27,6 +27,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".ui.MyKeyboard"
+            android:label="@string/my_keyboard"
+            android:permission="android.permission.BIND_INPUT_METHOD">
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+
+            <meta-data android:name="android.view.im"
+                android:resource="@xml/method" />
+
+        </service>
+
+
+
     </application>
 
 </manifest>
