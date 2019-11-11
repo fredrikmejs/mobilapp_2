@@ -41,7 +41,7 @@
         <Key android:isSticky="true" android:codes="98" android:keyLabel="b"/>
         <Key android:isSticky="true" android:codes="110" android:keyLabel="n"/>
         <Key android:isSticky="true" android:codes="109" android:keyLabel="m" />
-        <Key android:isSticky="true"  android:codes="-5"
+        <Key android:codes="-5"
             android:keyLabel="DELETE"
             android:keyWidth="40%p"
             android:keyEdgeFlags="right"
