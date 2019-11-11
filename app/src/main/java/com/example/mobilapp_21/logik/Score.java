@@ -5,22 +5,20 @@ import android.annotation.SuppressLint;
 
 public class Score {
 
-    public String name;
-    public int score;
+    private String name;
+    int score;
 
-
-    public Score(String name, int score) {
+    //Constructor til Score objektet.
+    Score(String name, int score) {
         this.name = name;
         this.score = score;
     }
-
-
 
     @SuppressLint("DefaultLocale")
     @Override
     public String toString(){
 
-        return String.format("Spiller: %s, Score: %d", name, score);
+        return String.format("Spiller: %s fik scoren: %d", name, score);
     }
 
 

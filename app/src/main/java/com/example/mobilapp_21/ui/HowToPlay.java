@@ -21,7 +21,7 @@ private Galgelogik logik;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_how_to_play);
 
-        logik = logik.getInstance();
+        logik = Galgelogik.getInstance();
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null){
@@ -52,7 +52,5 @@ private Galgelogik logik;
     void sletcache(){
         SharedPreferences sharedPreferences = getSharedPreferences("sharedTopscore", MODE_PRIVATE);
         sharedPreferences.edit().clear().apply();
-
-
     }
 }

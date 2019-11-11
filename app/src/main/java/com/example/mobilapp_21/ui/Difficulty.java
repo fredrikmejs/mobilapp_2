@@ -26,18 +26,18 @@ public class Difficulty extends AppCompatActivity implements MyAdapter.OnNoteLis
 
     String[] sværhedsgrader = {"1", "2", "3"};
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty);
 
-        logik = logik.getInstance();
+        logik = Galgelogik.getInstance();
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null) {
             spillerNavn = lastIntent.getString("SpillerNavn");
         }
+
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
 
@@ -46,17 +46,14 @@ public class Difficulty extends AppCompatActivity implements MyAdapter.OnNoteLis
         layoutManager = new GridLayoutManager(this,3);
         recyclerView_sværhedsgrad.setLayoutManager(layoutManager);
 
-
         recyclerView_sværhedsgrad.setBackgroundColor(5);
         myAdapter = new MyAdapter(sværhedsgrader, this);
 
         recyclerView_sværhedsgrad.setAdapter(myAdapter);
     }
 
-
     @Override
     public void onNoteClick(int position) {
-
         progressBar.setVisibility(View.VISIBLE);
         sværhedsgrad = sværhedsgrader[position];
         Intent i = new Intent(this, GalgeSpil.class);
@@ -65,6 +62,4 @@ public class Difficulty extends AppCompatActivity implements MyAdapter.OnNoteLis
         i.putExtra("SpillerNavn", spillerNavn);
         startActivity(i);
     }
-
-
 }

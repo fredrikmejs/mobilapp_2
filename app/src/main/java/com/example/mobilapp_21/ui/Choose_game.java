@@ -26,7 +26,6 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
 
     private Button button_howToPlay, button_RegneArk, button_DR, button_nytNavn;
     private String spillerNavn;
-    private TextView textView_scoreliste;
     private Galgelogik logik;
     private ArrayList<Score> topscore = new ArrayList<>();
 
@@ -37,8 +36,7 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_game);
 
-        logik = logik.getInstance();
-
+        logik = Galgelogik.getInstance();
 
         if (logik.getHighscoreListe() != null && topscore.size() == 0) {
             topscore.addAll(logik.getHighscoreListe());
@@ -46,7 +44,7 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null){
-        spillerNavn = lastIntent.getString("SpillerNavn");
+            spillerNavn = lastIntent.getString("SpillerNavn");
         }
 
         button_nytNavn = findViewById(R.id.button_indstilNavn);
@@ -61,21 +59,21 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
         button_RegneArk = findViewById(R.id.button_regneArk);
         button_RegneArk.setOnClickListener(this);
 
-        textView_scoreliste = findViewById(R.id.textView_topscore);
+        TextView textView_scoreliste = findViewById(R.id.textView_topscore);
 
         if (topscore.size() >= 3){
             textView_scoreliste.setText("Top 3 scorer er:\n" +
-                    topscore.get(0) + "\n" +
-                    topscore.get(1) + "\n" +
-                    topscore.get(2));
+                topscore.get(0) + "\n" +
+                topscore.get(1) + "\n" +
+                topscore.get(2));
 
         } else if (topscore.size() == 2){
             textView_scoreliste.setText("Top 2 scorer er:\n" +
-                    topscore.get(0) + "\n" +
-                    topscore.get(1));
+                topscore.get(0) + "\n" +
+                topscore.get(1));
         }else if (topscore.size() == 1){
             textView_scoreliste.setText("Nuværende topscore er:\n" +
-                    topscore.get(0));
+                topscore.get(0));
         }else {
             textView_scoreliste.setText("Der ikke sat nogen topscore endnu:");
         }
@@ -90,27 +88,19 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
             intent.putExtra("SpillerNavn",spillerNavn);
             finish();
             startActivity(intent);
-        }
-
-        if (v == button_howToPlay) {
+        }else if (v == button_howToPlay) {
             Intent intent = new Intent(this, HowToPlay.class);
             intent.putExtra("SpillerNavn", spillerNavn);
             finish();
             startActivity(intent);
-        }
-
-        if (v == button_RegneArk) {
+        } else if (v == button_RegneArk) {
             Intent intent = new Intent(this, Difficulty.class);
             intent.putExtra("SpillerNavn",spillerNavn);
             finish();
             startActivity(intent);
-        }
-
-        if (v == button_nytNavn){
+        }else if (v == button_nytNavn){
          Intent intent = new Intent(this,SkiftNavn.class);
          startActivity(intent);
-
         }
-
     }
 }

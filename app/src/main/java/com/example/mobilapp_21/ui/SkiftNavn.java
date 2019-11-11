@@ -24,7 +24,6 @@ public class SkiftNavn extends AppCompatActivity implements View.OnClickListener
         button_skiftnavn.setOnClickListener(this);
 
         editText_nytnavn = findViewById(R.id.editText_nytNavn);
-
     }
 
     @Override
@@ -35,8 +34,6 @@ public class SkiftNavn extends AppCompatActivity implements View.OnClickListener
             intent.putExtra("SpillerNavn",navn);
             finish();
             startActivity(intent);
-
         }
-
     }
 }

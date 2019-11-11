@@ -24,21 +24,18 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
     private ArrayList<String> muligeOrd = new ArrayList<>();
     private Galgelogik logik;
 
-
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lost_screen);
 
-        logik = logik.getInstance();
-
+        logik = Galgelogik.getInstance();
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null) {
             highscore = lastIntent.getInt("Highscore");
             spillerNavn = lastIntent.getString("SpillerNavn");
-
         }
 
         button_menu = findViewById(R.id.button_tabtMenu);
@@ -47,12 +44,11 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
         button_nulstil = findViewById(R.id.button_nulstilTabt);
         button_nulstil.setOnClickListener(this);
 
-
         TextView textView_tekst = findViewById(R.id.textView_tabt);
         textView_tekst.setText("Dit ord var '" + logik.getOrdet() + "'\n" +
-                "der er brugt " + logik.getAntalForkerteBogstaver() +" forsøg\n"
+            "der er brugt " + logik.getAntalForkerteBogstaver() +" forsøg\n"
         + "med bogstaverne " + logik.getBrugteBogstaver().toString() + "\n"+
-                "Din Score er: " + highscore);
+            "Din Score er: " + highscore);
     }
 
     @Override
@@ -63,9 +59,7 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
             intent.putExtra("SpillerNavn",spillerNavn);
             finish();
             startActivity(intent);
-        }
-
-        if (v == button_nulstil){
+        } else if (v == button_nulstil){
             Intent intent = new Intent(this, GalgeSpil.class);
             int nulstil = 1;
             intent.putExtra("nulstil", nulstil);
@@ -75,6 +69,5 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
             finish();
             startActivity(intent);
         }
-
     }
 }

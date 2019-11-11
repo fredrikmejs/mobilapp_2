@@ -1,6 +1,5 @@
 package com.example.mobilapp_21.logik;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +16,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
     private OnNoteListner monNoteListner;
     private Button button_sværhedsgrad;
 
-
-
     // Provide a suitable constructor (depends on the kind of dataset)
     public MyAdapter(String[] sværhedsgrader, OnNoteListner onNoteListner) {
         this.msværhedsgrader = sværhedsgrader;
         this.monNoteListner = onNoteListner;
     }
-
 
     @NonNull
     @Override
@@ -46,7 +42,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
 
     @Override
     public void onClick(View v) {
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

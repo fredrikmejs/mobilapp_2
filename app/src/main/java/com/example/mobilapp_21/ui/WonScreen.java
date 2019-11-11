@@ -28,7 +28,7 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_won_screen);
 
-        logik = logik.getInstance();
+        logik = Galgelogik.getInstance();
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null) {

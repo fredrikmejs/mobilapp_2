@@ -29,7 +29,6 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
 
     private Button button_start;
     private EditText editText_navn;
-    private String spillerNavn;
     private ArrayList<Score> topscore = new ArrayList<>();
     private Galgelogik logik;
 
@@ -40,8 +39,8 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        logik = logik.getInstance();
+        //Laver enstans af Galgelogikken
+        logik = Galgelogik.getInstance();
 
         loadData();
         if (topscore != null){
@@ -52,7 +51,6 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         button_start.setOnClickListener(this);
 
         editText_navn = findViewById(R.id.editText_name);
-
 
         //sætter teksten på textviewet
         TextView velkommen = findViewById(R.id.textView_velkommen);
@@ -65,7 +63,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        spillerNavn = editText_navn.getText().toString();
+        String spillerNavn = editText_navn.getText().toString();
 
         //starter ny aktivitet
         if (v == button_start) {
@@ -92,6 +90,4 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
             topscore = new ArrayList<>();
         }
     }
-
-
 }

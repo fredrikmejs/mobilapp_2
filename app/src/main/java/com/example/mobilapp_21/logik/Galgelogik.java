@@ -23,11 +23,10 @@ public class Galgelogik {
     private boolean spilletErVundet;
     private boolean spilletErTabt;
     private ArrayList<Score> highscoreListe = new ArrayList<>();
-    private Boolean drBool = true,regneArkBool = true;
 
+    //Tom private constructor, så jeg kan lave klassen til en singleton
     private Galgelogik() {
     }
-
 
     public static Galgelogik getInstance() {
         return ourInstance;
@@ -71,10 +70,7 @@ public class Galgelogik {
         return spilletErTabt || spilletErVundet;
     }
 
-    public void sletMuligeOrd(){muligeOrd.clear();
-    }
-
-
+    public void sletMuligeOrd(){muligeOrd.clear();}
 
     public void nulstil() {
         brugteBogstaver.clear();
@@ -85,7 +81,6 @@ public class Galgelogik {
         ordet = muligeOrd.get(new Random().nextInt(muligeOrd.size()));
         opdaterSynligtOrd();
     }
-
 
     private void opdaterSynligtOrd() {
         synligtOrd = "";
@@ -136,7 +131,6 @@ public class Galgelogik {
         System.out.println("---------- ");
     }
 
-
     public static String hentUrl(String url) throws IOException {
         System.out.println("Henter data fra " + url);
         BufferedReader br = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
@@ -177,7 +171,6 @@ public class Galgelogik {
         System.out.println("muligeOrd = " + muligeOrd);
         nulstil();
     }
-
 
     /**
      * Hent ord og sværhedsgrad fra et online regneark. Du kan redigere i regnearket, på adressen
@@ -227,9 +220,7 @@ public class Galgelogik {
                 return Integer.compare(o1.score, o2.score);
             }
         });
-
         Collections.reverse(highscoreListe);
         return highscoreListe;
     }
-
 }

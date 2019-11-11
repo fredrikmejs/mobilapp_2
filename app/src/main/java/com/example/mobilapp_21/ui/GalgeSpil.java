@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,8 +14,6 @@ import android.widget.TextView;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
-import com.example.mobilapp_21.logik.MyKeyboard;
-import com.example.mobilapp_21.logik.Score;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -24,10 +21,10 @@ import java.util.concurrent.CountDownLatch;
 
 public class GalgeSpil extends AppCompatActivity implements View.OnClickListener {
     Galgelogik logik;
-    private Button button_gæt, button_tilbage, button_nulstil;
+    private Button button_guess, button_tilbage, button_nulstil;
     private TextView textView_hemmeligtOrd;
-    private EditText editText_gæt;
-    private String sværhedsgrad,spillerNavn;
+    private EditText editText_guess;
+    private String dfficulty, spillerNavn;
     private ImageView imageView_spil;
     private int spilletype;
     private int nulstil = 0;;
@@ -39,38 +36,31 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galge_spil);
-        logik = logik.getInstance();
+        logik = Galgelogik.getInstance();
 
 
         //Bruger sværhedsgraden fra sidste aktivitet
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null) {
             if (lastIntent.getString("sværhedsgrad") != null)
-                sværhedsgrad = lastIntent.getString("sværhedsgrad");
-
-            if (lastIntent.getInt("nulstil") != 0) {
+                dfficulty = lastIntent.getString("sværhedsgrad");
+            if (lastIntent.getInt("nulstil") != 0)
                 nulstil = lastIntent.getInt("nulstil");
-            }
-            if (lastIntent.getString("SpillerNavn") != null){
+            if (lastIntent.getString("SpillerNavn") != null)
                 spillerNavn = lastIntent.getString("SpillerNavn");
-            }
-
             spilletype = lastIntent.getInt("GameType");
         }
 
-
        if (nulstil == 0) {
-           if (spilletype == 0){
+           if (spilletype == 0)
                hentDr.start();
-           } else if (spilletype == 1){
+           else if (spilletype == 1)
                hentRegneArk.start();
-           }
-        } else {
+        } else
            logik.nulstil();
-       }
 
-        button_gæt = findViewById(R.id.button_gæt);
-        button_gæt.setOnClickListener(this);
+        button_guess = findViewById(R.id.button_gæt);
+        button_guess.setOnClickListener(this);
 
         button_nulstil = findViewById(R.id.button_nulstil);
         button_nulstil.setOnClickListener(this);
@@ -78,14 +68,13 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         button_tilbage = findViewById(R.id.button_tilbage);
         button_tilbage.setOnClickListener(this);
 
-        editText_gæt = findViewById(R.id.editText_gæt);
+        editText_guess = findViewById(R.id.editText_gæt);
 
         imageView_spil = findViewById(R.id.imageView_spil);
         grafik();
 
 
         //Venter til tråden er færdig
-
         try{
             latch.await();
         }catch (InterruptedException e){
@@ -99,19 +88,19 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
 
-        if (v == button_gæt){
+        if (v == button_guess){
             //Får det indtastede svar
-            String svar = editText_gæt.getText().toString();
+            String svar = editText_guess.getText().toString();
 
             //sikre mig det er et gyldigt svar
             if (svar.length() == 1){
                 logik.gætBogstav(svar);
-                editText_gæt.setText("");
+                editText_guess.setText("");
                 opdaterTekst();
                 grafik();
             }else {
-                editText_gæt.setText("");
-                editText_gæt.setError("Ugyldigt gæt");
+                editText_guess.setText("");
+                editText_guess.setError("Ugyldigt gæt");
                 return;
             }
         }
@@ -129,7 +118,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             muligeOrd.addAll(logik.getMuligeOrd());
             Intent intent = getIntent();
             intent.putExtra("nulstil",nulstil);
-            intent.putExtra("sværhedsgrad",sværhedsgrad);
+            intent.putExtra("sværhedsgrad",dfficulty);
             intent.putExtra("GameType",spilletype);
             intent.putExtra("SpillerNavn",spillerNavn);
             finish();
@@ -166,7 +155,6 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             intent.putExtra("SpillerNavn",spillerNavn);
             finish();
             startActivity(intent);
-
         }
     }
 
@@ -176,29 +164,31 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         int forkerte = logik.getAntalForkerteBogstaver();
         int antalkorrekte = logik.getAntalKorrekte();
 
-        if ((spilletype == 0 && erVundet) || (spilletype == 1 && sværhedsgrad.equals("3")) && erVundet) {
+        if ((spilletype == 0 && erVundet) || (spilletype == 1 && dfficulty.equals("3")) && erVundet) {
             score = 1000 - forkerte * 50;
             return score;
-        } else if (spilletype == 1 && sværhedsgrad.equals("2") && erVundet) {
+        } else if (spilletype == 1 && dfficulty.equals("2") && erVundet) {
             score = 1000 - 200 - (forkerte * 50);
             return score;
-        } else if (spilletype == 1 && sværhedsgrad.equals("1") && erVundet) {
+        } else if (spilletype == 1 && dfficulty.equals("1") && erVundet) {
             score = 1000 - 400 - (forkerte * 50);
             return score;
-        } else if (spilletype == 0 || (spilletype == 1 && sværhedsgrad.equals("3")) && erTabt) {
+        } else if (spilletype == 0 || (spilletype == 1 && dfficulty.equals("3")) && erTabt) {
             score = antalkorrekte*65;
             return score;
-        } else if (spilletype == 1 && sværhedsgrad.equals("2") && erTabt) {
+        } else if (spilletype == 1 && dfficulty.equals("2") && erTabt) {
             score = antalkorrekte*45;
             return score;
-        } else if (spilletype == 1 && sværhedsgrad.equals("1") && erTabt) {
+        } else if (spilletype == 1 && dfficulty.equals("1") && erTabt) {
             score = antalkorrekte*35;
             return score;
         }
         return score;
     }
 
-
+    /**
+     * Gemmer data lokalt i en cache
+     */
     void saveData(){
         SharedPreferences sharedPreferences = getSharedPreferences("sharedTopscore",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -206,7 +196,6 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         String json = gson.toJson(logik.getHighscoreListe());
         editor.putString("topscoreListe",json);
         editor.apply();
-
     }
 
     /**
@@ -237,21 +226,18 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
                 imageView_spil.setImageResource(R.drawable.forkert6);
                 break;
         }
-
     }
 
     Thread hentRegneArk = new Thread() {
 
         public void run() {
             try {
-                logik.hentOrdFraRegneark(sværhedsgrad);
+                logik.hentOrdFraRegneark(dfficulty);
                 latch.countDown();
-                //logik.setRegneArkBool(false);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             logik.nulstil();
-
         }
     };
 

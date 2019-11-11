@@ -23,8 +23,6 @@ public class MyKeyboard extends InputMethodService implements KeyboardView.OnKey
 
     private boolean caps = false;
 
-
-
     @Override
     public View onCreateInputView() {
         kv = (KeyboardView) getLayoutInflater().inflate(R.layout.keyboard, null);
@@ -34,32 +32,12 @@ public class MyKeyboard extends InputMethodService implements KeyboardView.OnKey
         return kv;
     }
 
-    private void playClick(int keycode) {
-    AudioManager am = (AudioManager) getSystemService(AUDIO_SERVICE);
-    switch (keycode) {
-        case 32:
-            am.playSoundEffect(AudioManager.FX_KEYPRESS_SPACEBAR);
-            break;
-        case 10:
-            am.playSoundEffect(AudioManager.FX_KEYPRESS_RETURN);
-            break;
-        case Keyboard.KEYCODE_DELETE:
-            am.playSoundEffect(AudioManager.FX_KEYPRESS_DELETE);
-            break;
-        default:
-            am.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD);
-        }
-    }
-
-
     @Override
     public void onPress(int i) {
-
     }
 
     @Override
     public void onRelease(int i) {
-
     }
 
     @Override
@@ -92,27 +70,22 @@ public class MyKeyboard extends InputMethodService implements KeyboardView.OnKey
 
     @Override
     public void onText(CharSequence charSequence) {
-
     }
 
     @Override
     public void swipeLeft() {
-
     }
 
     @Override
     public void swipeRight() {
-
     }
 
     @Override
     public void swipeDown() {
-
     }
 
     @Override
     public void swipeUp() {
-
     }
 }
 
