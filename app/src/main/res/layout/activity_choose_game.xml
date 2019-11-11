@@ -48,7 +48,7 @@
         android:layout_width="fill_parent"
         android:layout_height="70dp"
         android:background="#77BA24"
-        android:text="Guide til spillet"
+        android:text="Indstillinger"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

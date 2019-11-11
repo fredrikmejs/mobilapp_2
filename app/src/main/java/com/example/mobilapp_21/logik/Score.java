@@ -2,13 +2,8 @@ package com.example.mobilapp_21.logik;
 
 import android.annotation.SuppressLint;
 
-import java.util.ArrayList;
-
 
 public class Score {
-
-    ArrayList<Score> highscoreListe = new ArrayList<>();
-
 
     public String name;
     public int score;
@@ -25,7 +20,7 @@ public class Score {
     @Override
     public String toString(){
 
-        return String.format("Name: %s, Score: %d", name, score);
+        return String.format("Spiller: %s, Score: %d", name, score);
     }
 
 

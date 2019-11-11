@@ -1,6 +1,10 @@
-package com.example.mobilapp_21.ui;
+package com.example.mobilapp_21.logik;
+/**
+ * Inspiration for keyboard taken from
+ * https://www.ssaurel.com/blog/learn-to-create-a-system-keyboard-on-android/
+ *
+ */
 
-import android.annotation.SuppressLint;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -43,10 +47,8 @@ public class MyKeyboard extends InputMethodService implements KeyboardView.OnKey
             break;
         default:
             am.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD);
+        }
     }
-    }
-
-
 
 
     @Override

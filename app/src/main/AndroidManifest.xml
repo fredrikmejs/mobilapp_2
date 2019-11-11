@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".ui.MyKeyboard"
+        <service android:name=".logik.MyKeyboard"
             android:label="@string/my_keyboard"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>

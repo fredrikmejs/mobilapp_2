@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.mobilapp_21.logik.Galgelogik;
 import com.example.mobilapp_21.logik.MyAdapter;
 import com.example.mobilapp_21.R;
 
@@ -22,6 +23,8 @@ public class Difficulty extends AppCompatActivity implements MyAdapter.OnNoteLis
     private RecyclerView.LayoutManager layoutManager;
     private String sværhedsgrad, spillerNavn;
     private ProgressBar progressBar;
+    private Galgelogik logik;
+
     String[] sværhedsgrader = {"1","2","3"};
 
 
@@ -29,6 +32,8 @@ public class Difficulty extends AppCompatActivity implements MyAdapter.OnNoteLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty);
+
+        logik = logik.getInstance();
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null) {
@@ -58,13 +63,28 @@ public class Difficulty extends AppCompatActivity implements MyAdapter.OnNoteLis
 
         progressBar.setVisibility(View.VISIBLE);
         sværhedsgrad = sværhedsgrader[position];
-
+        hentRegneArk.start();
         Intent i = new Intent(this, GalgeSpil.class);
         i.putExtra("GameType",1);
         i.putExtra("sværhedsgrad", sværhedsgrad);
         i.putExtra("SpillerNavn",spillerNavn);
         startActivityForResult(i,200);
-
-
     }
+
+    Thread hentRegneArk = new Thread(){
+
+        public void run(){
+            try {
+                logik.hentOrdFraRegneark(sværhedsgrad);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            logik.nulstil();
+
+        }
+    };
+
+
+
+
 }

@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,8 +14,13 @@ import android.widget.TextView;
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
 import com.example.mobilapp_21.logik.Score;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Choose_game extends AppCompatActivity implements View.OnClickListener  {
 
@@ -32,7 +39,8 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
 
         logik = logik.getInstance();
 
-        if (logik.getHighscoreListe() != null) {
+
+        if (logik.getHighscoreListe() != null && topscore.size() == 0) {
             topscore.addAll(logik.getHighscoreListe());
         }
 
@@ -77,6 +85,7 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         logik.sletMuligeOrd();
         if (v == button_DR){
+            hentDr.start();
             Intent intent = new Intent(this, GalgeSpil.class);
             intent.putExtra("GameType",0);
             intent.putExtra("SpillerNavn",spillerNavn);
@@ -86,7 +95,7 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
 
         if (v == button_howToPlay) {
             Intent intent = new Intent(this, HowToPlay.class);
-            intent.putExtra("Spillernavn", spillerNavn);
+            intent.putExtra("SpillerNavn", spillerNavn);
             finish();
             startActivity(intent);
         }
@@ -102,6 +111,30 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
          Intent intent = new Intent(this,SkiftNavn.class);
          startActivity(intent);
 
+        }
+
+    }
+    Thread hentDr = new Thread(){
+
+        public void run(){
+            try {
+                logik.hentOrdFraDr();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            logik.nulstil();
+        }
+    };
+
+    void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedTopscore",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("topscoreListe",null);
+        Type type = new TypeToken<ArrayList<Score>>() {}.getType();
+        topscore = gson.fromJson(json,type);
+
+        if (topscore == null){
+            topscore = new ArrayList<>();
         }
 
     }

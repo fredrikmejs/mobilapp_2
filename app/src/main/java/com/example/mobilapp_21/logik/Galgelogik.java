@@ -25,17 +25,6 @@ public class Galgelogik {
     private ArrayList<Score> highscoreListe = new ArrayList<>();
 
     private Galgelogik() {
-      //  muligeOrd.add("bil");
-      //  muligeOrd.add("computer");
-      //  muligeOrd.add("programmering");
-      //  muligeOrd.add("motorvej");
-      //  muligeOrd.add("busrute");
-      //  muligeOrd.add("gangsti");
-      //  muligeOrd.add("skovsnegl");
-      //  muligeOrd.add("solsort");
-      //  muligeOrd.add("nitten");
-
-      //  nulstil();
     }
 
 
@@ -58,10 +47,7 @@ public class Galgelogik {
 
     public ArrayList<String> getMuligeOrd() {return muligeOrd;}
 
-    public void setMuligeOrd(ArrayList<String> arr){
-        muligeOrd.addAll(arr);
 
-    }
     public int getAntalKorrekte(){return antalKorrekte;}
 
     public int getAntalForkerteBogstaver() {
@@ -226,6 +212,10 @@ public class Galgelogik {
     public void setHighScoreListe(String navn, int score){
         highscoreListe.add(new Score(navn,score));
     }
+    public void  setHighscoreListe(ArrayList<Score> scoreArrayList){
+        highscoreListe.addAll(scoreArrayList);
+
+    }
 
     public ArrayList getHighscoreListe(){
 
@@ -236,6 +226,7 @@ public class Galgelogik {
             }
         });
 
+        Collections.reverse(highscoreListe);
         return highscoreListe;
     }
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
 import com.example.mobilapp_21.logik.Score;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
     private ImageView imageView_spil;
     private int spilletype;
     private int nulstil = 0;
+    private static final String pref = "topscoreListe";
     private boolean forsæt = true;
     private ArrayList<String> muligeOrd = new ArrayList<>();
 
@@ -54,11 +57,13 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
 
 
        if (nulstil == 0) {
-            if (spilletype == 0) {
+       /*     if (spilletype == 0) {
                 hentDr.start();
             } else if (spilletype == 1) {
                 hentRegneArk.start();
             }
+
+        */
         } else {
             logik.nulstil();
             forsæt = false;
@@ -80,7 +85,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
 
         textView_hemmeligtOrd = findViewById(R.id.textView_hemmeligtOrd);
         //Venter til tråden er færdig
-        while (forsæt){}
+        //while (forsæt){}
 
         textView_hemmeligtOrd.setText("Gæt ordet" + logik.getSynligtOrd());
     }
@@ -138,6 +143,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         if (logik.erSpilletVundet()) {
             int highscore = beregnScore();
             logik.setHighScoreListe(spillerNavn, highscore);
+            saveData();
             Intent intent = new Intent(this, WonScreen.class);
             intent.putExtra("Highscore",highscore);
             intent.putExtra("SpillerNavn",spillerNavn);
@@ -147,6 +153,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         if (logik.erSpilletTabt()) {
             int highscore = beregnScore();
             logik.setHighScoreListe(spillerNavn, highscore);
+            saveData();
             Intent intent = new Intent(this, LostScreen.class);
             intent.putExtra("Highscore",highscore);
             intent.putExtra("SpillerNavn",spillerNavn);
@@ -172,18 +179,28 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             score = 1000 - 400 - (forkerte * 50);
             return score;
         } else if (spilletype == 0 || (spilletype == 1 && sværhedsgrad.equals("3")) && erTabt) {
-            score = antalkorrekte*85;
+            score = antalkorrekte*65;
             return score;
         } else if (spilletype == 1 && sværhedsgrad.equals("2") && erTabt) {
-            score = antalkorrekte*50;
+            score = antalkorrekte*45;
             return score;
         } else if (spilletype == 1 && sværhedsgrad.equals("1") && erTabt) {
-            score = antalkorrekte*40;
+            score = antalkorrekte*35;
             return score;
         }
         return score;
     }
 
+
+    void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(pref,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(logik.getHighscoreListe());
+        editor.putString("topscoreListe",json);
+        editor.apply();
+
+    }
 
     /**
      * Skifter billedet afhængigt af hvor mange forkerte der er.
