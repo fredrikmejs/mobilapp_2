@@ -7,14 +7,27 @@
     tools:context=".ui.WonScreen">
 
 
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="80dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/vundet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <TextView
         android:id="@+id/textView_vandt"
         android:layout_width="305dp"
         android:layout_height="77dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="64dp"
         android:text="aaaaaaaaaa"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -22,12 +35,11 @@
         android:id="@+id/vundet"
         android:layout_width="271dp"
         android:layout_height="40dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="80dp"
         android:text="Du vandt!!"
         android:textColor="#D39F3535"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,17 +56,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vundet"
         app:layout_constraintVertical_bias="0.02"
-        app:srcCompat="@drawable/forkert6" />
+        app:srcCompat="@drawable/forkert6"
+        android:contentDescription="TODO" />
 
     <Button
         android:id="@+id/button_vandtMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="72dp"
-        android:text="Hovedmenu"
+        android:layout_marginTop="40dp"
+        android:text="@string/hovedmenu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_vandt" />
 
@@ -63,13 +76,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="63dp"
-        android:layout_marginTop="73dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="52dp"
         android:text="Nulstil spillet"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/button_vandtMenu"
         app:layout_constraintTop_toBottomOf="@+id/textView_vandt" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

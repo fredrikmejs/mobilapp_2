@@ -44,7 +44,7 @@ public class Galgelogik {
     public String getOrdet() {
         return ordet;
     }
-
+    //tilføj dine egne her herunder
     public ArrayList<String> getMuligeOrd() {return muligeOrd;}
 
 

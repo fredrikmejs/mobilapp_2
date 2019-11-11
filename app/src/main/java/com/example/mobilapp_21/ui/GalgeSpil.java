@@ -101,6 +101,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
                 editText_guess.setText("");
                 opdaterTekst();
                 grafik();
+                logik.getOrdet();
             }else {
                 editText_guess.setText("");
                 editText_guess.setError("Ugyldigt gæt");
