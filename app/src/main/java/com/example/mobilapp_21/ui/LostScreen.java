@@ -21,7 +21,6 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
     private Button button_nulstil, button_menu;
     private String spillerNavn;
     private int highscore;
-    private ArrayList<String> muligeOrd = new ArrayList<>();
     private Galgelogik logik;
 
     @SuppressLint("SetTextI18n")
@@ -64,8 +63,7 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
             int nulstil = 1;
             intent.putExtra("nulstil", nulstil);
             intent.putExtra("SpillerNavn",spillerNavn);
-            intent.putExtra("muligeOrd",muligeOrd);
-            intent.putStringArrayListExtra("muligeOrd", muligeOrd);
+            logik.nulstil();
             finish();
             startActivity(intent);
         }

@@ -81,6 +81,7 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
             intent.putExtra("nulstil", nulstil);
             intent.putExtra("SpillerNavn",spillerNavn);
             finish();
+            logik.nulstil();
             startActivity(intent);
         }
     }
@@ -89,10 +90,10 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
         @Override
         public void run() {
             CommonConfetti.explosion(container,1,1,new int[]{Color.BLUE}).infinite();
-            CommonConfetti.explosion(container,1000,1,new int[]{Color.BLUE}).infinite();
+            CommonConfetti.explosion(container,container.getWidth(),1,new int[]{Color.BLUE}).infinite();
             if (stop == 1){
                 mhandler.removeCallbacks(won);
-            } else mhandler.postDelayed(won,5000);
+            } else mhandler.postDelayed(won,1000);
         }
     };
 

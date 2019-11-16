@@ -12,7 +12,7 @@ import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
 
 public class HowToPlay extends AppCompatActivity implements View.OnClickListener {
-private Button button_back, button_ryd;
+private Button button_back, button_ryd, button_ordListe;
 private String spillerNavn;
 private Galgelogik logik;
 
@@ -33,6 +33,9 @@ private Galgelogik logik;
 
         button_ryd = findViewById(R.id.button_rydTopscore);
         button_ryd.setOnClickListener(this);
+
+        button_ordListe = findViewById(R.id.button_OrdListe);
+        button_ordListe.setOnClickListener(this);
     }
 
     @Override
@@ -47,6 +50,8 @@ private Galgelogik logik;
             sletcache();
             logik.rydHighscoreListe();
         }
+        if (button_ordListe == v);
+
     }
 
     void sletcache(){

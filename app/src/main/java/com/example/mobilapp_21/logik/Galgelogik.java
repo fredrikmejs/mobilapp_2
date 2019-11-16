@@ -72,6 +72,11 @@ public class Galgelogik {
 
     public void sletMuligeOrd(){muligeOrd.clear();}
 
+    public void setMuligeOrd(ArrayList<String> arr){
+        muligeOrd.clear();
+        muligeOrd.addAll(arr);
+    }
+
     public void nulstil() {
         brugteBogstaver.clear();
         antalKorrekte = 0;
@@ -147,7 +152,7 @@ public class Galgelogik {
     /**
      * Hent ord fra DRs forside (https://dr.dk)
      */
-    public void hentOrdFraDr() throws Exception {
+    public ArrayList<String> hentOrdFraDr() throws Exception {
         String data = hentUrl("https://dr.dk");
         //System.out.println("data = " + data);
 
@@ -169,7 +174,7 @@ public class Galgelogik {
         muligeOrd.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
 
         System.out.println("muligeOrd = " + muligeOrd);
-        nulstil();
+        return muligeOrd;
     }
 
     /**
@@ -179,7 +184,8 @@ public class Galgelogik {
      * @throws Exception
      */
 
-    public void hentOrdFraRegneark(String sværhedsgrader) throws Exception {
+    public ArrayList<String> hentOrdFraRegneark(String sværhedsgrader) throws Exception {
+        muligeOrd.clear();
         String id = "1RnwU9KATJB94Rhr7nurvjxfg09wAHMZPYB3uySBPO6M";
 
         System.out.println("Henter data som kommasepareret CSV fra regnearket https://docs.google.com/spreadsheets/d/"+id+"/edit?usp=sharing");
@@ -197,10 +203,12 @@ public class Galgelogik {
             if (ordet.isEmpty()) continue; // spring over linjer med tomme ord
             if (!sværhedsgrader.contains(sværhedsgrad)) continue; // filtrér på sværhedsgrader
             muligeOrd.add(ordet);
+
+
         }
 
         System.out.println("muligeOrd = " + muligeOrd);
-        nulstil();
+        return muligeOrd;
     }
 
     public void setHighScoreListe(String navn, int score){
@@ -212,7 +220,7 @@ public class Galgelogik {
     public void rydHighscoreListe(){
         highscoreListe.clear();
     }
-    public ArrayList getHighscoreListe(){
+    public ArrayList<Score> getHighscoreListe(){
 
         Collections.sort(highscoreListe, new Comparator<Score>() {
             @Override

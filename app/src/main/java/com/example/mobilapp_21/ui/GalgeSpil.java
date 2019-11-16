@@ -51,14 +51,6 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
             spilletype = lastIntent.getInt("GameType");
         }
 
-       if (nulstil == 0) {
-           if (spilletype == 0)
-               hentDr.start();
-           else if (spilletype == 1)
-               hentRegneArk.start();
-        } else
-           logik.nulstil();
-
         button_guess = findViewById(R.id.button_gæt);
         button_guess.setOnClickListener(this);
 
@@ -74,15 +66,6 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         grafik();
 
 
-        //Venter til tråden er færdig
-
-        if (nulstil == 0) {
-            try {
-                latch.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
         textView_hemmeligtOrd = findViewById(R.id.textView_hemmeligtOrd);
         textView_hemmeligtOrd.setText("Gæt ordet" + logik.getSynligtOrd());
     }
@@ -118,6 +101,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
         //Nulstiller spillet og finder et nyt ord
         if (v == button_nulstil){
             nulstil = 1;
+            logik.nulstil();
             muligeOrd.addAll(logik.getMuligeOrd());
             Intent intent = getIntent();
             intent.putExtra("nulstil",nulstil);
@@ -134,7 +118,7 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
      */
     @SuppressLint("SetTextI18n")
     private void opdaterTekst() {
-        textView_hemmeligtOrd.setText("Gæt ordet  " + logik.getSynligtOrd() +
+        textView_hemmeligtOrd.setText("Gæt ordet   " + logik.getSynligtOrd() +
                 "\nAntal forkerte bogstaver: " + logik.getAntalForkerteBogstaver() +
                 "\nBrugt følgende bogstaver: " + logik.getBrugteBogstaver()
         );
@@ -230,37 +214,4 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
                 break;
         }
     }
-
-    Thread hentRegneArk = new Thread() {
-
-        public void run() {
-            try {
-                logik.hentOrdFraRegneark(dfficulty);
-                latch.countDown();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            logik.nulstil();
-        }
-    };
-
-
-    Thread hentDr = new Thread(){
-
-        public void run(){
-            try {
-                logik.hentOrdFraDr();
-                latch.countDown();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            logik.nulstil();
-        }
-    };
-
-
-
-
-
-
 }

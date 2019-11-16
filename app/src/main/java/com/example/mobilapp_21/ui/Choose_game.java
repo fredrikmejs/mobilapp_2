@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
+import com.example.mobilapp_21.logik.LoadData;
 import com.example.mobilapp_21.logik.Score;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,6 +29,8 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
     private String spillerNavn;
     private Galgelogik logik;
     private ArrayList<Score> topscore = new ArrayList<>();
+    private LoadData loadData;
+
 
 
     @SuppressLint("SetTextI18n")
@@ -37,6 +40,8 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_choose_game);
 
         logik = Galgelogik.getInstance();
+        loadData = LoadData.getInstance();
+
 
         if (logik.getHighscoreListe() != null && topscore.size() == 0) {
             topscore.addAll(logik.getHighscoreListe());
@@ -86,6 +91,8 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
             Intent intent = new Intent(this, GalgeSpil.class);
             intent.putExtra("GameType",0);
             intent.putExtra("SpillerNavn",spillerNavn);
+            logik.setMuligeOrd(loadData.getOrdDR());
+            logik.nulstil();
             finish();
             startActivity(intent);
         }else if (v == button_howToPlay) {
@@ -103,4 +110,10 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
          startActivity(intent);
         }
     }
+
+
+
+
+
+
 }

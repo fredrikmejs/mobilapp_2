@@ -11,26 +11,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobilapp_21.R;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements View.OnClickListener {
+public class MyAdapterDiff extends RecyclerView.Adapter<MyAdapterDiff.ViewHolder> implements View.OnClickListener {
     private String[] msværhedsgrader;
     private OnNoteListner monNoteListner;
     private Button button_sværhedsgrad;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(String[] sværhedsgrader, OnNoteListner onNoteListner) {
+    public MyAdapterDiff(String[] sværhedsgrader, OnNoteListner onNoteListner) {
         this.msværhedsgrader = sværhedsgrader;
         this.monNoteListner = onNoteListner;
     }
 
     @NonNull
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyAdapterDiff.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row,parent,false);
         return new ViewHolder(view, monNoteListner);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyAdapterDiff.ViewHolder holder, int position) {
 
         holder.sværhedsgrad.setText((msværhedsgrader[position]));
     }

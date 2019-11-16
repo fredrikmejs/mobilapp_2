@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
+import com.example.mobilapp_21.logik.LoadData;
 import com.example.mobilapp_21.logik.MyKeyboard;
 import com.example.mobilapp_21.logik.Score;
 import com.example.mobilapp_21.ui.Choose_game;
@@ -24,16 +26,21 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 public class Welcome_screen extends AppCompatActivity implements View.OnClickListener {
+
 
     private Button button_start;
     private EditText editText_navn;
     private ArrayList<Score> topscore = new ArrayList<>();
     private Galgelogik logik;
     private String spillerNavn;
-
-
+    private ArrayList<String> ark1 = new ArrayList<>();
+    private ArrayList<String> ark2 = new ArrayList<>();
+    private ArrayList<String> ark3 = new ArrayList<>();
+    private ArrayList<String> ordDR = new ArrayList<>();
+    LoadData loadData;
 
     @SuppressLint({"SetTextI18n"})
     @Override
@@ -43,14 +50,37 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
 
         //Laver enstans af Galgelogikken
         logik = Galgelogik.getInstance();
+        loadData = LoadData.getInstance();
 
-        loadData();
-        if (topscore != null){
+        sletcache();
+        loadDataArk1();
+        loadDataArk2();
+        loadDataArk3();
+        loadDataDR();
+
+        loadDataNameScore();
+        if (topscore != null) {
             logik.setHighscoreListe(topscore);
         }
+        if (ark1 == null || ark2 == null || ark3 == null){
+            hentRegneArk1.start();
+        }
+        if ( ordDR == null){
+            hentDr.start();
+        }
+     /*   if (ark2 == null){
+            hentRegneArk2.start();
+        }
+        if (ark3 == null){
+            hentRegneArk3.start();
+        }
+       if (ordDR == null){
+            hentDr.start();
+        }
+           */
 
         //Springer siden over, hvis man har et spillernNavn
-        if (spillerNavn != null){
+        if (spillerNavn != null) {
             Intent intent = new Intent(this, Choose_game.class);
             intent.putExtra("SpillerNavn", spillerNavn);
             saveDataName();
@@ -91,23 +121,158 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    void loadData() {
+    void sletcache(){
+        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
+    }
+
+
+    void loadDataNameScore() {
         SharedPreferences sharedPreferences = getSharedPreferences("Shared", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("topscoreListe", null);
         Type type = new TypeToken<ArrayList<Score>>() {
         }.getType();
         topscore = gson.fromJson(json, type);
-        spillerNavn = sharedPreferences.getString("spillernavn",null);
+        spillerNavn = sharedPreferences.getString("spillernavn", null);
         if (topscore == null) {
             topscore = new ArrayList<>();
         }
     }
 
-    void saveDataName(){
-        SharedPreferences sharedPreferences = getSharedPreferences("Shared",MODE_PRIVATE);
+    void saveDataName() {
+        SharedPreferences sharedPreferences = getSharedPreferences("Shared", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("spillernavn",spillerNavn);
+        editor.putString("spillernavn", spillerNavn);
+        editor.apply();
+    }
+
+    Thread hentRegneArk1 = new Thread() {
+
+        public void run() {
+            try {
+                ark1 = logik.hentOrdFraRegneark("1");
+                saveDataArk1(ark1);
+                loadData.setArk1(ark1);
+                System.out.println("ARK1 hentet, ");
+
+                logik.sletMuligeOrd();
+
+                ark2 = logik.hentOrdFraRegneark("2");
+                saveDataArk2(ark2);
+                loadData.setArk2(ark2);
+                System.out.println("ARK1 hentet, ");
+                logik.sletMuligeOrd();
+
+                ark3 = logik.hentOrdFraRegneark("3");
+                saveDataArk3(ark3);
+                loadDataArk3();
+                logik.sletMuligeOrd();
+
+//                System.out.println("ARK1 hentet, ");
+//                Log.d("a", "ARK1 done");
+//                go1 = true;
+//                Log.d("a","ARK1 done" + ark1.size());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    Thread hentDr = new Thread() {
+
+        public void run() {
+            try {
+                ordDR =logik.hentOrdFraDr();
+                saveDataDr();
+                loadData.setOrdDR(ordDR);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    void loadDataArk1() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("Ark1", null);
+        Type type = new TypeToken<ArrayList<String>>() {
+        }.getType();
+        ark1 = gson.fromJson(json, type);
+        if (ark1 != null) {
+            loadData.setArk1(ark1);
+        }
+    }
+
+    void loadDataArk2() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("Ark2", null);
+        Type type = new TypeToken<ArrayList<String>>() {
+        }.getType();
+        ark2 = gson.fromJson(json, type);
+        if (ark2 != null) {
+            loadData.setArk2(ark2);
+        }
+    }
+
+    void loadDataArk3() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("Ark3", null);
+        Type type = new TypeToken<ArrayList<String>>() {
+        }.getType();
+        ark3 = gson.fromJson(json, type);
+        if (ark3 != null) {
+            loadData.setArk3(ark3);
+        }
+    }
+
+    void loadDataDR() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("DRord", null);
+        Type type = new TypeToken<ArrayList<String>>() {
+        }.getType();
+        ordDR = gson.fromJson(json, type);
+        if (ordDR != null) {
+            loadData.setOrdDR(ordDR);
+        }
+    }
+
+    void saveDataArk1(ArrayList<String> arr) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(arr);
+        editor.putString("Ark1", json);
+        editor.apply();
+    }
+
+    void saveDataArk2(ArrayList<String> arr) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(arr);
+        editor.putString("Ark2", json);
+        editor.apply();
+    }
+
+    void saveDataArk3(ArrayList<String> arr) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(arr);
+        editor.putString("Ark3", json);
+        editor.apply();
+    }
+
+    void saveDataDr() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(ordDR);
+        editor.putString("DRord", json);
         editor.apply();
     }
 }
