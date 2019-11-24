@@ -27,9 +27,9 @@ public class GalgeSpil extends AppCompatActivity implements View.OnClickListener
     private String dfficulty, spillerNavn;
     private ImageView imageView_spil;
     private int spilletype;
-    private int nulstil = 0;;
+    private int nulstil = 0;
     private ArrayList<String> muligeOrd = new ArrayList<>();
-    final CountDownLatch latch = new CountDownLatch(1);
+
 
     @SuppressLint("SetTextI18n")
     @Override

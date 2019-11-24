@@ -40,18 +40,22 @@ private Galgelogik logik;
 
     @Override
     public void onClick(View v) {
-        if (v == button_back){
-            Intent intent = new Intent(this,Choose_game.class);
-            intent.putExtra("SpillerNavn",spillerNavn);
+        if (v == button_back) {
+            Intent intent = new Intent(this, Choose_game.class);
+            intent.putExtra("SpillerNavn", spillerNavn);
             finish();
             startActivity(intent);
         }
-        if (v == button_ryd){
+        if (v == button_ryd) {
             sletcache();
             logik.rydHighscoreListe();
         }
-        if (button_ordListe == v);
-
+        if (button_ordListe == v) {
+            Intent intent = new Intent(this, OrdlisteArk1.class);
+            intent.putExtra("SpillerNavn", spillerNavn);
+            finish();
+            startActivity(intent);
+        }
     }
 
     void sletcache(){

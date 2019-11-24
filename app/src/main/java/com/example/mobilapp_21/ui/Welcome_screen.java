@@ -52,7 +52,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         logik = Galgelogik.getInstance();
         loadData = LoadData.getInstance();
 
-        sletcache();
+
         loadDataArk1();
         loadDataArk2();
         loadDataArk3();
@@ -62,26 +62,22 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         if (topscore != null) {
             logik.setHighscoreListe(topscore);
         }
+
+
         if (ark1 == null || ark2 == null || ark3 == null){
+            sletcache();
             hentRegneArk1.start();
         }
-        if ( ordDR == null){
+        if (ordDR == null){
             hentDr.start();
         }
-     /*   if (ark2 == null){
-            hentRegneArk2.start();
-        }
-        if (ark3 == null){
-            hentRegneArk3.start();
-        }
-       if (ordDR == null){
-            hentDr.start();
-        }
-           */
+
+
+
 
         //Springer siden over, hvis man har et spillernNavn
         if (spillerNavn != null) {
-            Intent intent = new Intent(this, Choose_game.class);
+                Intent intent = new Intent(this, Choose_game.class);
             intent.putExtra("SpillerNavn", spillerNavn);
             saveDataName();
             finish();
@@ -152,27 +148,22 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         public void run() {
             try {
                 ark1 = logik.hentOrdFraRegneark("1");
-                saveDataArk1(ark1);
+                saveDataArk1();
                 loadData.setArk1(ark1);
-                System.out.println("ARK1 hentet, ");
 
                 logik.sletMuligeOrd();
 
                 ark2 = logik.hentOrdFraRegneark("2");
-                saveDataArk2(ark2);
+                saveDataArk2();
                 loadData.setArk2(ark2);
-                System.out.println("ARK1 hentet, ");
                 logik.sletMuligeOrd();
 
                 ark3 = logik.hentOrdFraRegneark("3");
-                saveDataArk3(ark3);
+                saveDataArk3();
                 loadDataArk3();
                 logik.sletMuligeOrd();
 
-//                System.out.println("ARK1 hentet, ");
-//                Log.d("a", "ARK1 done");
-//                go1 = true;
-//                Log.d("a","ARK1 done" + ark1.size());
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -191,6 +182,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
             }
         }
     };
+
 
     void loadDataArk1() {
         SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
@@ -240,34 +232,39 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    void saveDataArk1(ArrayList<String> arr) {
+
+    void saveDataArk1() throws Exception {
+        ark1 = logik.hentOrdFraRegneark("1");
         SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(arr);
+        String json = gson.toJson(ark1);
         editor.putString("Ark1", json);
         editor.apply();
     }
 
-    void saveDataArk2(ArrayList<String> arr) {
+    void saveDataArk2() throws Exception {
+        ark2 = logik.hentOrdFraRegneark("2");
         SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(arr);
+        String json = gson.toJson(ark2);
         editor.putString("Ark2", json);
         editor.apply();
     }
 
-    void saveDataArk3(ArrayList<String> arr) {
+    void saveDataArk3() throws Exception {
+        ark3 = logik.hentOrdFraRegneark("3");
         SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(arr);
+        String json = gson.toJson(ark3);
         editor.putString("Ark3", json);
         editor.apply();
     }
 
-    void saveDataDr() {
+    void saveDataDr() throws Exception {
+        ordDR = logik.hentOrdFraDr();
         SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
