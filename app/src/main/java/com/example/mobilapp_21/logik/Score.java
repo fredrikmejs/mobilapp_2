@@ -20,7 +20,5 @@ public class Score {
 
         return String.format("Spiller: %s fik scoren: %d", name, score);
     }
-
-
 }
 

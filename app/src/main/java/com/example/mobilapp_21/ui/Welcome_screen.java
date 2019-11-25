@@ -73,8 +73,6 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         }
 
 
-
-
         //Springer siden over, hvis man har et spillernNavn
         if (spillerNavn != null) {
                 Intent intent = new Intent(this, Choose_game.class);

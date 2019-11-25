@@ -93,17 +93,14 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
             intent.putExtra("SpillerNavn",spillerNavn);
             logik.setMuligeOrd(loadData.getOrdDR());
             logik.nulstil();
-            finish();
             startActivity(intent);
         }else if (v == button_howToPlay) {
             Intent intent = new Intent(this, HowToPlay.class);
             intent.putExtra("SpillerNavn", spillerNavn);
-            finish();
             startActivity(intent);
         } else if (v == button_RegneArk) {
             Intent intent = new Intent(this, Difficulty.class);
             intent.putExtra("SpillerNavn",spillerNavn);
-            finish();
             startActivity(intent);
         }else if (v == button_nytNavn){
          Intent intent = new Intent(this,SkiftNavn.class);
