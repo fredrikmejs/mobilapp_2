@@ -82,6 +82,8 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
             Intent intent = new Intent(this, GalgeGame.class);
             intent.putExtra("GameType",0);
             intent.putExtra("PlayerName", playName);
+            //Makes sure the Dr words is loaded
+            while (loadData.getWordDR().size() == 0){}
             logic.setMuligeOrd(loadData.getWordDR());
             logic.nulstil();
             startActivity(intent);

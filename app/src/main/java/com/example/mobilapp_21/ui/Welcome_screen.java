@@ -32,7 +32,6 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
     private ArrayList<String> sheet1 = new ArrayList<>();
     private ArrayList<String> sheet2 = new ArrayList<>();
     private ArrayList<String> sheet3 = new ArrayList<>();
-    private ArrayList<String> sheet4 = new ArrayList<>();
     private ArrayList<String> wordDR = new ArrayList<>();
     LoadData loadData;
 
@@ -53,16 +52,17 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
 
 
         loadDataNameScore();
-        if (highScore != null) {
+
+        if (highScore.size() != 0) {
             logic.setHighscoreListe(highScore);
         }
 
-        if (sheet1 == null || sheet2 == null || sheet3 == null || sheet4 == null){
+        if (sheet1.size() == 0|| sheet2.size() == 0 || sheet3.size() == 0){
             deleteCache();
             getSheet.start();
         }
-        if (wordDR == null){
-            hentDr.start();
+        if (wordDR.size() == 0){
+            getDr.start();
         }
 
 
@@ -117,7 +117,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
     void loadDataNameScore() {
         SharedPreferences sharedPreferences = getSharedPreferences("Shared", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("highscoreList", null);
+        String json = sharedPreferences.getString("HighScoreList", null);
         Type type = new TypeToken<ArrayList<Score>>() {
         }.getType();
         highScore = gson.fromJson(json, type);
@@ -156,7 +156,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         }
     };
 
-    Thread hentDr = new Thread() {
+    Thread getDr = new Thread() {
 
         public void run() {
             try {
