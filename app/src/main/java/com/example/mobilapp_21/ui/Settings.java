@@ -11,57 +11,55 @@ import android.widget.Button;
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
 
-public class HowToPlay extends AppCompatActivity implements View.OnClickListener {
-private Button button_back, button_ryd, button_ordListe;
-private String spillerNavn;
-private Galgelogik logik;
+public class Settings extends AppCompatActivity implements View.OnClickListener {
+private Button button_back, button_clear, button_newName;
+private String playerName;
+private Galgelogik logic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_how_to_play);
+        setContentView(R.layout.activity_settings);
 
-        logik = Galgelogik.getInstance();
+        logic = Galgelogik.getInstance();
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null){
-            spillerNavn = lastIntent.getString("SpillerNavn");
+            playerName = lastIntent.getString("PlayerName");
         }
 
         button_back = findViewById(R.id.button_backToMenu);
         button_back.setOnClickListener(this);
 
-        button_ryd = findViewById(R.id.button_rydTopscore);
-        button_ryd.setOnClickListener(this);
+        button_newName = findViewById(R.id.button_switchName);
+        button_newName.setOnClickListener(this);
 
-        button_ordListe = findViewById(R.id.button_OrdListe);
-        button_ordListe.setOnClickListener(this);
+        button_clear = findViewById(R.id.button_rydTopscore);
+        button_clear.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
         if (v == button_back) {
             Intent intent = new Intent(this, Choose_game.class);
-            intent.putExtra("SpillerNavn", spillerNavn);
+            intent.putExtra("PlayerName", playerName);
             finish();
             startActivity(intent);
         }
-        if (v == button_ryd) {
-            sletcache();
-            logik.rydHighscoreListe();
-        }
-        if (button_ordListe == v) {
-            Intent intent = new Intent(this, OrdlisteArk1.class);
-            intent.putExtra("SpillerNavn", spillerNavn);
-            finish();
+        if (v == button_clear) {
+            deleteCache();
+            logic.rydHighscoreListe();
+        }else if (v == button_newName){
+            Intent intent = new Intent(this, SwitchName.class);
+            intent.putExtra("Playername",playerName);
             startActivity(intent);
         }
     }
 
-    void sletcache(){
+    void deleteCache(){
         SharedPreferences sharedPreferences = getSharedPreferences("Shared", MODE_PRIVATE);
         sharedPreferences.edit().clear().apply();
-        //Gemmer spiller navnet
-        sharedPreferences.edit().putString("spillernavn",spillerNavn).apply();
+        sharedPreferences.edit().putString("PlayerName", playerName).apply();
     }
 }

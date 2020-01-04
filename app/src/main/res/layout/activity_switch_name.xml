@@ -4,7 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SkiftNavn">
+    tools:context=".ui.SwitchName">
+
+    <Button
+        android:id="@+id/button_backToMenu2"
+        android:layout_width="49dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/arrow_back"
+        android:backgroundTint="#B5BE1717"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
 
     <TextView
         android:id="@+id/TextView_skiftNavn"

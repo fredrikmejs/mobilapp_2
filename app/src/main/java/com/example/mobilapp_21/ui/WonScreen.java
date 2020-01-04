@@ -21,11 +21,11 @@ import java.util.ArrayList;
 
 
 public class WonScreen extends AppCompatActivity implements View.OnClickListener {
-    private Button button_nulstil, button_menu;
-    private String  spillerNavn;
-    private int highscore, stop = 0;
-    private ArrayList<String> muligeOrd = new ArrayList<>();
-    private Galgelogik logik;
+    private Button button_reset, button_menu;
+    private String playerName;
+    private int highScore, stop = 0;
+    private ArrayList<String> possibleWords = new ArrayList<>();
+    private Galgelogik logic;
     private ViewGroup container;
     private Handler mhandler = new Handler();
 
@@ -40,27 +40,27 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
             container = findViewById(R.id.container);
 
             won.run();
-        logik = Galgelogik.getInstance();
+        logic = Galgelogik.getInstance();
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null) {
-            highscore = lastIntent.getInt("Highscore");
-            spillerNavn = lastIntent.getString("SpillerNavn");
+            highScore = lastIntent.getInt("Highscore");
+            playerName = lastIntent.getString("PlayerName");
         }
 
         button_menu = findViewById(R.id.button_vandtMenu);
         button_menu.setOnClickListener(this);
 
-        button_nulstil = findViewById(R.id.button_nulstilVandt);
-        button_nulstil.setOnClickListener(this);
+        button_reset = findViewById(R.id.button_nulstilVandt);
+        button_reset.setOnClickListener(this);
 
         TextView textView_vundet = findViewById(R.id.vundet);
-        textView_vundet.setText(spillerNavn + " du har vundet!");
+        textView_vundet.setText(playerName + " du har vundet!");
 
         TextView textView_tekst = findViewById(R.id.textView_vandt);
-        textView_tekst.setText("Ordet var " + logik.getOrdet() +
-                "\nDu havde " + logik.getAntalForkerteBogstaver()+ " forkerte\n" +
-                "Din Score er: " + highscore);
+        textView_tekst.setText("Ordet var " + logic.getOrdet() +
+                "\nDu havde " + logic.getAntalForkerteBogstaver()+ " forkerte\n" +
+                "Din Score er: " + highScore);
     }
 
     @Override
@@ -70,18 +70,18 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
         if (v == button_menu){
             Intent intent = new Intent(this, Choose_game.class );
 
-            intent.putExtra("SpillerNavn",spillerNavn);
+            intent.putExtra("PlayerName", playerName);
             finish();
             startActivity(intent);
         }
 
-        if (v == button_nulstil){
-            Intent intent = new Intent(this, GalgeSpil.class);
-            muligeOrd.addAll(logik.getMuligeOrd());
-            intent.putExtra("nulstil", nulstil);
-            intent.putExtra("SpillerNavn",spillerNavn);
+        if (v == button_reset){
+            Intent intent = new Intent(this, GalgeGame.class);
+            possibleWords.addAll(logic.getMuligeOrd());
+            intent.putExtra("reset", nulstil);
+            intent.putExtra("PlayerName", playerName);
             finish();
-            logik.nulstil();
+            logic.nulstil();
             startActivity(intent);
         }
     }

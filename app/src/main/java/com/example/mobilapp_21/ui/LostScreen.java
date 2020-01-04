@@ -11,17 +11,13 @@ import android.widget.TextView;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
-import com.example.mobilapp_21.ui.Choose_game;
-import com.example.mobilapp_21.ui.GalgeSpil;
-
-import java.util.ArrayList;
 
 public class LostScreen extends AppCompatActivity implements View.OnClickListener {
 
-    private Button button_nulstil, button_menu;
-    private String spillerNavn;
-    private int highscore;
-    private Galgelogik logik;
+    private Button button_reset, button_menu;
+    private String playerName;
+    private int highScore;
+    private Galgelogik logic;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -29,25 +25,25 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lost_screen);
 
-        logik = Galgelogik.getInstance();
+        logic = Galgelogik.getInstance();
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null) {
-            highscore = lastIntent.getInt("Highscore");
-            spillerNavn = lastIntent.getString("SpillerNavn");
+            highScore = lastIntent.getInt("Highscore");
+            playerName = lastIntent.getString("PlayerName");
         }
 
         button_menu = findViewById(R.id.button_tabtMenu);
         button_menu.setOnClickListener(this);
 
-        button_nulstil = findViewById(R.id.button_nulstilTabt);
-        button_nulstil.setOnClickListener(this);
+        button_reset = findViewById(R.id.button_nulstilTabt);
+        button_reset.setOnClickListener(this);
 
         TextView textView_tekst = findViewById(R.id.textView_tabt);
-        textView_tekst.setText("Dit ord var '" + logik.getOrdet() + "'\n" +
-            "der er brugt " + logik.getAntalForkerteBogstaver() +" forsøg\n"
-        + "med bogstaverne " + logik.getBrugteBogstaver().toString() + "\n"+
-            "Din Score er: " + highscore);
+        textView_tekst.setText("Dit ord var '" + logic.getOrdet() + "'\n" +
+            "der er brugt " + logic.getAntalForkerteBogstaver() +" forsøg\n"
+        + "med bogstaverne " + logic.getBrugteBogstaver().toString() + "\n"+
+            "Din Score er: " + highScore);
     }
 
     @Override
@@ -55,15 +51,15 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
 
         if (v == button_menu){
             Intent intent = new Intent(this, Choose_game.class );
-            intent.putExtra("SpillerNavn",spillerNavn);
+            intent.putExtra("PlayerName", playerName);
             finish();
             startActivity(intent);
-        } else if (v == button_nulstil){
-            Intent intent = new Intent(this, GalgeSpil.class);
+        } else if (v == button_reset){
+            Intent intent = new Intent(this, GalgeGame.class);
             int nulstil = 1;
-            intent.putExtra("nulstil", nulstil);
-            intent.putExtra("SpillerNavn",spillerNavn);
-            logik.nulstil();
+            intent.putExtra("reset", nulstil);
+            intent.putExtra("PlayerName", playerName);
+            logic.nulstil();
             finish();
             startActivity(intent);
         }

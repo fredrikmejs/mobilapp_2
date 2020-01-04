@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class LoadData {
     private static final LoadData ourInstance = new LoadData();
-    private ArrayList<String> ark1 = new ArrayList<>();
-    private ArrayList<String> ark2 = new ArrayList<>();
-    private ArrayList<String> ark3 = new ArrayList<>();
-    private ArrayList<String> ordDR = new ArrayList<>();
+    private ArrayList<String> sheet1 = new ArrayList<>();
+    private ArrayList<String> sheet2 = new ArrayList<>();
+    private ArrayList<String> sheet3 = new ArrayList<>();
+    private ArrayList<String> wordDR = new ArrayList<>();
 
 
     public static LoadData getInstance() {
@@ -21,39 +21,39 @@ public class LoadData {
     public ArrayList getArk(String value) {
 
         if (value.equals("1")) {
-            return ark1;
+            return sheet1;
         } else if (value.equals("2")) {
-            return ark2;
-        } else return ark3;
+            return sheet2;
+        } else return sheet3;
     }
 
-    public ArrayList<String> getOrdDR(){
+    public ArrayList<String> getWordDR(){
 
-        return ordDR;
+        return wordDR;
     }
 
-    public void setArk1(ArrayList<String> arr){
-        ark1.clear();
+    public void setSheet1(ArrayList<String> arr){
+        sheet1.clear();
 
-        ark1.addAll(arr);
-
-    }
-
-    public void setArk2(ArrayList<String> arr){
-        ark2.clear();
-        ark2.addAll(arr);
+        sheet1.addAll(arr);
 
     }
 
-    public void setArk3(ArrayList<String> arr){
-        ark3.clear();
-        ark3.addAll(arr);
+    public void setSheet2(ArrayList<String> arr){
+        sheet2.clear();
+        sheet2.addAll(arr);
 
     }
 
-    public void setOrdDR(ArrayList<String> arr){
-        ordDR.clear();
-        ordDR.addAll(arr);
+    public void setSheet3(ArrayList<String> arr){
+        sheet3.clear();
+        sheet3.addAll(arr);
+
+    }
+
+    public void setWordDR(ArrayList<String> arr){
+        wordDR.clear();
+        wordDR.addAll(arr);
     }
 
 }

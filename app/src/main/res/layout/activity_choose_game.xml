@@ -10,7 +10,7 @@
         android:id="@+id/button_DROrd"
         android:layout_width="fill_parent"
         android:layout_height="70dp"
-        android:background="#4F5C96"
+        android:background="#7884B9"
         android:text="Ord fra DR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -21,12 +21,13 @@
         android:id="@+id/button_regneArk"
         android:layout_width="fill_parent"
         android:layout_height="70dp"
+        android:layout_marginTop="128dp"
         android:background="#E4AF4545"
         android:text="Regne ark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_indstilNavn" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_topscore" />
 
     <TextView
         android:id="@+id/textView"
@@ -47,7 +48,7 @@
         android:id="@+id/button_HowToPlay"
         android:layout_width="fill_parent"
         android:layout_height="70dp"
-        android:background="#77BA24"
+        android:background="#E4AF4545"
         android:text="Indstillinger"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -65,17 +66,5 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <Button
-        android:id="@+id/button_indstilNavn"
-        android:layout_width="fill_parent"
-        android:layout_height="70dp"
-        android:layout_marginTop="24dp"
-        android:background="#A59517"
-        android:text="Indstil nyt navn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_topscore" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

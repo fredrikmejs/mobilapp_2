@@ -8,7 +8,7 @@ public class Score {
     private String name;
     int score;
 
-    //Constructor til Score objektet.
+    //Constructor for the Score object.
     Score(String name, int score) {
         this.name = name;
         this.score = score;

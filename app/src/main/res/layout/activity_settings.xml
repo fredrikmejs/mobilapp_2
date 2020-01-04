@@ -5,7 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/galge"
-    tools:context=".ui.HowToPlay">
+    tools:context=".ui.Settings">
+
+    <Button
+        android:id="@+id/button_switchName"
+        android:layout_width="172dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="152dp"
+        android:background="#7B384368"
+        android:text="Skift navn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.933"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/TextView_regler"
@@ -75,24 +87,15 @@
         android:id="@+id/button_rydTopscore"
         android:layout_width="172dp"
         android:layout_height="47dp"
+        android:layout_marginTop="7dp"
         android:layout_marginBottom="44dp"
         android:background="#7B384368"
         android:text="Ryd Topscore listen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.949"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button_OrdListe"
-        android:layout_width="172dp"
-        android:layout_height="47dp"
-        android:layout_marginBottom="120dp"
-        android:background="#7B384368"
-        android:text="Liste over ord"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.949"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.933"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_switchName"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

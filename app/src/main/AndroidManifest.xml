@@ -13,13 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.OrdlisteArk1"></activity>
-        <activity android:name=".ui.SkiftNavn" />
+        <activity android:name=".ui.SwitchName" />
         <activity android:name=".ui.LostScreen" />
         <activity android:name=".ui.WonScreen" />
-        <activity android:name=".ui.HowToPlay" />
+        <activity android:name=".ui.Settings" />
         <activity android:name=".ui.Choose_game" />
-        <activity android:name=".ui.GalgeSpil" />
+        <activity android:name=".ui.GalgeGame" />
         <activity android:name=".ui.Difficulty" />
         <activity android:name=".ui.Welcome_screen">
             <intent-filter>
@@ -29,18 +28,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".logik.MyKeyboard"
-            android:label="@string/my_keyboard"
-            android:permission="android.permission.BIND_INPUT_METHOD">
-            <intent-filter>
-                <action android:name="android.view.InputMethod" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.view.im"
-                android:resource="@xml/method" />
-        </service>
     </application>
 
 </manifest>

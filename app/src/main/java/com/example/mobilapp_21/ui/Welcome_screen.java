@@ -3,13 +3,10 @@ package com.example.mobilapp_21.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,28 +15,25 @@ import android.widget.TextView;
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
 import com.example.mobilapp_21.logik.LoadData;
-import com.example.mobilapp_21.logik.MyKeyboard;
 import com.example.mobilapp_21.logik.Score;
-import com.example.mobilapp_21.ui.Choose_game;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
 
 public class Welcome_screen extends AppCompatActivity implements View.OnClickListener {
 
-
     private Button button_start;
-    private EditText editText_navn;
-    private ArrayList<Score> topscore = new ArrayList<>();
-    private Galgelogik logik;
-    private String spillerNavn;
-    private ArrayList<String> ark1 = new ArrayList<>();
-    private ArrayList<String> ark2 = new ArrayList<>();
-    private ArrayList<String> ark3 = new ArrayList<>();
-    private ArrayList<String> ordDR = new ArrayList<>();
+    private EditText editText_name;
+    private ArrayList<Score> highScore = new ArrayList<>();
+    private Galgelogik logic;
+    private String playerName;
+    private ArrayList<String> sheet1 = new ArrayList<>();
+    private ArrayList<String> sheet2 = new ArrayList<>();
+    private ArrayList<String> sheet3 = new ArrayList<>();
+    private ArrayList<String> sheet4 = new ArrayList<>();
+    private ArrayList<String> wordDR = new ArrayList<>();
     LoadData loadData;
 
     @SuppressLint({"SetTextI18n"})
@@ -48,35 +42,34 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Laver enstans af Galgelogikken
-        logik = Galgelogik.getInstance();
+        //Creates an instance of Galgelogik
+        logic = Galgelogik.getInstance();
         loadData = LoadData.getInstance();
 
 
-        loadDataArk1();
-        loadDataArk2();
-        loadDataArk3();
-        loadDataDR();
+        loadDataSheet1();
+        loadDataSheet2();
+        loadDataSheet3();
+
 
         loadDataNameScore();
-        if (topscore != null) {
-            logik.setHighscoreListe(topscore);
+        if (highScore != null) {
+            logic.setHighscoreListe(highScore);
         }
 
-
-        if (ark1 == null || ark2 == null || ark3 == null){
-            sletcache();
-            hentRegneArk1.start();
+        if (sheet1 == null || sheet2 == null || sheet3 == null || sheet4 == null){
+            deleteCache();
+            getSheet.start();
         }
-        if (ordDR == null){
+        if (wordDR == null){
             hentDr.start();
         }
 
 
-        //Springer siden over, hvis man har et spillernNavn
-        if (spillerNavn != null) {
+        //Skips the frontpage if the player already have a name
+        if (playerName != null) {
                 Intent intent = new Intent(this, Choose_game.class);
-            intent.putExtra("SpillerNavn", spillerNavn);
+            intent.putExtra("PlayerName", playerName);
             saveDataName();
             finish();
             startActivity(intent);
@@ -86,28 +79,28 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         button_start = findViewById(R.id.button_startSpil);
         button_start.setOnClickListener(this);
 
-        editText_navn = findViewById(R.id.editText_name);
+        editText_name = findViewById(R.id.editText_name);
 
-        //sætter teksten på textviewet
-        TextView velkommen = findViewById(R.id.textView_velkommen);
-        velkommen.setText("Velkommen til galge spillet \n" +
+
+        TextView welcome = findViewById(R.id.textView_velkommen);
+        welcome.setText("Velkommen til galge spillet \n" +
                 "Udfyld navn for at starte spillet");
 
-        ImageView imageView_startside = findViewById(R.id.imageView_hovedmenu);
-        imageView_startside.setImageResource(R.drawable.galge);
+        ImageView imageView_startPage = findViewById(R.id.imageView_hovedmenu);
+        imageView_startPage.setImageResource(R.drawable.galge);
     }
 
     @Override
     public void onClick(View v) {
-        spillerNavn = editText_navn.getText().toString();
+        playerName = editText_name.getText().toString();
 
-        //starter ny aktivitet
+
         if (v == button_start) {
-            if (editText_navn.getText().toString().equals("")) {
+            if (editText_name.getText().toString().equals("")) {
                 button_start.setError("UDFYLD NAVN");
             } else {
                 Intent myIntent = new Intent(v.getContext(), Choose_game.class);
-                myIntent.putExtra("SpillerNavn", spillerNavn);
+                myIntent.putExtra("PlayerName", playerName);
                 saveDataName();
                 finish();
                 startActivity(myIntent);
@@ -115,8 +108,8 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    void sletcache(){
-        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+    void deleteCache(){
+        SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         sharedPreferences.edit().clear().apply();
     }
 
@@ -124,43 +117,38 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
     void loadDataNameScore() {
         SharedPreferences sharedPreferences = getSharedPreferences("Shared", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("topscoreListe", null);
+        String json = sharedPreferences.getString("highscoreList", null);
         Type type = new TypeToken<ArrayList<Score>>() {
         }.getType();
-        topscore = gson.fromJson(json, type);
-        spillerNavn = sharedPreferences.getString("spillernavn", null);
-        if (topscore == null) {
-            topscore = new ArrayList<>();
+        highScore = gson.fromJson(json, type);
+        playerName = sharedPreferences.getString("PlayerName", null);
+        if (highScore == null) {
+            highScore = new ArrayList<>();
         }
     }
 
     void saveDataName() {
         SharedPreferences sharedPreferences = getSharedPreferences("Shared", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("spillernavn", spillerNavn);
+        editor.putString("PlayerName", playerName);
         editor.apply();
     }
 
-    Thread hentRegneArk1 = new Thread() {
+    Thread getSheet = new Thread() {
 
         public void run() {
             try {
-                ark1 = logik.hentOrdFraRegneark("1");
-                saveDataArk1();
-                loadData.setArk1(ark1);
+                saveDataSheet1();
+                loadData.setSheet1(sheet1);
+                logic.sletMuligeOrd();
 
-                logik.sletMuligeOrd();
+                saveDataSheet2();
+                loadData.setSheet2(sheet2);
+                logic.sletMuligeOrd();
 
-                ark2 = logik.hentOrdFraRegneark("2");
-                saveDataArk2();
-                loadData.setArk2(ark2);
-                logik.sletMuligeOrd();
-
-                ark3 = logik.hentOrdFraRegneark("3");
-                saveDataArk3();
-                loadDataArk3();
-                logik.sletMuligeOrd();
-
+                saveDataSheet3();
+                loadDataSheet3();
+                logic.sletMuligeOrd();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -172,9 +160,9 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
 
         public void run() {
             try {
-                ordDR =logik.hentOrdFraDr();
+                wordDR = logic.hentOrdFraDr();
                 saveDataDr();
-                loadData.setOrdDR(ordDR);
+                loadData.setWordDR(wordDR);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -182,92 +170,95 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
     };
 
 
-    void loadDataArk1() {
-        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+    void loadDataSheet1() {
+        SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("Ark1", null);
+        String json = sharedPreferences.getString("sheet1", null);
         Type type = new TypeToken<ArrayList<String>>() {
         }.getType();
-        ark1 = gson.fromJson(json, type);
-        if (ark1 != null) {
-            loadData.setArk1(ark1);
+        sheet1 = gson.fromJson(json, type);
+        if (sheet1 != null) {
+            loadData.setSheet1(sheet1);
         }
     }
 
-    void loadDataArk2() {
-        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+    void loadDataSheet2() {
+        SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("Ark2", null);
+        String json = sharedPreferences.getString("sheet2", null);
         Type type = new TypeToken<ArrayList<String>>() {
         }.getType();
-        ark2 = gson.fromJson(json, type);
-        if (ark2 != null) {
-            loadData.setArk2(ark2);
+        sheet2 = gson.fromJson(json, type);
+        if (sheet2 != null) {
+            loadData.setSheet2(sheet2);
         }
     }
 
-    void loadDataArk3() {
-        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+    void loadDataSheet3() {
+        SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("Ark3", null);
+        String json = sharedPreferences.getString("sheet3", null);
         Type type = new TypeToken<ArrayList<String>>() {
         }.getType();
-        ark3 = gson.fromJson(json, type);
-        if (ark3 != null) {
-            loadData.setArk3(ark3);
+        sheet3 = gson.fromJson(json, type);
+        if (sheet3 != null) {
+            loadData.setSheet3(sheet3);
         }
     }
+
+
 
     void loadDataDR() {
-        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("DRord", null);
+        String json = sharedPreferences.getString("DRwords", null);
         Type type = new TypeToken<ArrayList<String>>() {
         }.getType();
-        ordDR = gson.fromJson(json, type);
-        if (ordDR != null) {
-            loadData.setOrdDR(ordDR);
+        wordDR = gson.fromJson(json, type);
+        if (wordDR != null) {
+            loadData.setWordDR(wordDR);
         }
     }
 
 
-    void saveDataArk1() throws Exception {
-        ark1 = logik.hentOrdFraRegneark("1");
-        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+    void saveDataSheet1() throws Exception {
+        sheet1 = logic.hentOrdFraRegneark("1");
+        SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(ark1);
-        editor.putString("Ark1", json);
+        String json = gson.toJson(sheet1);
+        editor.putString("sheet1", json);
         editor.apply();
     }
 
-    void saveDataArk2() throws Exception {
-        ark2 = logik.hentOrdFraRegneark("2");
-        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+    void saveDataSheet2() throws Exception {
+        sheet2 = logic.hentOrdFraRegneark("2");
+        SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(ark2);
-        editor.putString("Ark2", json);
+        String json = gson.toJson(sheet2);
+        editor.putString("sheet2", json);
         editor.apply();
     }
 
-    void saveDataArk3() throws Exception {
-        ark3 = logik.hentOrdFraRegneark("3");
-        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+    void saveDataSheet3() throws Exception {
+        sheet3 = logic.hentOrdFraRegneark("3");
+        SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(ark3);
-        editor.putString("Ark3", json);
+        String json = gson.toJson(sheet3);
+        editor.putString("sheet3", json);
         editor.apply();
     }
+
 
     void saveDataDr() throws Exception {
-        ordDR = logik.hentOrdFraDr();
-        SharedPreferences sharedPreferences = getSharedPreferences("MuligeOrd", MODE_PRIVATE);
+        wordDR = logic.hentOrdFraDr();
+        SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(ordDR);
-        editor.putString("DRord", json);
+        String json = gson.toJson(wordDR);
+        editor.putString("DRwords", json);
         editor.apply();
     }
 }

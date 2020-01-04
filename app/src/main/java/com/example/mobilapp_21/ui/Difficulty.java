@@ -2,31 +2,26 @@
 package com.example.mobilapp_21.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 
 import com.example.mobilapp_21.logik.Galgelogik;
 import com.example.mobilapp_21.logik.LoadData;
-import com.example.mobilapp_21.logik.MyAdapterDiff;
 import com.example.mobilapp_21.R;
 
 
-public class Difficulty extends AppCompatActivity implements MyAdapterDiff.OnNoteListner {
+public class Difficulty extends AppCompatActivity {
 
-
-    private RecyclerView recyclerView_sværhedsgrad;
-    private RecyclerView.Adapter myAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private String sværhedsgrad, spillerNavn;
-    private ProgressBar progressBar;
+    private String diff, playerName;
     private Galgelogik logik;
     private LoadData loadData;
 
-    String[] sværhedsgrader = {"1", "2", "3"};
+    String[] diffArr = {"1", "2", "3"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,33 +33,25 @@ public class Difficulty extends AppCompatActivity implements MyAdapterDiff.OnNot
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null) {
-            spillerNavn = lastIntent.getString("SpillerNavn");
+            playerName = lastIntent.getString("PlayerName");
         }
 
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.INVISIBLE);
+        ListView listView = findViewById(R.id.listview_test);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,diffArr);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                diff = diffArr[position];
+                Intent i = new Intent(view.getContext(), GalgeGame.class  );
+                i.putExtra("GameType", 1);
+                i.putExtra("difficulty", diff);
+                i.putExtra("PlayerName", playerName);
+                logik.setMuligeOrd(loadData.getArk(diff));
+                logik.nulstil();
+                startActivity(i);
 
-        recyclerView_sværhedsgrad = findViewById(R.id.liste_1);
-        recyclerView_sværhedsgrad.setHasFixedSize(true);
-        layoutManager = new GridLayoutManager(this,3);
-        recyclerView_sværhedsgrad.setLayoutManager(layoutManager);
-
-        recyclerView_sværhedsgrad.setBackgroundColor(5);
-        myAdapter = new MyAdapterDiff(sværhedsgrader, this);
-
-        recyclerView_sværhedsgrad.setAdapter(myAdapter);
-    }
-
-    @Override
-    public void onNoteClick(int position) {
-        progressBar.setVisibility(View.VISIBLE);
-        sværhedsgrad = sværhedsgrader[position];
-        Intent i = new Intent(this, GalgeSpil.class);
-        i.putExtra("GameType", 1);
-        i.putExtra("sværhedsgrad", sværhedsgrad);
-        i.putExtra("SpillerNavn", spillerNavn);
-        logik.setMuligeOrd(loadData.getArk(sværhedsgrad));
-        logik.nulstil();
-        startActivity(i);
+            }
+        });
     }
 }
