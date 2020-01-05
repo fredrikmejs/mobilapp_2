@@ -124,7 +124,7 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
         );
 
         if (logic.erSpilletVundet()) {
-            int highScore = beregnScore();
+            int highScore = calculateScore();
             int mistakes = logic.getAntalForkerteBogstaver();
             logic.setHighScoreListe(playerName, highScore);
             saveData();
@@ -135,7 +135,7 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
             startActivity(intent);
         }
         if (logic.erSpilletTabt()) {
-            int highscore = beregnScore();
+            int highscore = calculateScore();
             logic.setHighScoreListe(playerName, highscore);
             saveData();
             Intent intent = new Intent(this, LostScreen.class);
@@ -145,7 +145,7 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    public int beregnScore() {
+    public int calculateScore() {
         int score = 1000;
         boolean isWon = logic.erSpilletVundet(), erTabt = logic.erSpilletTabt();
         int wrongs = logic.getAntalForkerteBogstaver();

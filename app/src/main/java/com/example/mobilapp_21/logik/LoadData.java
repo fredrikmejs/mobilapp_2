@@ -64,4 +64,10 @@ public class LoadData {
         wordDR.addAll(arr);
     }
 
+
+
+
+
+
+
 }

@@ -46,7 +46,6 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         logic = Galgelogik.getInstance();
         loadData = LoadData.getInstance();
 
-
         loadDataSheet1();
         loadDataSheet2();
         loadDataSheet3();
@@ -173,6 +172,9 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+
+
+
     private void saveDataSheet1() throws Exception {
         sheet1 = logic.hentOrdFraRegneark("1");
         SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
@@ -204,6 +206,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
     }
 
 
+
     @SuppressLint("StaticFieldLeak")
     public class AsyncTask extends android.os.AsyncTask<String,String, String> {
         ProgressDialog p;
@@ -229,8 +232,8 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
                     loadData.setSheet2(sheet2);
                     logic.sletMuligeOrd();
 
-                    saveDataSheet3();
-                    loadDataSheet3();
+                   saveDataSheet3();
+                    loadData.setSheet3(sheet3);
                     logic.sletMuligeOrd();
 
                     wordDR = logic.hentOrdFraDr();
