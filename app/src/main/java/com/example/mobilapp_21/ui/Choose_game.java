@@ -59,10 +59,11 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         logic.sletMuligeOrd();
         if (v == button_DR){
+
             Intent intent = new Intent(this, GalgeGame.class);
             intent.putExtra("GameType",0);
             //Makes sure the Dr words is loaded
-            while (loadData.getWordDR().size() == 0){}
+
             logic.setMuligeOrd(loadData.getWordDR());
             logic.nulstil();
             startActivity(intent);

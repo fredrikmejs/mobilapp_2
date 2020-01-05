@@ -52,7 +52,6 @@ private TextView headline;
         }
 
         initRecylerView();
-
     }
 
     private void initRecylerView(){
@@ -65,7 +64,7 @@ private TextView headline;
     @Override
     public void onClick(View v) {
         if(v == button_back){
-            Intent intent = new Intent(this,Choose_game.class);
+            Intent intent = new Intent(this,ChooseWordList.class);
             finish();
             startActivity(intent);
         }

@@ -3,6 +3,7 @@ package com.example.mobilapp_21.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class Welcome_screen extends AppCompatActivity implements View.OnClickListener {
-
+    public int getType = 0;
     private Button button_start;
     private EditText editText_name;
     private ArrayList<Score> highScore = new ArrayList<>();
@@ -39,7 +40,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_welcome_screen);
 
         //Creates an instance of Galgelogik
         logic = Galgelogik.getInstance();
@@ -49,21 +50,12 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         loadDataSheet1();
         loadDataSheet2();
         loadDataSheet3();
-
-
         loadDataNameScore();
 
         if (highScore.size() != 0) {
             logic.setHighscoreListe(highScore);
         }
-
-        if (sheet1.size() == 0|| sheet2.size() == 0 || sheet3.size() == 0){
-            deleteCache();
-            getSheet.start();
-        }
-        if (wordDR.size() == 0){
-            getDr.start();
-        }
+        startAsyncTask();
 
 
         //Skips the frontpage if the player already have a name
@@ -93,14 +85,13 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         playerName = editText_name.getText().toString();
-
-
         if (v == button_start) {
             if (editText_name.getText().toString().equals("")) {
                 button_start.setError("UDFYLD NAVN");
             } else {
                 Intent myIntent = new Intent(v.getContext(), Choose_game.class);
-                myIntent.putExtra("PlayerName", playerName);
+                playerName = editText_name.getText().toString();
+                loadData.setName(playerName);
                 saveDataName();
                 finish();
                 startActivity(myIntent);
@@ -108,13 +99,25 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    void deleteCache(){
+    private void startAsyncTask(){
+        AsyncTask asyncTask = new AsyncTask();
+        if (sheet1 == null|| sheet2== null|| sheet3== null){
+            deleteCache();
+            getType = 1;
+            asyncTask.execute();
+
+        } else{
+            asyncTask.execute();
+        }
+    }
+
+    private void deleteCache(){
         SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         sharedPreferences.edit().clear().apply();
     }
 
 
-    void loadDataNameScore() {
+    private void loadDataNameScore() {
         SharedPreferences sharedPreferences = getSharedPreferences("Shared", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("HighScoreList", null);
@@ -127,50 +130,14 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    void saveDataName() {
+    public void saveDataName() {
         SharedPreferences sharedPreferences = getSharedPreferences("Shared", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("PlayerName", playerName);
         editor.apply();
     }
 
-    Thread getSheet = new Thread() {
-
-        public void run() {
-            try {
-                saveDataSheet1();
-                loadData.setSheet1(sheet1);
-                logic.sletMuligeOrd();
-
-                saveDataSheet2();
-                loadData.setSheet2(sheet2);
-                logic.sletMuligeOrd();
-
-                saveDataSheet3();
-                loadDataSheet3();
-                logic.sletMuligeOrd();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
-
-    Thread getDr = new Thread() {
-
-        public void run() {
-            try {
-                wordDR = logic.hentOrdFraDr();
-                saveDataDr();
-                loadData.setWordDR(wordDR);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
-
-
-    void loadDataSheet1() {
+    private void loadDataSheet1() {
         SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("sheet1", null);
@@ -182,7 +149,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    void loadDataSheet2() {
+    private void loadDataSheet2() {
         SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("sheet2", null);
@@ -194,7 +161,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    void loadDataSheet3() {
+    private void loadDataSheet3() {
         SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("sheet3", null);
@@ -206,22 +173,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-
-
-    void loadDataDR() {
-        SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("DRwords", null);
-        Type type = new TypeToken<ArrayList<String>>() {
-        }.getType();
-        wordDR = gson.fromJson(json, type);
-        if (wordDR != null) {
-            loadData.setWordDR(wordDR);
-        }
-    }
-
-
-    void saveDataSheet1() throws Exception {
+    private void saveDataSheet1() throws Exception {
         sheet1 = logic.hentOrdFraRegneark("1");
         SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -231,7 +183,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         editor.apply();
     }
 
-    void saveDataSheet2() throws Exception {
+    private void saveDataSheet2() throws Exception {
         sheet2 = logic.hentOrdFraRegneark("2");
         SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -241,7 +193,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         editor.apply();
     }
 
-    void saveDataSheet3() throws Exception {
+    private void saveDataSheet3() throws Exception {
         sheet3 = logic.hentOrdFraRegneark("3");
         SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -252,13 +204,56 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
     }
 
 
-    void saveDataDr() throws Exception {
-        wordDR = logic.hentOrdFraDr();
-        SharedPreferences sharedPreferences = getSharedPreferences("possibleWords", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(wordDR);
-        editor.putString("DRwords", json);
-        editor.apply();
+    @SuppressLint("StaticFieldLeak")
+    public class AsyncTask extends android.os.AsyncTask<String,String, String> {
+        ProgressDialog p;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            p = new ProgressDialog(Welcome_screen.this);
+            p.setMessage("Downloader ord fra DR og RegneArk");
+            p.setIndeterminate(false);
+            p.setCancelable(false);
+            p.show();
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                if(getType == 1) {
+                    saveDataSheet1();
+                    loadData.setSheet1(sheet1);
+                    logic.sletMuligeOrd();
+
+                    saveDataSheet2();
+                    loadData.setSheet2(sheet2);
+                    logic.sletMuligeOrd();
+
+                    saveDataSheet3();
+                    loadDataSheet3();
+                    logic.sletMuligeOrd();
+
+                    wordDR = logic.hentOrdFraDr();
+                    loadData.setWordDR(wordDR);
+                }
+                else  {
+                    wordDR = logic.hentOrdFraDr();
+                    loadData.setWordDR(wordDR);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String string) {
+            super.onPostExecute(string);
+                p.hide();
+        }
     }
 }
+
+
+
+

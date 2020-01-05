@@ -10,7 +10,7 @@
         android:id="@+id/button_startSpil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="132dp"
         android:text="Start spillet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,12 +20,14 @@
         android:id="@+id/imageView_hovedmenu"
         android:layout_width="264dp"
         android:layout_height="269dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="75dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_overskrift"
         app:srcCompat="@color/colorPrimaryDark"
-        tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
+        tools:srcCompat="@drawable/galge" />
 
     <TextView
         android:id="@+id/text_overskrift"
@@ -44,22 +46,22 @@
 
     <TextView
         android:id="@+id/textView_velkommen"
-        android:layout_width="130dp"
-        android:layout_height="99dp"
+        android:layout_width="145dp"
+        android:layout_height="137dp"
         android:layout_marginBottom="297dp"
         android:text="TextView"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.59"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_overskrift"
-        app:layout_constraintVertical_bias="0.659" />
+        app:layout_constraintVertical_bias="0.579" />
 
     <EditText
         android:id="@+id/editText_name"
-        android:layout_width="223dp"
-        android:layout_height="41dp"
+        android:layout_width="229dp"
+        android:layout_height="52dp"
         android:layout_marginTop="80dp"
         android:layout_marginBottom="23dp"
         android:ems="10"
@@ -67,8 +69,8 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/button_startSpil"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_hovedmenu" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_hovedmenu"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
