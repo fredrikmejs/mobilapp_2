@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
@@ -55,6 +56,7 @@ private LoadData loadData;
         if (v == button_clear) {
             deleteCache();
             logic.rydHighscoreListe();
+            Toast.makeText(this,"Listen er ryddet",Toast.LENGTH_SHORT).show();
         }else if (v == button_newName){
             Intent intent = new Intent(this, SwitchName.class);
             startActivity(intent);

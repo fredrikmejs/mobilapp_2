@@ -3,7 +3,9 @@ package com.example.mobilapp_21.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,7 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
     private int highScore;
     private Galgelogik logic;
     private LoadData data;
+    private MediaPlayer mediaPlayer;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -48,6 +51,11 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
             "der er brugt " + logic.getAntalForkerteBogstaver() +" forsøg\n"
         + "med bogstaverne " + logic.getBrugteBogstaver().toString() + "\n"+
             "Din Score er: " + highScore);
+
+        //Sound taken from https://www.soundjay.com/failure-sound-effect.html
+        mediaPlayer = MediaPlayer.create(this, R.raw.fail);
+        mediaPlayer.start();
+
     }
 
     @Override

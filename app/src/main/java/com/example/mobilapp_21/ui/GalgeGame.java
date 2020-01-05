@@ -65,8 +65,8 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
         editText_guess = findViewById(R.id.editText_gæt);
 
         imageView_game = findViewById(R.id.imageView_spil);
-        graphic();
 
+        graphic();
 
         textView_secretWord = findViewById(R.id.textView_hemmeligtOrd);
         textView_secretWord.setText("Gæt ordet" + logic.getSynligtOrd());
@@ -77,13 +77,14 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
 
         if (v == button_guess){
-            String svar = editText_guess.getText().toString();
+            String answer = editText_guess.getText().toString();
 
             //Checks if it's a valid answer
-            if (svar.length() == 1){
-                logic.gætBogstav(svar);
+            if (answer.length() == 1){
+
+                logic.gætBogstav(answer);
                 editText_guess.setText("");
-                opdaterTekst();
+                updateText();
                 graphic();
             }else {
                 editText_guess.setText("");
@@ -92,9 +93,7 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
             }
         }
         if (v == button_back){
-            //Går jeg man kan gå tilbage til menu'en
             Intent intent = new Intent(GalgeGame.this, Choose_game.class);
-            intent.putExtra("PlayerName", playerName);
             finish();
             startActivity(intent);
         }
@@ -115,22 +114,23 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
     }
 
     /**
-     * Tekst, når der bliver gættet.
+     * Updates the text after a guess
      */
     @SuppressLint("SetTextI18n")
-    private void opdaterTekst() {
+    private void updateText() {
         textView_secretWord.setText("Gæt ordet   " + logic.getSynligtOrd() +
                 "\nAntal forkerte bogstaver: " + logic.getAntalForkerteBogstaver() +
                 "\nBrugt følgende bogstaver: " + logic.getBrugteBogstaver()
         );
 
         if (logic.erSpilletVundet()) {
-            int highscore = beregnScore();
-            logic.setHighScoreListe(playerName, highscore);
+            int highScore = beregnScore();
+            int mistakes = logic.getAntalForkerteBogstaver();
+            logic.setHighScoreListe(playerName, highScore);
             saveData();
             Intent intent = new Intent(this, WonScreen.class);
-            intent.putExtra("Highscore",highscore);
-            intent.putExtra("PlayerName", playerName);
+            intent.putExtra("Highscore",highScore);
+            intent.putExtra("mistakes",mistakes);
             finish();
             startActivity(intent);
         }
@@ -140,7 +140,6 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
             saveData();
             Intent intent = new Intent(this, LostScreen.class);
             intent.putExtra("Highscore",highscore);
-            intent.putExtra("PlayerName", playerName);
             finish();
             startActivity(intent);
         }
@@ -190,7 +189,7 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
      * Switches picture depending on number of wrong answers
      */
     private void graphic(){
-        int wrongs = logic.getAntalForkerteBogstaver();
+       int wrongs = logic.getAntalForkerteBogstaver();
         switch (wrongs){
             case 0:
                 imageView_game.setImageResource(R.drawable.galge);
