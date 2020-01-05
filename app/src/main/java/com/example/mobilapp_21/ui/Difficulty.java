@@ -17,7 +17,7 @@ import com.example.mobilapp_21.R;
 
 public class Difficulty extends AppCompatActivity {
 
-    private String diff, playerName;
+    private String diff;
     private Galgelogik logik;
     private LoadData loadData;
 
@@ -31,10 +31,6 @@ public class Difficulty extends AppCompatActivity {
         loadData = LoadData.getInstance();
         logik = Galgelogik.getInstance();
 
-        Bundle lastIntent = getIntent().getExtras();
-        if (lastIntent != null) {
-            playerName = lastIntent.getString("PlayerName");
-        }
 
         ListView listView = findViewById(R.id.listview_test);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,diffArr);
@@ -46,8 +42,7 @@ public class Difficulty extends AppCompatActivity {
                 Intent i = new Intent(view.getContext(), GalgeGame.class  );
                 i.putExtra("GameType", 1);
                 i.putExtra("difficulty", diff);
-                i.putExtra("PlayerName", playerName);
-                logik.setMuligeOrd(loadData.getArk(diff));
+                logik.setMuligeOrd(loadData.getSheet(diff));
                 logik.nulstil();
                 startActivity(i);
 

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
+import com.example.mobilapp_21.logik.LoadData;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -23,10 +24,11 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
     private Button button_guess, button_back, button_reset;
     private TextView textView_secretWord;
     private EditText editText_guess;
-    private String dfficulty, playName;
+    private String dfficulty, playerName;
     private ImageView imageView_game;
     private int gameType;
     private int reset = 0;
+    LoadData data;
     private ArrayList<String> possibleWords = new ArrayList<>();
 
 
@@ -36,7 +38,7 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galge_spil);
         logic = Galgelogik.getInstance();
-
+        data = LoadData.getInstance();
 
         //Uses the difficulty from Difficulty
         Bundle lastIntent = getIntent().getExtras();
@@ -45,10 +47,11 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
                 dfficulty = lastIntent.getString("difficulty");
             if (lastIntent.getInt("reset") != 0)
                 reset = lastIntent.getInt("nulstil");
-            if (lastIntent.getString("PlayerName") != null)
-                playName = lastIntent.getString("PlayerName");
             gameType = lastIntent.getInt("GameType");
         }
+
+
+        playerName = data.getName();
 
         button_guess = findViewById(R.id.button_gæt);
         button_guess.setOnClickListener(this);
@@ -91,7 +94,7 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
         if (v == button_back){
             //Går jeg man kan gå tilbage til menu'en
             Intent intent = new Intent(GalgeGame.this, Choose_game.class);
-            intent.putExtra("PlayerName", playName);
+            intent.putExtra("PlayerName", playerName);
             finish();
             startActivity(intent);
         }
@@ -105,7 +108,7 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
             intent.putExtra("reset",reset);
             intent.putExtra("difficulty",dfficulty);
             intent.putExtra("GameType", gameType);
-            intent.putExtra("PlayerName", playName);
+            intent.putExtra("PlayerName", playerName);
             finish();
             startActivity(intent);
         }
@@ -123,21 +126,21 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
 
         if (logic.erSpilletVundet()) {
             int highscore = beregnScore();
-            logic.setHighScoreListe(playName, highscore);
+            logic.setHighScoreListe(playerName, highscore);
             saveData();
             Intent intent = new Intent(this, WonScreen.class);
             intent.putExtra("Highscore",highscore);
-            intent.putExtra("PlayerName", playName);
+            intent.putExtra("PlayerName", playerName);
             finish();
             startActivity(intent);
         }
         if (logic.erSpilletTabt()) {
             int highscore = beregnScore();
-            logic.setHighScoreListe(playName, highscore);
+            logic.setHighScoreListe(playerName, highscore);
             saveData();
             Intent intent = new Intent(this, LostScreen.class);
             intent.putExtra("Highscore",highscore);
-            intent.putExtra("PlayerName", playName);
+            intent.putExtra("PlayerName", playerName);
             finish();
             startActivity(intent);
         }

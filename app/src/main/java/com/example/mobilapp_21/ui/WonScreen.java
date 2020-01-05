@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
+import com.example.mobilapp_21.logik.LoadData;
 import com.github.jinatonic.confetti.CommonConfetti;
 
 
@@ -26,6 +27,7 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
     private int highScore, stop = 0;
     private ArrayList<String> possibleWords = new ArrayList<>();
     private Galgelogik logic;
+    private LoadData data;
     private ViewGroup container;
     private Handler mhandler = new Handler();
 
@@ -40,13 +42,16 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
             container = findViewById(R.id.container);
 
             won.run();
+
         logic = Galgelogik.getInstance();
+        data = LoadData.getInstance();
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null) {
             highScore = lastIntent.getInt("Highscore");
-            playerName = lastIntent.getString("PlayerName");
         }
+
+        playerName = data.getName();
 
         button_menu = findViewById(R.id.button_vandtMenu);
         button_menu.setOnClickListener(this);

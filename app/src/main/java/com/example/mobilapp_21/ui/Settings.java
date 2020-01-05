@@ -10,11 +10,14 @@ import android.widget.Button;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
+import com.example.mobilapp_21.logik.LoadData;
 
 public class Settings extends AppCompatActivity implements View.OnClickListener {
-private Button button_back, button_clear, button_newName;
+private Button button_back, button_clear, button_newName, button_possibleWords;
 private String playerName;
 private Galgelogik logic;
+private LoadData loadData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,14 +25,16 @@ private Galgelogik logic;
         setContentView(R.layout.activity_settings);
 
         logic = Galgelogik.getInstance();
+        loadData = LoadData.getInstance();
 
-        Bundle lastIntent = getIntent().getExtras();
-        if (lastIntent != null){
-            playerName = lastIntent.getString("PlayerName");
-        }
+        playerName = loadData.getName();
 
-        button_back = findViewById(R.id.button_backToMenu);
+
+        button_back = findViewById(R.id.button_backtoMenu);
         button_back.setOnClickListener(this);
+
+        button_possibleWords = findViewById(R.id.button_possibleWords);
+        button_possibleWords.setOnClickListener(this);
 
         button_newName = findViewById(R.id.button_switchName);
         button_newName.setOnClickListener(this);
@@ -43,7 +48,7 @@ private Galgelogik logic;
     public void onClick(View v) {
         if (v == button_back) {
             Intent intent = new Intent(this, Choose_game.class);
-            intent.putExtra("PlayerName", playerName);
+
             finish();
             startActivity(intent);
         }
@@ -52,7 +57,10 @@ private Galgelogik logic;
             logic.rydHighscoreListe();
         }else if (v == button_newName){
             Intent intent = new Intent(this, SwitchName.class);
-            intent.putExtra("Playername",playerName);
+            startActivity(intent);
+        } else if(v == button_possibleWords){
+            Intent intent = new Intent(this, ChooseWordList.class);
+            finish();
             startActivity(intent);
         }
     }

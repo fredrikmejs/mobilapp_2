@@ -8,6 +8,21 @@
     tools:context=".ui.Settings">
 
     <Button
+        android:id="@+id/button_possibleWords"
+        android:layout_width="172dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="44dp"
+        android:background="#7B384368"
+        android:text="Mulige ord"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.933"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_rydTopscore"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
         android:id="@+id/button_switchName"
         android:layout_width="172dp"
         android:layout_height="47dp"
@@ -72,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_reglerTekst2" />
 
     <Button
-        android:id="@+id/button_backToMenu"
+        android:id="@+id/button_backtoMenu"
         android:layout_width="65dp"
         android:layout_height="42dp"
         android:layout_marginStart="4dp"

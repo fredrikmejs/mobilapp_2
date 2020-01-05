@@ -19,10 +19,10 @@ import java.util.ArrayList;
 public class Choose_game extends AppCompatActivity implements View.OnClickListener  {
 
     private Button button_settings, button_sheet, button_DR;
-    private String playName;
     private Galgelogik logic;
     private ArrayList<Score> highScore = new ArrayList<>();
     private LoadData loadData;
+    private TextView textView_highScoreList;
 
 
 
@@ -40,12 +40,6 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
             highScore.addAll(logic.getHighscoreListe());
         }
 
-        Bundle lastIntent = getIntent().getExtras();
-        if (lastIntent != null){
-            playName = lastIntent.getString("PlayerName");
-        }
-
-
         button_DR = findViewById(R.id.button_DROrd);
         button_DR.setOnClickListener(this);
 
@@ -55,24 +49,10 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
         button_sheet = findViewById(R.id.button_regneArk);
         button_sheet.setOnClickListener(this);
 
-        TextView textView_scoreliste = findViewById(R.id.textView_topscore);
+        textView_highScoreList = findViewById(R.id.textView_topscore);
 
-        if (highScore.size() >= 3){
-            textView_scoreliste.setText("Top 3 scorer er:\n" +
-                highScore.get(0) + "\n" +
-                highScore.get(1) + "\n" +
-                highScore.get(2));
+        setHighscoreList();
 
-        } else if (highScore.size() == 2){
-            textView_scoreliste.setText("Top 2 scorer er:\n" +
-                highScore.get(0) + "\n" +
-                highScore.get(1));
-        }else if (highScore.size() == 1){
-            textView_scoreliste.setText("Nuværende topscore er:\n" +
-                highScore.get(0));
-        }else {
-            textView_scoreliste.setText("Der ikke sat nogen topscore endnu:");
-        }
     }
 
     @Override
@@ -81,7 +61,6 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
         if (v == button_DR){
             Intent intent = new Intent(this, GalgeGame.class);
             intent.putExtra("GameType",0);
-            intent.putExtra("PlayerName", playName);
             //Makes sure the Dr words is loaded
             while (loadData.getWordDR().size() == 0){}
             logic.setMuligeOrd(loadData.getWordDR());
@@ -89,12 +68,45 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
             startActivity(intent);
         }else if (v == button_settings) {
             Intent intent = new Intent(this, Settings.class);
-            intent.putExtra("PlayerName", playName);
             startActivity(intent);
         } else if (v == button_sheet) {
             Intent intent = new Intent(this, Difficulty.class);
-            intent.putExtra("PlayerName", playName);
             startActivity(intent);
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setHighscoreList(){
+        if (highScore.size() >= 5){
+            textView_highScoreList.setText("Top 5 scorere er:\n" +
+                    highScore.get(0) + "\n" +
+                    highScore.get(1) + "\n" +
+                    highScore.get(2)+ "\n" +
+                    highScore.get(3) + "\n" +
+                    highScore.get(4)+ "\n");
+
+        } else if (highScore.size() == 4) {
+            textView_highScoreList.setText("Top 4 scorer er:\n" +
+                    highScore.get(0) + "\n" +
+                    highScore.get(1) + "\n" +
+                    highScore.get(2)+ "\n" +
+                    highScore.get(3) + "\n");
+
+        } else if (highScore.size() == 3) {
+            textView_highScoreList.setText("Top 3 scorer er:\n" +
+                    highScore.get(0) + "\n" +
+                    highScore.get(1) + "\n" +
+                    highScore.get(2));
+
+        } else if (highScore.size() == 2) {
+            textView_highScoreList.setText("Top 2 scorer er:\n" +
+                    highScore.get(0) + "\n" +
+                    highScore.get(1));
+        } else if (highScore.size() == 1) {
+            textView_highScoreList.setText("Nuværende topscore er:\n" +
+                    highScore.get(0));
+        } else {
+            textView_highScoreList.setText("Der ikke sat nogen topscore endnu:");
         }
     }
 

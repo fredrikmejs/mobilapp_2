@@ -69,7 +69,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         //Skips the frontpage if the player already have a name
         if (playerName != null) {
                 Intent intent = new Intent(this, Choose_game.class);
-            intent.putExtra("PlayerName", playerName);
+            loadData.setName(playerName);
             saveDataName();
             finish();
             startActivity(intent);

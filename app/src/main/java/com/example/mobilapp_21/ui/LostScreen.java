@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
+import com.example.mobilapp_21.logik.LoadData;
 
 public class LostScreen extends AppCompatActivity implements View.OnClickListener {
 
@@ -18,6 +19,7 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
     private String playerName;
     private int highScore;
     private Galgelogik logic;
+    private LoadData data;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -26,12 +28,14 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_lost_screen);
 
         logic = Galgelogik.getInstance();
+        data = LoadData.getInstance();
 
         Bundle lastIntent = getIntent().getExtras();
         if (lastIntent != null) {
             highScore = lastIntent.getInt("Highscore");
-            playerName = lastIntent.getString("PlayerName");
         }
+
+        playerName = data.getName();
 
         button_menu = findViewById(R.id.button_tabtMenu);
         button_menu.setOnClickListener(this);

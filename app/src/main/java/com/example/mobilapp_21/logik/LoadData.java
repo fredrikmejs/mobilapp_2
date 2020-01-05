@@ -8,6 +8,7 @@ public class LoadData {
     private ArrayList<String> sheet2 = new ArrayList<>();
     private ArrayList<String> sheet3 = new ArrayList<>();
     private ArrayList<String> wordDR = new ArrayList<>();
+    private String name;
 
 
     public static LoadData getInstance() {
@@ -17,8 +18,15 @@ public class LoadData {
     private LoadData() {
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
 
-    public ArrayList getArk(String value) {
+    public String getName(){
+        return name;
+    }
+
+    public ArrayList getSheet(String value) {
 
         if (value.equals("1")) {
             return sheet1;
