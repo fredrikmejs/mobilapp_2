@@ -35,7 +35,7 @@
 
     <ImageView
         android:id="@+id/image_won"
-        android:layout_width="405dp"
+        android:layout_width="match_parent"
         android:layout_height="197dp"
         android:layout_marginStart="3dp"
         android:layout_marginTop="38dp"

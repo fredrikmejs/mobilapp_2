@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/textView_tabt"
-        android:layout_width="308dp"
-        android:layout_height="112dp"
+        android:layout_width="327dp"
+        android:layout_height="113dp"
         android:layout_marginTop="35dp"
         android:text="aaaaaaaaaa"
         android:textSize="18sp"
@@ -33,7 +33,7 @@
 
     <ImageView
         android:id="@+id/imageView_tabt"
-        android:layout_width="405dp"
+        android:layout_width="match_parent"
         android:layout_height="197dp"
         android:layout_marginStart="3dp"
         android:layout_marginTop="38dp"
