@@ -4,85 +4,104 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/galge"
+    android:background="@drawable/background_color_setting"
     tools:context=".ui.Settings">
 
     <Button
-        android:id="@+id/button_possibleWords"
-        android:layout_width="172dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="44dp"
-        android:background="#7B384368"
-        android:text="Mulige ord"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/button_switchName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/color_button"
+        android:text="Skift navn"
+        android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.933"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_rydTopscore"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_reglerTekst3" />
 
     <Button
-        android:id="@+id/button_switchName"
-        android:layout_width="172dp"
-        android:layout_height="47dp"
-        android:layout_marginBottom="152dp"
-        android:background="#7B384368"
-        android:text="Skift navn"
+        android:id="@+id/button_rydTopscore"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/color_button"
+        android:text="Ryd Topscore listen"
+        android:textColor="@color/textColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_switchName" />
+
+    <Button
+        android:id="@+id/button_possibleWords"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="44dp"
+        android:background="@drawable/color_button"
+        android:text="Mulige ord"
+        android:textColor="@color/textColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.933"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_rydTopscore"
+        app:layout_constraintVertical_bias="0.004" />
 
     <TextView
         android:id="@+id/TextView_regler"
         android:layout_width="221dp"
         android:layout_height="44dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="72dp"
         android:text="Guide til spillet"
-        android:textColor="#B9C11C1C"
-        android:textSize="28sp"
+        android:textColor="@color/textColor"
+        android:textSize="30sp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.982"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_reglerTekst1"
-        android:layout_width="290dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="98dp"
-        android:layout_marginTop="208dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="152dp"
         android:text="1. Du skal vælge game-mode"
-        android:textSize="18sp"
+        android:textColor="@color/textColor"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView_reglerTekst2"
-        android:layout_width="293dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="98dp"
-        android:layout_marginTop="5dp"
-        android:text="2. Hvis du vælger regneark, skal du trykke på den sværhedsgrad du godt kunne tænke dig"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_reglerTekst1" />
-
-    <TextView
         android:id="@+id/textView_reglerTekst3"
-        android:layout_width="292dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="98dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
         android:text="3. Gæt det givet ord inden for 7 forsøg"
-        android:textSize="18sp"
+        android:textColor="@color/textColor"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_reglerTekst2" />
+
+    <TextView
+        android:id="@+id/textView_reglerTekst2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="2. Hvis du vælger regneark, skal du trykke på den ønskede sværhedsgrad"
+        android:textColor="@color/textColor"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_reglerTekst1" />
 
     <Button
         android:id="@+id/button_backtoMenu"
@@ -95,20 +114,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
-
-    <Button
-        android:id="@+id/button_rydTopscore"
-        android:layout_width="172dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="44dp"
-        android:background="#7B384368"
-        android:text="Ryd Topscore listen"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.933"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_switchName"
-        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

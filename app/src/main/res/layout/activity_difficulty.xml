@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_color_menu"
     tools:context=".ui.Difficulty">
 
     <Button
@@ -25,49 +26,22 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="54dp"
         android:text="Vælg sværhedsgrad"
+        android:textColor="@color/textColor"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView_info"
-        android:layout_width="385dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="14dp"
-        android:text="Tryk på 1,2 eller 3 for at angive sværhedsgraden"
-        android:textColor="#00AF2727"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_overskrift" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/liste_1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="256dp"
-        android:background="#00C62626"
-        android:backgroundTint="#00CB2323"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread_inside"
-        tools:itemCount="0" />
-
     <ListView
         android:id="@+id/listview_test"
-        android:layout_width="415dp"
+        android:layout_width="match_parent"
         android:layout_height="448dp"
+        android:layout_marginBottom="36dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/liste_1" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

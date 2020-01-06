@@ -167,12 +167,12 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
             graphic();
             button_p.setVisibility(View.INVISIBLE);
         }else if (v == button_q){
-            logic.gætBogstav("p");
+            logic.gætBogstav("q");
             updateText();
             graphic();
             button_q.setVisibility(View.INVISIBLE);
         }else if (v == button_r){
-            logic.gætBogstav("q");
+            logic.gætBogstav("r");
             updateText();
             graphic();
             button_r.setVisibility(View.INVISIBLE);

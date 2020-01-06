@@ -52,7 +52,7 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
 
         textView_highScoreList = findViewById(R.id.textView_topscore);
 
-        setHighscoreList();
+        setHighscoreListText();
 
     }
 
@@ -80,10 +80,13 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * Sets the highscore list on the main menu, depending on the amount of games played.
+     */
     @SuppressLint("SetTextI18n")
-    private void setHighscoreList(){
+    private void setHighscoreListText(){
         if (highScore.size() >= 5){
-            textView_highScoreList.setText("Top 5 scorere er:\n" +
+            textView_highScoreList.setText("Top 5 scorere er:\n\n" +
                     highScore.get(0) + "\n" +
                     highScore.get(1) + "\n" +
                     highScore.get(2)+ "\n" +

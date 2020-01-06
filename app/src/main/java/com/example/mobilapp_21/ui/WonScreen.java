@@ -72,7 +72,7 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
 
         TextView textView_text = findViewById(R.id.textView_vandt);
         textView_text.setText("Ordet var " + logic.getOrdet() +
-                "\nDu havde " + logic.getAntalForkerteBogstaver()+ " forkerte\n" +
+                "\nAntal forkerte: " + logic.getAntalForkerteBogstaver()+ "\n" +
                 "Din Score er: " + highScore);
 
         //Sound taken from http://soundbible.com/478-Cheering-3.html

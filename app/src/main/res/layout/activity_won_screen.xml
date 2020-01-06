@@ -5,6 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#90caf9"
     tools:context=".ui.WonScreen">
 
 
@@ -14,7 +15,8 @@
         android:layout_height="133dp"
         android:layout_marginTop="35dp"
         android:text="aaaaaaaaaa"
-        android:textSize="24sp"
+        android:textColor="@color/textColor"
+        android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,9 +27,10 @@
         android:layout_width="336dp"
         android:layout_height="43dp"
         android:layout_marginTop="48dp"
+        android:gravity="center"
         android:text="Du vandt!!"
-        android:textColor="#D39F3535"
-        android:textSize="24sp"
+        android:textColor="@color/textColor"
+        android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,6 +59,7 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="28dp"
         android:text="@string/hovedmenu"
+        android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,6 +73,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="52dp"
         android:text="Nulstil spillet"
+        android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/button_vandtMenu"
@@ -79,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="231dp" />
+        app:layout_constraintGuide_end="200dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_color_menu"
     tools:context=".ui.SwitchName">
 
     <Button
@@ -24,6 +25,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="48dp"
         android:text="Her kan du skifte navn"
+        android:textColor="@color/textColor"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -40,6 +42,7 @@
         android:ems="10"
         android:hint="Skriv dit nye navn her"
         android:inputType="textPersonName"
+        android:textColor="@color/textColor"
         app:layout_constraintEnd_toStartOf="@+id/button_nytNavn"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,23 +52,23 @@
         android:id="@+id/button_nytNavn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="36dp"
         android:text="Skift navn"
+        android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="256dp"
+        android:layout_width="355dp"
         android:layout_height="85dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="36dp"
         android:text="Hvis du skifter navn, vil der stå et nyt navn på topscore listen."
-        android:textSize="18sp"
+        android:textColor="@color/textColor"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.174"
+        app:layout_constraintHorizontal_bias="0.421"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TextView_skiftNavn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

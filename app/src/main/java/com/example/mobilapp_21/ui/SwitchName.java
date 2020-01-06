@@ -40,11 +40,15 @@ public class SwitchName extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         name = editText_newName.getText().toString();
         if (v == button_switchName){
-            loadData.setName(name);
-            saveDataName();
-            Intent intent = new Intent(this,Choose_game.class);
-            finish();
-            startActivity(intent);
+            if(name.equals("")){
+                editText_newName.setError("Navnet er tomt");
+            } else {
+                loadData.setName(name);
+                saveDataName();
+                Intent intent = new Intent(this, Choose_game.class);
+                finish();
+                startActivity(intent);
+            }
         } else if (v == button_back){
             Intent intent = new Intent(this,Settings.class);
             finish();

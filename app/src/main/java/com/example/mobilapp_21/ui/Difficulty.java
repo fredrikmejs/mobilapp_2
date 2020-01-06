@@ -15,6 +15,8 @@ import com.example.mobilapp_21.logik.Galgelogik;
 import com.example.mobilapp_21.logik.LoadData;
 import com.example.mobilapp_21.R;
 
+import java.util.List;
+
 
 public class Difficulty extends AppCompatActivity implements View.OnClickListener{
 
@@ -53,6 +55,10 @@ public class Difficulty extends AppCompatActivity implements View.OnClickListene
 
             }
         });
+
+
+
+
     }
 
     @Override

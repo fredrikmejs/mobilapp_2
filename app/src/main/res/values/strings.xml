@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">s185130 Fredriks Galgeleg</string>
-    <string name="my_keyboard">MyKeyboard</string>
     <string name="sybtype_DK">Dansk (DK)</string>
-    <string name="v_lg_sv_rhedsgrad">Vælg sværhedsgrad</string>
     <string name="hovedmenu">Hovedmenu</string>
 </resources>

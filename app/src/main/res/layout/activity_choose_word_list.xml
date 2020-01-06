@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_color_setting"
     tools:context=".ui.ChooseWordList">
 
     <Button
@@ -20,13 +21,14 @@
 
     <TextView
         android:id="@+id/textViewa"
-        android:layout_width="234dp"
+        android:layout_width="260dp"
         android:layout_height="65dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="60dp"
         android:text="Lister over mulige ord"
-        android:textSize="24sp"
+        android:textColor="@color/textColor"
+        android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.433"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,8 +36,10 @@
         android:id="@+id/button_drList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="35dp"
         android:text="Dr ord"
+        android:background="@drawable/color_button"
+        android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Sværhedsgrad 2"
+        android:background="@drawable/color_button"
+        android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Sværhedsgrad 3"
+        android:background="@drawable/color_button"
+        android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,8 +77,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Sværhedsgrad 1"
+        android:background="@drawable/color_button"
+        android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_drList" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,9 +48,8 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
 
         TextView textView_tekst = findViewById(R.id.textView_tabt);
         textView_tekst.setText("Dit ord var '" + logic.getOrdet() + "'\n" +
-            "der er brugt " + logic.getAntalForkerteBogstaver() +" forsøg\n"
-        + "med bogstaverne " + logic.getBrugteBogstaver().toString() + "\n"+
-            "Din Score er: " + highScore);
+            "Antal brugte forsøg: " + logic.getAntalForkerteBogstaver()
+        + "\n\n" + "Din Score er: " + highScore);
 
         //Sound taken from https://www.soundjay.com/failure-sound-effect.html
         mediaPlayer = MediaPlayer.create(this, R.raw.fail);

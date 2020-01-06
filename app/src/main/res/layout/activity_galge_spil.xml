@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.GalgeGame">
+    tools:context=".ui.GalgeGame"
+    android:background="@drawable/background_color_game">
 
     <Button
         android:id="@+id/button_å"
@@ -13,6 +14,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="å"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_ø"
         app:layout_constraintTop_toBottomOf="@+id/button_x" />
 
@@ -23,6 +25,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="ø"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_æ"
         app:layout_constraintTop_toBottomOf="@+id/button_v" />
 
@@ -33,6 +36,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="æ"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_z"
         app:layout_constraintTop_toBottomOf="@+id/button_u" />
 
@@ -42,6 +46,7 @@
         android:layout_height="41dp"
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
+        android:textColor="@color/textColor"
         android:text="y"
         app:layout_constraintStart_toEndOf="@+id/button_x"
         app:layout_constraintTop_toBottomOf="@+id/button_r" />
@@ -53,6 +58,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="x"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_v"
         app:layout_constraintTop_toBottomOf="@+id/button_q" />
 
@@ -63,6 +69,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="v"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_u"
         app:layout_constraintTop_toBottomOf="@+id/button_p" />
 
@@ -73,6 +80,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="u"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_t"
         app:layout_constraintTop_toBottomOf="@+id/button_o" />
 
@@ -83,6 +91,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="t"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_s"
         app:layout_constraintTop_toBottomOf="@+id/button_n" />
 
@@ -93,6 +102,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="r"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_q"
         app:layout_constraintTop_toBottomOf="@+id/button_l" />
 
@@ -103,6 +113,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="q"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_p"
         app:layout_constraintTop_toBottomOf="@+id/button_k" />
 
@@ -113,6 +124,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="p"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_o"
         app:layout_constraintTop_toBottomOf="@+id/button_j" />
 
@@ -123,6 +135,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="o"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_n"
         app:layout_constraintTop_toBottomOf="@+id/button_i" />
 
@@ -133,6 +146,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="n"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_m"
         app:layout_constraintTop_toBottomOf="@+id/button_h" />
 
@@ -143,6 +157,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="l"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_k"
         app:layout_constraintTop_toBottomOf="@+id/button_f" />
 
@@ -153,6 +168,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="k"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_j"
         app:layout_constraintTop_toBottomOf="@+id/button_e" />
 
@@ -163,6 +179,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="j"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_i"
         app:layout_constraintTop_toBottomOf="@+id/button_d" />
 
@@ -173,6 +190,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="i"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_h"
         app:layout_constraintTop_toBottomOf="@+id/button_c" />
 
@@ -183,6 +201,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:text="h"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_g"
         app:layout_constraintTop_toBottomOf="@+id/button_b" />
 
@@ -193,6 +212,7 @@
         android:layout_marginStart="55dp"
         android:layout_marginTop="7dp"
         android:text="z"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_t" />
 
@@ -203,6 +223,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="7dp"
         android:text="s"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_m" />
 
@@ -213,6 +234,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="7dp"
         android:text="m"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_g" />
 
@@ -223,6 +245,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="7dp"
         android:text="g"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_a" />
 
@@ -233,6 +256,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
         android:text="c"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_b"
         app:layout_constraintTop_toBottomOf="@+id/textView_hemmeligtOrd" />
 
@@ -243,6 +267,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
         android:text="e"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_d"
         app:layout_constraintTop_toBottomOf="@+id/textView_hemmeligtOrd" />
 
@@ -263,6 +288,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
         android:text="d"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_c"
         app:layout_constraintTop_toBottomOf="@+id/textView_hemmeligtOrd" />
 
@@ -273,6 +299,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="15dp"
         android:text="b"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/button_a"
         app:layout_constraintTop_toBottomOf="@+id/textView_hemmeligtOrd" />
 
@@ -320,7 +347,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
+
         android:text="Nyt ord"
+        android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -331,6 +360,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
         android:text="a"
+        android:textColor="@color/textColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_hemmeligtOrd" />
 
