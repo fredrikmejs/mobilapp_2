@@ -42,7 +42,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
 
-        //Creates an instance of Galgelogik
+        //Creates an instance of Galgelogik and LoadData
         logic = Galgelogik.getInstance();
         loadData = LoadData.getInstance();
 
@@ -64,7 +64,6 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
             saveDataName();
             finish();
             startActivity(intent);
-            return;
         }
 
         button_start = findViewById(R.id.button_startSpil);

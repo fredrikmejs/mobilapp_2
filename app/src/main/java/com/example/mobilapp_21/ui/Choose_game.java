@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
@@ -59,7 +60,9 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         logic.sletMuligeOrd();
         if (v == button_DR){
-
+            if(loadData.getWordDR().size() == 0){
+                Toast.makeText(this,"Der er ikke hentet nogen DR ord",Toast.LENGTH_SHORT).show();
+            } else {
             Intent intent = new Intent(this, GalgeGame.class);
             intent.putExtra("GameType",0);
             //Makes sure the Dr words is loaded
@@ -67,6 +70,7 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
             logic.setMuligeOrd(loadData.getWordDR());
             logic.nulstil();
             startActivity(intent);
+            }
         }else if (v == button_settings) {
             Intent intent = new Intent(this, Settings.class);
             startActivity(intent);

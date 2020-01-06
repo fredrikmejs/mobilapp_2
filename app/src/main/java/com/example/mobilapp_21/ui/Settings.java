@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mobilapp_21.R;
@@ -18,7 +19,7 @@ private Button button_back, button_clear, button_newName, button_possibleWords;
 private String playerName;
 private Galgelogik logic;
 private LoadData loadData;
-
+private TextView rules2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,8 @@ private LoadData loadData;
 
         playerName = loadData.getName();
 
+        rules2 = findViewById(R.id.textView_reglerTekst2);
+        rules2.setText("2. Hvis du vælger regneark,\nskal du trykke på den sværhedsgrad \ndu ønsker at spille");
 
         button_back = findViewById(R.id.button_backtoMenu);
         button_back.setOnClickListener(this);
