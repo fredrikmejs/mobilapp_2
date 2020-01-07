@@ -59,7 +59,10 @@ private TextView rules2;
         if (v == button_clear) {
             deleteCache();
             logic.rydHighscoreListe();
-            Toast.makeText(this,"Listen er ryddet",Toast.LENGTH_SHORT).show();
+            if(logic.getHighscoreListe().size() == 0 ){
+                Toast.makeText(this,"Listen er ryddet",Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(this,"Fejl listen er ikke ryddet",Toast.LENGTH_SHORT).show();
         }else if (v == button_newName){
             Intent intent = new Intent(this, SwitchName.class);
             startActivity(intent);

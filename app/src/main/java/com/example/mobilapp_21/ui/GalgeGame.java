@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -63,7 +64,7 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
         graphic();
 
         textView_secretWord = findViewById(R.id.textView_hemmeligtOrd);
-        textView_secretWord.setText("Gæt ordet" + logic.getSynligtOrd());
+        textView_secretWord.setText("Gæt ordet   " + logic.getSynligtOrd());
     }
 
     @SuppressLint("SetTextI18n")
@@ -88,144 +89,200 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
             startActivity(intent);
         } else if (v == button_a){
             logic.gætBogstav("a");
+            button_a.setEnabled(false);
+            button_a.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_a.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_a.setVisibility(View.INVISIBLE);
         }else if (v == button_b){
             logic.gætBogstav("b");
+            button_b.setEnabled(false);
+            button_b.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_b.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_b.setVisibility(View.INVISIBLE);
         }else if (v == button_c){
             logic.gætBogstav("c");
+            button_c.setEnabled(false);
+            button_c.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_c.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_c.setVisibility(View.INVISIBLE);
         }else if (v == button_d){
             logic.gætBogstav("d");
+            button_d.setEnabled(false);
+            button_d.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_d.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_d.setVisibility(View.INVISIBLE);
         }else if (v == button_e){
             logic.gætBogstav("e");
+            button_e.setEnabled(false);
+            button_e.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_e.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_e.setVisibility(View.INVISIBLE);
         }else if (v == button_f){
             logic.gætBogstav("f");
+            button_f.setEnabled(false);
+            button_f.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_f.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_f.setVisibility(View.INVISIBLE);
         }else if (v == button_g){
             logic.gætBogstav("g");
+            button_g.setEnabled(false);
+            button_g.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_g.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_g.setVisibility(View.INVISIBLE);
         }else if (v == button_h){
             logic.gætBogstav("h");
+            button_h.setEnabled(false);
+            button_h.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_h.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_h.setVisibility(View.INVISIBLE);
         }else if (v == button_i){
             logic.gætBogstav("i");
+            button_i.setEnabled(false);
+            button_i.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_i.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_i.setVisibility(View.INVISIBLE);
         }else if (v == button_j){
             logic.gætBogstav("j");
+            button_j.setEnabled(false);
+            button_j.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_j.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_j.setVisibility(View.INVISIBLE);
         }else if (v == button_k){
             logic.gætBogstav("k");
+            button_k.setEnabled(false);
+            button_k.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_k.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_k.setVisibility(View.INVISIBLE);
         }else if (v == button_l){
             logic.gætBogstav("l");
+            button_l.setEnabled(false);
+            button_l.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_l.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_l.setVisibility(View.INVISIBLE);
         }else if (v == button_m){
             logic.gætBogstav("m");
+            button_m.setEnabled(false);
+            button_m.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_m.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_m.setVisibility(View.INVISIBLE);
         }else if (v == button_n){
             logic.gætBogstav("n");
+            button_n.setEnabled(false);
+            button_n.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_n.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_n.setVisibility(View.INVISIBLE);
         }else if (v == button_o){
             logic.gætBogstav("o");
+            button_o.setEnabled(false);
+            button_o.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_o.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_o.setVisibility(View.INVISIBLE);
         }else if (v == button_p){
             logic.gætBogstav("p");
+            button_p.setEnabled(false);
+            button_p.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_p.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_p.setVisibility(View.INVISIBLE);
         }else if (v == button_q){
             logic.gætBogstav("q");
+            button_q.setEnabled(false);
+            button_q.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_q.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_q.setVisibility(View.INVISIBLE);
         }else if (v == button_r){
             logic.gætBogstav("r");
+            button_r.setEnabled(false);
+            button_r.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_r.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_r.setVisibility(View.INVISIBLE);
         }else if (v == button_s){
             logic.gætBogstav("s");
+            button_s.setEnabled(false);
+            button_s.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_s.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_s.setVisibility(View.INVISIBLE);
         }else if (v == button_t){
             logic.gætBogstav("t");
+            button_t.setEnabled(false);
+            button_t.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_t.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_t.setVisibility(View.INVISIBLE);
         }else if (v == button_u){
             logic.gætBogstav("u");
+            button_u.setEnabled(false);
+            button_u.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_u.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_u.setVisibility(View.INVISIBLE);
         }else if (v == button_v){
             logic.gætBogstav("v");
+            button_v.setEnabled(false);
+            button_v.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_v.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_v.setVisibility(View.INVISIBLE);
         }else if (v == button_x){
             logic.gætBogstav("x");
+            button_x.setEnabled(false);
+            button_x.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_x.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_x.setVisibility(View.INVISIBLE);
         }else if (v == button_y){
             logic.gætBogstav("y");
+            button_y.setEnabled(false);
+            button_y.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_y.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_y.setVisibility(View.INVISIBLE);
-        }else if (v == button_z){
+         }else if (v == button_z){
             logic.gætBogstav("z");
+            button_z.setEnabled(false);
+            button_z.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_z.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_z.setVisibility(View.INVISIBLE);
         }else if (v == button_æ){
             logic.gætBogstav("æ");
+            button_æ.setEnabled(false);
+            button_æ.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_æ.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_æ.setVisibility(View.INVISIBLE);
         }else if (v == button_ø){
             logic.gætBogstav("ø");
+            button_ø.setEnabled(false);
+            button_ø.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_ø.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_ø.setVisibility(View.INVISIBLE);
         }else if (v == button_å){
             logic.gætBogstav("å");
+            button_å.setEnabled(false);
+            button_å.setBackgroundColor(Color.parseColor("#ed5440"));
+            button_å.setTextColor(Color.parseColor("#1a1818"));
             updateText();
             graphic();
-            button_å.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -421,8 +478,5 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
         button_back = findViewById(R.id.button_tilbage);
         button_back.setOnClickListener(this);
 
-
-
     }
-
 }
