@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
@@ -70,7 +71,13 @@ public class LostScreen extends AppCompatActivity implements View.OnClickListene
             int nulstil = 1;
             intent.putExtra("reset", nulstil);
             intent.putExtra("PlayerName", playerName);
-            logic.nulstil();
+            if (logic.getMuligeOrd().size()>0) {
+                logic.nulstil();
+            } else {
+                Toast.makeText(this,"Sværhedsgrad sat til 1",Toast.LENGTH_LONG);
+                logic.setMuligeOrd(data.getSheet("1"));
+                logic.nulstil();
+            }
             finish();
             startActivity(intent);
         }

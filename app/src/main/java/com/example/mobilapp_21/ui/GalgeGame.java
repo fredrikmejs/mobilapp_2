@@ -9,9 +9,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
@@ -78,7 +78,14 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
             startActivity(intent);
         } else if (v == button_reset){
             reset = 1;
-            logic.nulstil();
+            if (logic.getMuligeOrd().size() > 0) {
+                logic.nulstil();
+            }else{
+
+                Toast.makeText(this,"Sværhedsgrad sat til 1",Toast.LENGTH_LONG);
+                logic.setMuligeOrd(data.getSheet("1"));
+                logic.nulstil();
+            }
             possibleWords.addAll(logic.getMuligeOrd());
             Intent intent = getIntent();
             intent.putExtra("reset",reset);
@@ -297,7 +304,7 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
         if (logic.erSpilletVundet()) {
             int highScore = calculateScore();
             int mistakes = logic.getAntalForkerteBogstaver();
-            logic.setHighScoreListe(playerName, highScore);
+            logic.setHighScoreList(playerName, highScore);
             saveData();
             Intent intent = new Intent(this, WonScreen.class);
             intent.putExtra("Highscore",highScore);
@@ -307,7 +314,7 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
         }
         if (logic.erSpilletTabt()) {
             int highscore = calculateScore();
-            logic.setHighScoreListe(playerName, highscore);
+            logic.setHighScoreList(playerName, highscore);
             saveData();
             Intent intent = new Intent(this, LostScreen.class);
             intent.putExtra("Highscore",highscore);
@@ -351,7 +358,7 @@ public class GalgeGame extends AppCompatActivity implements View.OnClickListener
         SharedPreferences sharedPreferences = getSharedPreferences("Shared",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(logic.getHighscoreListe());
+        String json = gson.toJson(logic.getHighScoreList());
         editor.putString("HighScoreList",json);
         editor.apply();
     }

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
@@ -20,14 +21,10 @@ import com.example.mobilapp_21.logik.LoadData;
 import com.github.jinatonic.confetti.CommonConfetti;
 
 
-import java.util.ArrayList;
-
-
 public class WonScreen extends AppCompatActivity implements View.OnClickListener {
     private Button button_reset, button_menu;
     private String playerName;
     private int highScore, stop = 0, mistakes;
-    private ArrayList<String> possibleWords = new ArrayList<>();
     private Galgelogik logic;
     private LoadData data;
     private ViewGroup container;
@@ -71,9 +68,10 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
         textView_won.setText(playerName + " du har vundet!");
 
         TextView textView_text = findViewById(R.id.textView_vandt);
-        textView_text.setText("Ordet var " + logic.getOrdet() +
+        textView_text.setText("Ordet var '" + logic.getOrdet() +"'"+
                 "\nAntal forkerte: " + logic.getAntalForkerteBogstaver()+ "\n" +
                 "Din Score er: " + highScore);
+
 
         //Sound taken from http://soundbible.com/478-Cheering-3.html
         mediaPlayer = MediaPlayer.create(this, R.raw.win);
@@ -92,10 +90,15 @@ public class WonScreen extends AppCompatActivity implements View.OnClickListener
 
         if (v == button_reset){
             Intent intent = new Intent(this, GalgeGame.class);
-            possibleWords.addAll(logic.getMuligeOrd());
             intent.putExtra("reset", reset);
             finish();
-            logic.nulstil();
+            if(logic.getMuligeOrd().size()> 0) {
+                logic.nulstil();
+            }else {
+                Toast.makeText(this,"Sværhedsgrad sat til 1",Toast.LENGTH_LONG);
+                logic.setMuligeOrd(data.getSheet("1"));
+                logic.nulstil();
+            }
             startActivity(intent);
         }
     }

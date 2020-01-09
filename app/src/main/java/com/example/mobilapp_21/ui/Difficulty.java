@@ -51,14 +51,10 @@ public class Difficulty extends AppCompatActivity implements View.OnClickListene
                 i.putExtra("difficulty", diff);
                 logik.setMuligeOrd(loadData.getSheet(diff));
                 logik.nulstil();
+                finish();
                 startActivity(i);
-
             }
         });
-
-
-
-
     }
 
     @Override

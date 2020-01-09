@@ -1,6 +1,7 @@
 package com.example.mobilapp_21.logik;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobilapp_21.R;
+import com.example.mobilapp_21.ui.GalgeGame;
 
 import java.util.ArrayList;
 
 public class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.ViewHolder> {
 
-    private ArrayList<String> words = new ArrayList<>();
-    private Context mContext;
+    private ArrayList<String> words;
+    private Galgelogik logic;
+    private Context mcontext;
 
-    public RecylerAdapter(ArrayList<String> words, Context context){
+    public RecylerAdapter(ArrayList<String> words,Context context){
         this.words = words;
-        this.mContext = context;
+        this.mcontext = context;
+        logic = Galgelogik.getInstance();
     }
 
     @NonNull
@@ -33,8 +37,17 @@ public class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.wordTextView.setText(words.get(position));
+
+        holder.rLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logic.setOrdet(words.get(position));
+                Intent intent = new Intent(mcontext, GalgeGame.class);
+                mcontext.startActivity(intent);
+            }
+        });
     }
 
     @Override

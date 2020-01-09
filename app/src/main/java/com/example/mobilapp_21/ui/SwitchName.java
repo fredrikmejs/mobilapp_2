@@ -50,7 +50,7 @@ public class SwitchName extends AppCompatActivity implements View.OnClickListene
                 startActivity(intent);
             }
         } else if (v == button_back){
-            Intent intent = new Intent(this,Settings.class);
+            Intent intent = new Intent(this, GameGuide.class);
             finish();
             startActivity(intent);
         }

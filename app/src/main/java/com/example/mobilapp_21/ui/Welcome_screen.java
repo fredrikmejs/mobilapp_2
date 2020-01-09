@@ -52,7 +52,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
         loadDataNameScore();
 
         if (highScore.size() != 0) {
-            logic.setHighscoreListe(highScore);
+            logic.setHighScoreList(highScore);
         }
         startAsyncTask();
 
@@ -64,6 +64,7 @@ public class Welcome_screen extends AppCompatActivity implements View.OnClickLis
             saveDataName();
             finish();
             startActivity(intent);
+            return;
         }
 
         button_start = findViewById(R.id.button_startSpil);

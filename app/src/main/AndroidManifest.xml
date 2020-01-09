@@ -18,7 +18,7 @@
         <activity android:name=".ui.SwitchName" />
         <activity android:name=".ui.LostScreen" />
         <activity android:name=".ui.WonScreen" />
-        <activity android:name=".ui.Settings" />
+        <activity android:name=".ui.GameGuide" />
         <activity android:name=".ui.Choose_game" />
         <activity android:name=".ui.GalgeGame" />
         <activity android:name=".ui.Difficulty" />

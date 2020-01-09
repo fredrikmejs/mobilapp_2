@@ -1,6 +1,8 @@
 package com.example.mobilapp_21.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,7 +14,9 @@ import android.widget.Toast;
 
 import com.example.mobilapp_21.R;
 import com.example.mobilapp_21.logik.Galgelogik;
+import com.example.mobilapp_21.logik.HighScoreAdapter;
 import com.example.mobilapp_21.logik.LoadData;
+import com.example.mobilapp_21.logik.RecylerAdapter;
 import com.example.mobilapp_21.logik.Score;
 
 import java.util.ArrayList;
@@ -23,7 +27,8 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
     private Galgelogik logic;
     private ArrayList<Score> highScore = new ArrayList<>();
     private LoadData loadData;
-    private TextView textView_highScoreList;
+    private TextView textView_noHighScore, highScoreList;
+    private RecyclerView highScoreView;
 
 
 
@@ -37,8 +42,8 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
         loadData = LoadData.getInstance();
 
 
-        if (logic.getHighscoreListe() != null && highScore.size() == 0) {
-            highScore.addAll(logic.getHighscoreListe());
+        if (logic.getHighScoreList() != null && highScore.size() == 0) {
+            highScore.addAll(logic.getHighScoreList());
         }
 
         button_DR = findViewById(R.id.button_DROrd);
@@ -50,10 +55,21 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
         button_sheet = findViewById(R.id.button_regneArk);
         button_sheet.setOnClickListener(this);
 
-        textView_highScoreList = findViewById(R.id.textView_topscore);
+        textView_noHighScore = findViewById(R.id.textView_noHighscore);
+        highScoreView = findViewById(R.id.recyclerView_highscore);
 
-        setHighscoreListText();
+        highScoreList = findViewById(R.id.highscoreList);
 
+
+
+        if (highScore.size() > 0) {
+            highScoreView.setVisibility(View.VISIBLE);
+            highScoreList.setVisibility(View.VISIBLE);
+            setHighScoreAdapter();
+        } else {
+            textView_noHighScore.setText("Der ikke sat nogen topscore endnu");
+            textView_noHighScore.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -72,7 +88,7 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
             startActivity(intent);
             }
         }else if (v == button_settings) {
-            Intent intent = new Intent(this, Settings.class);
+            Intent intent = new Intent(this, GameGuide.class);
             startActivity(intent);
         } else if (v == button_sheet) {
             Intent intent = new Intent(this, Difficulty.class);
@@ -80,47 +96,12 @@ public class Choose_game extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    /**
-     * Sets the highscore list on the main menu, depending on the amount of games played.
-     */
-    @SuppressLint("SetTextI18n")
-    private void setHighscoreListText(){
-        if (highScore.size() >= 5){
-            textView_highScoreList.setText("Top 5 scorere er:\n\n" +
-                    highScore.get(0) + "\n" +
-                    highScore.get(1) + "\n" +
-                    highScore.get(2)+ "\n" +
-                    highScore.get(3) + "\n" +
-                    highScore.get(4)+ "\n");
+    private void setHighScoreAdapter(){
+        RecyclerView recyclerView = findViewById(R.id.recyclerView_highscore);
+        HighScoreAdapter highScoreAdapter= new HighScoreAdapter(highScore);
+        recyclerView.setAdapter(highScoreAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        } else if (highScore.size() == 4) {
-            textView_highScoreList.setText("Top 4 scorer er:\n" +
-                    highScore.get(0) + "\n" +
-                    highScore.get(1) + "\n" +
-                    highScore.get(2)+ "\n" +
-                    highScore.get(3) + "\n");
 
-        } else if (highScore.size() == 3) {
-            textView_highScoreList.setText("Top 3 scorer er:\n" +
-                    highScore.get(0) + "\n" +
-                    highScore.get(1) + "\n" +
-                    highScore.get(2));
-
-        } else if (highScore.size() == 2) {
-            textView_highScoreList.setText("Top 2 scorer er:\n" +
-                    highScore.get(0) + "\n" +
-                    highScore.get(1));
-        } else if (highScore.size() == 1) {
-            textView_highScoreList.setText("Nuværende topscore er:\n" +
-                    highScore.get(0));
-        } else {
-            textView_highScoreList.setText("Der ikke sat nogen topscore endnu:");
-        }
     }
-
-
-
-
-
-
 }

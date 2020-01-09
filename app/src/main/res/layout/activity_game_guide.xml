@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_color_setting"
-    tools:context=".ui.Settings">
+    tools:context=".ui.GameGuide">
 
     <Button
         android:id="@+id/button_switchName"
@@ -53,11 +53,11 @@
         android:id="@+id/TextView_regler"
         android:layout_width="221dp"
         android:layout_height="44dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
         android:text="Guide til spillet"
         android:textColor="@color/textColor"
         android:textSize="30sp"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,19 +68,21 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
         android:text="1. Du skal vælge game-mode"
         android:textColor="@color/textColor"
         android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/TextView_regler" />
 
     <TextView
         android:id="@+id/textView_reglerTekst3"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
         android:text="3. Gæt det givet ord inden for 7 forsøg"
         android:textColor="@color/textColor"
         android:textSize="22sp"
@@ -92,9 +94,9 @@
     <TextView
         android:id="@+id/textView_reglerTekst2"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
         android:text="2. Hvis du vælger regneark, skal du trykke på den ønskede sværhedsgrad"
         android:textColor="@color/textColor"
         android:textSize="22sp"

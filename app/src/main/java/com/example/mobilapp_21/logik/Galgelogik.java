@@ -22,7 +22,7 @@ public class Galgelogik {
     private boolean sidsteBogstavVarKorrekt;
     private boolean spilletErVundet;
     private boolean spilletErTabt;
-    private ArrayList<Score> highscoreListe = new ArrayList<>();
+    private ArrayList<Score> highScoreList = new ArrayList<>();
 
     //Tom private constructor, så jeg kan lave klassen til en singleton
     private Galgelogik() {
@@ -44,7 +44,12 @@ public class Galgelogik {
     public String getOrdet() {
         return ordet;
     }
-    //tilføj dine egne her herunder
+
+    public void setOrdet(String ordet){
+        this.ordet = ordet;
+        opdaterSynligtOrd();
+    }
+
     public ArrayList<String> getMuligeOrd() {return muligeOrd;}
 
 
@@ -211,24 +216,25 @@ public class Galgelogik {
         return muligeOrd;
     }
 
-    public void setHighScoreListe(String navn, int score){
-        highscoreListe.add(new Score(navn,score));
+    public void setHighScoreList(String navn, int score){
+        highScoreList.add(new Score(navn,score));
     }
-    public void  setHighscoreListe(ArrayList<Score> scoreArrayList){
-        highscoreListe.addAll(scoreArrayList);
+    public void setHighScoreList(ArrayList<Score> scoreArrayList){
+        highScoreList.addAll(scoreArrayList);
     }
-    public void rydHighscoreListe(){
-        highscoreListe.clear();
+    public void clearHighscoreList(){
+        highScoreList.clear();
     }
-    public ArrayList<Score> getHighscoreListe(){
 
-        Collections.sort(highscoreListe, new Comparator<Score>() {
+    public ArrayList<Score> getHighScoreList(){
+
+        Collections.sort(highScoreList, new Comparator<Score>() {
             @Override
             public int compare(Score o1, Score o2) {
                 return Integer.compare(o1.score, o2.score);
             }
         });
-        Collections.reverse(highscoreListe);
-        return highscoreListe;
+        Collections.reverse(highScoreList);
+        return highScoreList;
     }
 }

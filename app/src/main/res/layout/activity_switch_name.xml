@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_color_menu"
+    android:background="@drawable/background_color_switch_name"
     tools:context=".ui.SwitchName">
 
     <Button
@@ -37,10 +37,11 @@
         android:layout_width="226dp"
         android:layout_height="47dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="6dp"
         android:ems="10"
         android:hint="Skriv dit nye navn her"
+        android:textColorHint="#000000"
         android:inputType="textPersonName"
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toStartOf="@+id/button_nytNavn"
@@ -52,7 +53,7 @@
         android:id="@+id/button_nytNavn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="36dp"
         android:text="Skift navn"
         android:textColor="@color/textColor"
